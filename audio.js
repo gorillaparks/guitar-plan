@@ -1,15 +1,79 @@
 /* Synth audio: Karplus-Strong plucked strings, simple drums, metronome & sequencer. All generated in-browser. */
 (function(){
-const A = {}; let ctx = null, master = null, noise = null; const cache = {};
-A.ensure = function(){
-  if(!ctx){ const C = window.AudioContext || window.webkitAudioContext; ctx = new C();
-    master = ctx.createGain(); master.gain.value = 0.85; const comp = ctx.createDynamicsCompressor();
-    master.connect(comp); comp.connect(ctx.destination);
-    const len = ctx.sampleRate; noise = ctx.createBuffer(1, len, ctx.sampleRate); const nd = noise.getChannelData(0);
-    for(let i=0;i<len;i++) nd[i] = Math.random()*2-1; }
-  if(ctx.state === 'suspended') ctx.resume();
-  return ctx;
+const A = {}; let ctx = null, master = null, noise = null, analyser = null, cache = {};
+const AC = window.AudioContext || window.webkitAudioContext;
+/* Debug counters (used by the automated tests; harmless in normal use). */
+A.stats = {created: 0, resumes: 0, unlocks: 0, sources: 0, errors: 0, lastError: null, tag: 'none'};
+const noteErr = e => { A.stats.errors++; A.stats.lastError = String(e && e.message || e); try{ console.warn('[audio]', e); }catch(_){} };
+
+/* ---- iOS: make Web Audio ignore the ring/silent switch ----
+   Safari 17+: navigator.audioSession.type = 'playback'.
+   Older iOS: a looping, silent <audio> element started in a user gesture switches the page's
+   audio session to "playback" so Web Audio is audible even with the silent switch on. */
+function setSession(){ try{ const s = navigator.audioSession; if(s && s.type !== 'playback') s.type = 'playback'; }catch(e){} }
+function silentWav(){ /* 0.5 s of 16-bit mono silence at 8 kHz, built as a data: URI */
+  const sr = 8000, n = 4000, b = new Uint8Array(44 + n*2), v = new DataView(b.buffer);
+  const w = (o, str) => { for(let i=0;i<str.length;i++) b[o+i] = str.charCodeAt(i); };
+  w(0,'RIFF'); v.setUint32(4, 36 + n*2, true); w(8,'WAVE'); w(12,'fmt '); v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,sr,true); v.setUint32(28,sr*2,true); v.setUint16(32,2,true); v.setUint16(34,16,true); w(36,'data'); v.setUint32(40,n*2,true);
+  let bin = ''; for(let i=0;i<b.length;i++) bin += String.fromCharCode(b[i]);
+  return 'data:audio/wav;base64,' + btoa(bin); }
+let tag = null;
+function playTag(){
+  try{
+    if(!tag){ tag = document.createElement('audio'); tag.setAttribute('playsinline', ''); tag.setAttribute('webkit-playsinline', ''); tag.setAttribute('x-webkit-airplay', 'deny');
+      tag.preload = 'auto'; tag.loop = true; tag.src = silentWav(); tag.disableRemotePlayback = true; }
+    if(!tag.paused) return;
+    const p = tag.play(); A.stats.tag = 'starting';
+    if(p && p.then) p.then(() => { A.stats.tag = 'playing'; }, e => { A.stats.tag = 'blocked: ' + (e && e.name); });
+  }catch(e){ A.stats.tag = 'error'; }
+}
+function pauseTag(){ try{ if(tag && !tag.paused) tag.pause(); }catch(e){} }
+
+function makeCtx(){
+  try{ ctx = new AC({latencyHint: 'interactive'}); }catch(e){ ctx = new AC(); }
+  A.stats.created++; cache = {};
+  master = ctx.createGain(); master.gain.value = 0.85; const comp = ctx.createDynamicsCompressor();
+  master.connect(comp); comp.connect(ctx.destination);
+  analyser = ctx.createAnalyser(); analyser.fftSize = 2048; comp.connect(analyser);
+  const len = ctx.sampleRate; noise = ctx.createBuffer(1, len, ctx.sampleRate); const nd = noise.getChannelData(0);
+  for(let i=0;i<len;i++) nd[i] = Math.random()*2-1;
+  ctx.onstatechange = () => { fire(); if(ctx.state !== 'running' && ctx.state !== 'closed' && !document.hidden) resume(); };
+}
+function resume(){
+  if(!ctx || ctx.state === 'running' || ctx.state === 'closed') return;
+  A.stats.resumes++;
+  try{ const p = ctx.resume(); if(p && p.then) p.then(fire, noteErr); }catch(e){ noteErr(e); }
+}
+/* Must be called synchronously inside a user gesture (tap/click/key).
+   full=true (any sound button, the "enable sound" banner): also switch to the "playback" audio session
+   so the iPhone silent switch doesn't mute us. The generic first-tap unlock (full=false) only wakes the
+   AudioContext, so merely browsing the app doesn't pause music Parker has playing in another app. */
+A.unlock = function(full){
+  if(full !== false){ A._full = true; setSession(); playTag(); }
+  if(!ctx || ctx.state === 'closed') makeCtx();
+  resume();
+  if(!A._primed || ctx.state !== 'running'){ /* 1-sample silent buffer: the classic iOS unlock */
+    try{ const b = ctx.createBuffer(1, 1, ctx.sampleRate), s = ctx.createBufferSource(); s.buffer = b; s.connect(ctx.destination); s.start(0); A._primed = true; A.stats.unlocks++; }catch(e){ noteErr(e); }
+  }
+  fire(); return ctx;
 };
+A.ensure = () => A.unlock(true);
+A.ready = () => !!ctx && ctx.state === 'running';
+A.unlocked = () => A.ready() && !!A._full;
+const subs = []; A.onState = f => { subs.push(f); f(A.ready()); };
+function fire(){ const r = A.ready(); subs.forEach(f => { try{ f(r); }catch(e){} }); }
+/* Unlock on the first (and any later) gesture while not running. touchend/click count as
+   user activation on iOS; touchstart does not, but resuming there is harmless. */
+['touchend', 'pointerup', 'mouseup', 'click', 'keydown'].forEach(ev => document.addEventListener(ev, () => { if(!A.ready()) A.unlock(!!A._full); else if(A._full && tag && tag.paused) playTag(); }, {capture: true, passive: true}));
+document.addEventListener('visibilitychange', () => { if(document.hidden){ if(!A.isPlaying() && !(A._met && A._met.running)) pauseTag(); } else { resume(); if(A._full) playTag(); } });
+window.addEventListener('pageshow', () => { resume(); });
+window.addEventListener('focus', () => { resume(); });
+/* Signal level at the output (RMS 0..1) — lets tests confirm real audio is produced. */
+A.level = function(){ if(!analyser) return 0; const n = analyser.fftSize; let s = 0;
+  if(analyser.getFloatTimeDomainData){ const d = new Float32Array(n); analyser.getFloatTimeDomainData(d); for(let i=0;i<n;i++) s += d[i]*d[i]; }
+  else { const d = new Uint8Array(n); analyser.getByteTimeDomainData(d); for(let i=0;i<n;i++){ const x = (d[i]-128)/128; s += x*x; } }
+  return Math.sqrt(s/n); };
 A.ctx = () => ctx;
 function ks(m){
   if(cache[m]) return cache[m];
@@ -22,11 +86,11 @@ function ks(m){
   return cache[m] = buf;
 }
 A.pluck = function(m, t, g, dur){
-  A.ensure(); t = t || ctx.currentTime; g = g == null ? 0.45 : g; dur = dur || 2;
+  if(!ctx) A.ensure(); t = Math.max(t || 0, ctx.currentTime); g = g == null ? 0.45 : g; dur = dur || 2;
   const s = ctx.createBufferSource(); s.buffer = ks(m);
   const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3800;
   const gn = ctx.createGain(); gn.gain.setValueAtTime(g, t); gn.gain.setTargetAtTime(0, t + dur, 0.07);
-  s.connect(lp); lp.connect(gn); gn.connect(master); s.start(t); s.stop(t + dur + 0.6);
+  s.connect(lp); lp.connect(gn); gn.connect(master); s.start(t); s.stop(t + dur + 0.6); A.stats.sources++;
 };
 A.strum = function(ms, t, dir, g, dur){
   const arr = dir === 'U' ? ms.slice().reverse().slice(0, Math.min(4, ms.length)) : ms;
@@ -34,21 +98,22 @@ A.strum = function(ms, t, dir, g, dur){
 };
 function env(node, t, peak, dec){ node.gain.setValueAtTime(0.0001, t); node.gain.exponentialRampToValueAtTime(peak, t+0.003); node.gain.exponentialRampToValueAtTime(0.0001, t+dec); }
 A.kick = function(t, g){ const o = ctx.createOscillator(), gn = ctx.createGain(); o.frequency.setValueAtTime(130, t); o.frequency.exponentialRampToValueAtTime(42, t+0.12);
-  env(gn, t, g||0.9, 0.3); o.connect(gn); gn.connect(master); o.start(t); o.stop(t+0.35); };
+  env(gn, t, g||0.9, 0.3); o.connect(gn); gn.connect(master); o.start(t); o.stop(t+0.35); A.stats.sources++; };
 function nz(t, type, freq, g, dec){ const s = ctx.createBufferSource(); s.buffer = noise; const f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq;
-  const gn = ctx.createGain(); env(gn, t, g, dec); s.connect(f); f.connect(gn); gn.connect(master); s.start(t, Math.random()*0.5); s.stop(t+dec+0.05); }
+  const gn = ctx.createGain(); env(gn, t, g, dec); s.connect(f); f.connect(gn); gn.connect(master); s.start(t, Math.random()*0.5); s.stop(t+dec+0.05); A.stats.sources++; }
 A.snare = function(t, g){ nz(t, 'bandpass', 1900, g||0.45, 0.16); const o = ctx.createOscillator(), gn = ctx.createGain(); o.frequency.value = 190; env(gn, t, 0.18, 0.08); o.connect(gn); gn.connect(master); o.start(t); o.stop(t+0.1); };
 A.hat = function(t, g){ nz(t, 'highpass', 7500, g||0.12, 0.045); };
-A.click = function(t, accent){ const o = ctx.createOscillator(), gn = ctx.createGain(); o.type = 'square'; o.frequency.value = accent ? 1600 : 1050; env(gn, t, accent?0.35:0.22, 0.04); o.connect(gn); gn.connect(master); o.start(t); o.stop(t+0.06); };
-A.chime = function(){ A.ensure(); const t = ctx.currentTime; [76, 83, 88].forEach((m,i)=>A.pluck(m, t+i*0.12, 0.35, 1)); };
+A.click = function(t, accent){ const o = ctx.createOscillator(), gn = ctx.createGain(); o.type = 'square'; o.frequency.value = accent ? 1600 : 1050; env(gn, t, accent?0.35:0.22, 0.04); o.connect(gn); gn.connect(master); o.start(t); o.stop(t+0.06); A.stats.sources++; };
+A.chime = function(){ if(!ctx) return; resume(); const t = ctx.currentTime; [76, 83, 88].forEach((m,i)=>A.pluck(m, t+i*0.12, 0.35, 1)); };
 
 /* Sequencer with lookahead scheduling */
 class Seq{
   constructor(o){ this.bpm = o.bpm || 80; this.spb = o.spb || 1; this.onStep = o.onStep; this.swing = o.swing || 0; this.running = false; this.onUI = o.onUI; }
   start(){ A.ensure(); this.step = 0; this.next = ctx.currentTime + 0.08; this.running = true; this.timer = setInterval(() => this.tick(), 25); this.tick(); }
-  tick(){ while(this.running && this.next < ctx.currentTime + 0.12){
+  tick(){ if(this.running && this.next < ctx.currentTime - 0.05) this.next = ctx.currentTime + 0.02; /* never schedule in the past (e.g. after a throttled timer) */
+    while(this.running && this.next < ctx.currentTime + 0.12){
       let t = this.next; if(this.swing && this.step % 2 === 1) t += (60/this.bpm/this.spb) * this.swing;
-      const r = this.onStep(this.step, t); if(this.onUI){ const st = this.step, delay = Math.max(0, (t - ctx.currentTime)*1000); setTimeout(() => this.running && this.onUI(st), delay); }
+      let r; try{ r = this.onStep(this.step, t); }catch(e){ noteErr(e); } if(this.onUI){ const st = this.step, delay = Math.max(0, (t - ctx.currentTime)*1000); setTimeout(() => this.running && this.onUI(st), delay); }
       if(r === false){ this.stop(); return; }
       this.next += 60/this.bpm/this.spb; this.step++; } }
   stop(){ this.running = false; clearInterval(this.timer); }
@@ -129,7 +194,7 @@ A.Loop = class{
 };
 A.Metronome = class{
   constructor(o){ Object.assign(this, {bpm: 70, beats: 4}, o); }
-  start(){ A.ensure(); const self = this; this.seq = new Seq({bpm: this.bpm, spb: 1, onStep(i, t){ A.click(t, i % self.beats === 0); }, onUI(i){ self.count = i + 1; if(self.onBeat) self.onBeat(i % self.beats); }}); this.seq.start(); this.running = true; }
+  start(){ A.ensure(); A._met = this; const self = this; this.seq = new Seq({bpm: this.bpm, spb: 1, onStep(i, t){ A.click(t, i % self.beats === 0); }, onUI(i){ self.count = i + 1; if(self.onBeat) self.onBeat(i % self.beats); }}); this.seq.start(); this.running = true; }
   setBpm(b){ this.bpm = b; if(this.seq) this.seq.bpm = b; }
   stop(){ if(this.seq) this.seq.stop(); this.running = false; }
 };

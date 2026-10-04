@@ -66,8 +66,8 @@ function wireLoops(root){
       lp = new A.Loop({prog: spec.prog, bpm: +rng.value, feel: spec.feel, drums: el.querySelector('[data-ldrums]').checked, chords: el.querySelector('[data-lchords]').checked,
         onBar: (i, n) => { now.innerHTML = spec.prog.map((c, j) => j === i ? `<u>${esc(c)}</u>` : esc(c)).join('  ·  '); },
         onBeat: b => beats.forEach((x, j) => x.classList.toggle('on', j === b)),
-        onStop: () => { lp = null; btn.textContent = '▶ Play loop'; beats.forEach(x => x.classList.remove('on')); }});
-      lp.start(); btn.textContent = '■ Stop loop'; window.__loopStarted = (window.__loopStarted || 0) + 1;
+        onStop: () => { lp = null; btn.textContent = '▶ Play loop'; btn.classList.remove('playing'); beats.forEach(x => x.classList.remove('on')); }});
+      lp.start(); btn.textContent = '■ Stop loop'; btn.classList.add('playing'); window.__loopStarted = (window.__loopStarted || 0) + 1;
     };
     rng.oninput = () => { bv.textContent = rng.value; if(lp) lp.setBpm(+rng.value); };
     el.querySelector('[data-ldrums]').onchange = e => { if(lp) lp.drums = e.target.checked; };
@@ -76,15 +76,15 @@ function wireLoops(root){
 }
 function wirePlay(root){
   root.querySelectorAll('[data-ex],[data-chord],[data-lex],[data-cardplay]').forEach(b => b.onclick = () => {
-    if(A.isPlaying() && b.classList.contains('playing')){ A.stopAll(); return; }
+    if(b.classList.contains('playing')){ A.stopAll(); return; }
     let ex, bpm = +(b.dataset.bpm || 80);
     if(b.dataset.ex) ex = P.dia[b.dataset.ex].ex;
     else if(b.dataset.chord) ex = {t: 'chord', m: A.voice(b.dataset.chord)};
     else if(b.dataset.lex) ex = BYDAY[b.dataset.lex].ex;
     else ex = JSON.parse(b.dataset.cardplay);
-    root.querySelectorAll('.playing').forEach(x => x.classList.remove('playing'));
-    const label = b.textContent; b.classList.add('playing'); if(label.length > 2) b.textContent = '■ Stop';
-    A.playExample(ex, bpm, () => { b.classList.remove('playing'); if(label.length > 2) b.textContent = label; });
+    root.querySelectorAll('[data-ex].playing,[data-chord].playing,[data-lex].playing,[data-cardplay].playing').forEach(x => x.classList.remove('playing'));
+    const label = b.textContent, short = label.trim().length <= 2; b.classList.add('playing'); b.textContent = short ? '■' : '■ Stop'; b.setAttribute('aria-pressed', 'true');
+    A.playExample(ex, bpm, () => { b.classList.remove('playing'); b.textContent = label; b.setAttribute('aria-pressed', 'false'); });
   });
 }
 /* ---------- session timer ---------- */
@@ -122,7 +122,8 @@ function metroUI(l){ const b = l.bpm || 70; const r = S.reps[l.day] || 0;
   <span class="bpm" data-bpm>${b}</span><button class="btn s sm" data-m="1">+1</button><button class="btn s sm" data-m="5">+5</button></div>
   <div class="beats" data-beats><i></i><i></i><i></i><i></i></div>
   <div class="row" style="justify-content:center"><button class="btn t" data-mp>▶ Start metronome</button></div>
-  <div class="row" style="justify-content:center"><span class="note">3 clean reps in a row:</span><span class="reps" data-reps>${[0,1,2].map(i => `<i class="${i < r ? 'on' : ''}"></i>`).join('')}</span>
+  <div class="note" style="text-align:center">No sound? Flip off silent mode and turn up the volume.</div>
+  <div class="row" style="justify-content:center"><span class="note">3 clean reps in a row:</span><span class="reps" data-reps>${[0,1,2].map(i => `<i class="${i < r ? 'on' : ''}"></i>`).join('')}<b data-repc>${r}/3</b></span>
   <button class="btn g sm" data-rep>Clean rep</button><button class="btn s sm" data-miss>Missed</button></div></div>`; }
 function wireMetro(l){
   const el = $('#metro'); if(!el) return; if(MET) MET.stop();
@@ -130,10 +131,13 @@ function wireMetro(l){
   MET = new A.Metronome({bpm, onBeat: i => dots.forEach((d, j) => { d.classList.toggle('on', j === i); d.classList.toggle('a', j === 0); })});
   window.__metro = MET;
   el.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { bpm = Math.max(30, Math.min(220, bpm + +b.dataset.m)); bv.textContent = bpm; MET.setBpm(bpm); });
-  btn.onclick = () => { if(MET.running){ MET.stop(); btn.textContent = '▶ Start metronome'; dots.forEach(d => d.classList.remove('on')); } else { MET.start(); btn.textContent = '■ Stop metronome'; } };
-  const drawReps = () => el.querySelectorAll('[data-reps] i').forEach((d, j) => d.classList.toggle('on', j < (S.reps[l.day] || 0)));
-  el.querySelector('[data-rep]').onclick = () => { S.reps[l.day] = Math.min(3, (S.reps[l.day] || 0) + 1); save(); drawReps(); if(S.reps[l.day] === 3) toast('3 clean reps — locked in! Move on.'); };
-  el.querySelector('[data-miss]').onclick = () => { S.reps[l.day] = 0; save(); drawReps(); };
+  btn.onclick = () => { if(MET.running){ MET.stop(); btn.textContent = '▶ Start metronome'; btn.classList.remove('playing'); dots.forEach(d => d.classList.remove('on')); } else { MET.start(); btn.textContent = '■ Stop metronome'; btn.classList.add('playing'); } };
+  const reps = el.querySelector('[data-reps]'), rc = el.querySelector('[data-repc]');
+  const drawReps = cls => { const n = S.reps[l.day] || 0; reps.querySelectorAll('i').forEach((d, j) => d.classList.toggle('on', j < n)); rc.textContent = `${n}/3`;
+    if(cls){ reps.classList.remove('flash-g', 'flash-r'); void reps.offsetWidth; reps.classList.add(cls); } };
+  el.querySelector('[data-rep]').onclick = () => { const was = S.reps[l.day] || 0; S.reps[l.day] = Math.min(3, was + 1); save(); drawReps('flash-g');
+    toast(S.reps[l.day] === 3 ? (was === 3 ? 'Already 3/3 — locked in! Move on or bump +5 bpm.' : '3 clean reps — locked in! Move on.') : `Clean rep ${S.reps[l.day]} of 3 ✓`); };
+  el.querySelector('[data-miss]').onclick = () => { S.reps[l.day] = 0; save(); drawReps('flash-r'); toast('Missed — streak reset to 0/3. Slow down and go again.'); };
 }
 /* ---------- lesson view ---------- */
 function lessonView(l, note){
@@ -144,7 +148,7 @@ function lessonView(l, note){
     return `<div class="blk" style="--c:${colorOf(name)}" ${i >= 0 ? `data-blk="${i}"` : ''}><h3>${icon} ${esc(name)} ${s ? `<small>· ${s[0]} min</small>` : ''}</h3>${body}</div>`; };
   const focusName = l.split.find(s => !/Warm|Flash|Cool|Use it|Song lesson|Improvise|Week review|^Play$/.test(s[1]));
   const playName = l.split.find(s => /Use it|Song lesson|Improvise|^Jam|^Play$|Jam & record|Play for fun|Set rehearsal|Lead the set|Celebrate/.test(s[1]));
-  const rev = l.reviews.length ? `<div class="strip">${l.reviews.map(r => `<div class="rv"><a href="#day-${pad3(r.day)}"><b>Day ${r.day} · ${r.n}d</b><br>${esc(r.k)}${r.n >= 7 ? ' <i>(+5 bpm)</i>' : ''}</a></div>`).join('')}</div>` : '<div class="note">No planned revisits today — enjoy the fresh start.</div>';
+  const rev = l.reviews.length ? `<div class="strip">${l.reviews.map(r => `<div class="rv"><a href="#${BYDAY[r.day].date}"><b>Day ${r.day} · ${r.n}d</b><br>${esc(r.k)}${r.n >= 7 ? ' <i>(+5 bpm)</i>' : ''}</a></div>`).join('')}</div>` : '<div class="note">No planned revisits today — enjoy the fresh start.</div>';
   const songs = (l.songs || []).map(s => `<span class="chip o">${esc(s[0])} · ${esc(s[1])} · ${esc(s[2])}</span>`).join('');
   return `${note ? `<div class="banner">${esc(note)}</div>` : ''}
   <div class="card" style="border-top:6px solid ${ph.color}" id="${l.anchor}">
@@ -175,13 +179,13 @@ function lessonView(l, note){
   ${l.checkpoint ? `<p><a class="btn s" href="#progress/cp${l.checkpoint}">Record Month ${l.checkpoint} checkpoint →</a></p>` : ''}
   </div>
   ${metroUI(l)}
-  <div class="row" style="justify-content:space-between">${l.day > 1 ? `<a class="btn s" href="#day-${pad3(l.day-1)}">← Day ${l.day-1}</a>` : '<span></span>'}
-  <a class="btn s" href="#plan">All lessons</a>${l.day < 130 ? `<a class="btn s" href="#day-${pad3(l.day+1)}">Day ${l.day+1} →</a>` : ''}</div>`;
+  <div class="pager">${l.day > 1 ? `<a class="btn s pv" href="#${BYDAY[l.day-1].date}">← Day ${l.day-1}</a>` : '<span></span>'}
+  <a class="btn s" href="#plan">All lessons</a>${l.day < 130 ? `<a class="btn s nx" href="#${BYDAY[l.day+1].date}">Day ${l.day+1} →</a>` : '<span></span>'}</div>`;
 }
 const pad3 = n => String(n).padStart(3, '0');
 function wireLesson(l){
   const b = document.querySelector('[data-done]');
-  if(b) b.onclick = () => { if(S.done[l.day]){ delete S.done[l.day]; } else { S.done[l.day] = today(); addKeeper(l); toast(l.k ? 'Done! Added to your Keeper List.' : 'Done!'); }
+  if(b) b.onclick = () => { if(S.done[l.day]){ delete S.done[l.day]; const k = S.keepers[l.day]; if(k && !k.hist.length) delete S.keepers[l.day]; toast('Marked not done.'); } else { S.done[l.day] = today(); addKeeper(l); toast(l.k ? 'Done! Added to your Keeper List.' : 'Done!'); }
     save(); route(); };
   wireTimer(l); wireMetro(l); wirePlay(document); wireLoops(document);
 }
@@ -191,14 +195,14 @@ function reviewView(){
   const up = all.filter(k => k.due > today()).sort((a, b) => a.due.localeCompare(b.due)).slice(0, 12);
   const mastered = all.filter(k => k.mastered);
   const row = k => { const l = BYDAY[k.day]; const nxt = k.stage + 1 < INT.length ? INT[k.stage + 1] : 30;
-    return `<div class="kq"><div><b>${esc(l.k)}</b></div><div class="meta">From <a href="#day-${pad3(k.day)}">Day ${k.day}: ${esc(l.title)}</a> · review #${k.hist.length + 1} · stage ${k.stage + 1}/5${k.stage >= 2 ? ' · try it +5 bpm' : ''}</div>
+    return `<div class="kq"><div><b>${esc(l.k)}</b></div><div class="meta">From <a href="#${BYDAY[k.day].date}">Day ${k.day}: ${esc(l.title)}</a> · review #${k.hist.length + 1} · stage ${k.stage + 1}/5${k.stage >= 2 ? ' · try it +5 bpm' : ''}</div>
     <div class="row">${l.ex ? `<button class="btn s sm" data-lex="${l.day}" data-bpm="${l.bpm || 80}">▶ Hear it</button>` : ''}<button class="btn g sm" data-got="${k.day}">✓ Got it (next in ${INT[Math.min(k.stage + 1, 4)]}d)</button><button class="btn s sm" data-shaky="${k.day}">↺ Shaky (tomorrow)</button></div></div>`; };
   return `<h1>Review</h1><p class="meta">Your Keeper List grows every time you finish a lesson. Items come back after 1, 3, 7, 14 and 30 days. “Got it” pushes the next review further out; “Shaky” brings it back tomorrow. Aim for 3 clean reps before you tap “Got it”.</p>
   <div class="card">${P.gfx.retain_m}</div>
   <div class="card"><h2>Due today <span class="chip">${due.length}</span></h2>${due.length ? due.map(row).join('') : `<p>Nothing due. ${Object.keys(S.keepers).length ? 'Nice work — come back tomorrow.' : 'Finish a lesson (tap “Mark lesson done”) and its keeper item lands here tomorrow.'}</p>`}</div>
-  <div class="card"><h2>Coming up</h2>${up.length ? `<div class="list">${up.map(k => `<a class="it" href="#day-${pad3(k.day)}"><span>${esc(BYDAY[k.day].k)}</span><span class="d">${fmt(k.due)}</span></a>`).join('')}</div>` : '<p class="note">Nothing scheduled yet.</p>'}</div>
+  <div class="card"><h2>Coming up</h2>${up.length ? `<div class="list">${up.map(k => `<a class="it" href="#${BYDAY[k.day].date}"><span>${esc(BYDAY[k.day].k)}</span><span class="d">${fmt(k.due)}</span></a>`).join('')}</div>` : '<p class="note">Nothing scheduled yet.</p>'}</div>
   <div class="card"><h2>Mastered <span class="chip" style="background:var(--green)">${mastered.length}</span></h2>${mastered.map(k => `<span class="chip o">${esc(BYDAY[k.day].k)}</span>`).join('') || '<p class="note">Items graduate after the 30-day review.</p>'}</div>
-  <details><summary>The full Keeper List (all ${P.keepers.length} planned items)</summary><div class="list">${P.keepers.map(k => `<a class="it ${S.keepers[k.day] ? 'dn' : ''}" href="#day-${pad3(k.day)}"><span>${esc(k.k)}</span><span class="d">Day ${k.day}</span></a>`).join('')}</div></details>`;
+  <details><summary>The full Keeper List (all ${P.keepers.length} planned items)</summary><div class="list">${P.keepers.map(k => `<a class="it ${S.keepers[k.day] ? 'dn' : ''}" href="#${BYDAY[k.day].date}"><span>${esc(k.k)}</span><span class="d">Day ${k.day}</span></a>`).join('')}</div></details>`;
 }
 function wireReview(){
   document.querySelectorAll('[data-got]').forEach(b => b.onclick = () => { grade(+b.dataset.got, true); toast('Rescheduled further out.'); route(); });
@@ -209,7 +213,7 @@ function wireReview(){
 const DECKS = {fretboard: 'Fretboard notes', nashville: 'Nashville numbers', chordtones: 'Chord tones', intervals: 'Interval shapes', mixed: 'Mixed'};
 let FC = null;
 function miniNeck(c){ const W = 300, H = 100, x0 = 22, fw = 21, y0 = 14, dy = 14;
-  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="fretboard">`;
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="width:100%;height:auto" role="img" aria-label="fretboard">`;
   for(let i = 0; i < 6; i++) s += `<line x1="${x0}" y1="${y0+i*dy}" x2="${x0+12*fw}" y2="${y0+i*dy}" stroke="#3b2f2a" stroke-width="${0.8+i*0.25}"/><text x="4" y="${y0+i*dy+4}" class="sl">${'eBGDAE'[i]}</text>`;
   for(let f = 0; f <= 12; f++) s += `<line x1="${x0+f*fw}" y1="${y0}" x2="${x0+f*fw}" y2="${y0+5*dy}" stroke="#3b2f2a" stroke-width="${f ? 1 : 4}"/>`;
   for(let f = 1; f <= 12; f++) s += `<text x="${x0+(f-.5)*fw}" y="${y0+5*dy+16}" text-anchor="middle" class="fn">${f}</text>`;
@@ -262,7 +266,7 @@ function voicingName(letter, s, key){
   return letter;
 }
 function songView(id, key){
-  const s = SONG[id]; if(!s) return '<p>Song not found.</p>'; key = P.keys[key] ? key : s.key;
+  const s = SONG[id]; if(!s) return '<div class="card"><h1>Song not found</h1><p>That song link is out of date. <a href="#songs">See all song lessons →</a></p></div>'; key = P.keys[key] ? key : s.key;
   const used = L.filter(l => l.song === id);
   const letters = new Set(); s.sections.forEach(sec => sec[1].forEach(t => letters.add(numToChord(t, key))));
   const diaNames = key === s.key ? s.chords : [...letters].map(c => voicingName(c, s, key));
@@ -282,7 +286,7 @@ function songView(id, key){
   <div class="card"><h2>Rhythm</h2><p><b>Strum:</b> <span style="font:700 1.2rem ui-monospace,monospace">${esc(arrows)}</span><br><span class="note">Count: 1 & 2 & 3 & 4 & — ↓ = down, ↑ = up, − = miss the strings but keep your arm moving.</span></p>
   <p><b>Fingerpicking:</b> ${esc(s.pick)}</p></div>
   <div class="card"><h2>Lead & fill ideas</h2><ul>${s.lead.map(x => `<li>${esc(x)}</li>`).join('')}</ul><p class="note">Tab for these licks lives in the linked daily lessons. <a href="#tab">How to read tab →</a></p></div>
-  ${used.length ? `<div class="card"><h2>Used in your plan</h2><div class="list">${used.map(l => `<a class="it" href="#day-${pad3(l.day)}"><span>Day ${l.day}: ${esc(l.title)}</span><span class="d">${fmt(l.date)}</span></a>`).join('')}</div></div>` : ''}`;
+  ${used.length ? `<div class="card"><h2>Used in your plan</h2><div class="list">${used.map(l => `<a class="it" href="#${BYDAY[l.day].date}"><span>Day ${l.day}: ${esc(l.title)}</span><span class="d">${fmt(l.date)}</span></a>`).join('')}</div></div>` : ''}`;
 }
 /* ---------- plan ---------- */
 function planView(){
@@ -300,7 +304,7 @@ function planView(){
   ${P.phases.map(p => `<div class="card" style="border-left:6px solid ${p.color}"><h2>Month ${p.n}: ${esc(p.name)} <small class="meta">${esc(p.sub)} · weeks ${p.weeks[0]}–${p.weeks[1]}</small></h2>
    <p>${esc(p.theme)}</p><b>By the end you can…</b><ul>${p.milestone.map(m => `<li>${esc(m)}</li>`).join('')}</ul>
    ${Object.keys(weeks).filter(w => w >= p.weeks[0] && w <= p.weeks[1]).map(w => `<details ${weeks[w].some(l => l.date === todayLesson().l.date) ? 'open' : ''}><summary>Week ${w}: ${esc(P.week_themes[w])}${P.review_weeks[w] ? ` <span class="chip o">${esc(P.review_weeks[w])}</span>` : ''}</summary>
-    <div class="list">${weeks[w].map(l => `<a class="it ${S.done[l.day] ? 'dn' : ''}" href="#day-${pad3(l.day)}"><span><b>${l.weekday}</b> ${esc(l.title)}</span><span class="d">D${l.day} · ${fmt(l.date, {month:'short', day:'numeric'})}</span></a>`).join('')}</div></details>`).join('')}</div>`).join('')}
+    <div class="list">${weeks[w].map(l => `<a class="it ${S.done[l.day] ? 'dn' : ''}" href="#${BYDAY[l.day].date}"><span><b>${l.weekday}</b> ${esc(l.title)}</span><span class="d">D${l.day} · ${fmt(l.date, {month:'short', day:'numeric'})}</span></a>`).join('')}</div></details>`).join('')}</div>`).join('')}
   <p class="note">Data version ${P.version} · generated ${esc(P.generated)}</p>`;
 }
 function tabView(){ return `<p><a href="#plan">← Plan</a></p><div class="card"><h1>How to read tab</h1>
@@ -330,18 +334,22 @@ function progressView(sub){
     return `<div style="margin:8px 0"><div class="row" style="justify-content:space-between"><b>Month ${p.n}: ${esc(p.name)}</b><span class="meta">${d}/${ls.length}</span></div><div class="prog"><i style="width:${d/ls.length*100}%;background:${p.color}"></i></div></div>`; }).join('')}</div>
   <h2>Checkpoints</h2><p class="meta">At the end of each month, check off what you can do, rate yourself and leave a note. Streaks skip weekends and optional holidays.</p>
   ${P.phases.map(p => { const c = S.checkpoints[p.n] || {items: [], rating: 0, note: ''}; const day = L.find(l => l.checkpoint === p.n);
-   return `<div class="card" id="cp${p.n}" style="border-left:6px solid ${p.color}"><h3>Month ${p.n} checkpoint <small class="meta">· <a href="#day-${pad3(day.day)}">Day ${day.day}, ${fmt(day.date)}</a>${c.date ? ` · saved ${fmt(c.date)}` : ''}</small></h3>
+   return `<div class="card" id="cp${p.n}" style="border-left:6px solid ${p.color}"><h3>Month ${p.n} checkpoint <small class="meta">· <a href="#${BYDAY[day.day].date}">Day ${day.day}, ${fmt(day.date)}</a>${c.date ? ` · saved ${fmt(c.date)}` : ''}</small></h3>
    ${p.milestone.map((m, i) => `<label class="row" style="flex-wrap:nowrap;align-items:flex-start;margin:4px 0"><input type="checkbox" data-cp="${p.n}" data-i="${i}" ${c.items[i] ? 'checked' : ''}> <span>${esc(m)}</span></label>`).join('')}
    <div class="stars" data-stars="${p.n}">${[1,2,3,4,5].map(i => `<button data-r="${i}" class="${i <= c.rating ? 'on' : ''}" aria-label="${i} stars">★</button>`).join('')}</div>
    <textarea data-note="${p.n}" placeholder="What felt great? What needs another week?">${esc(c.note)}</textarea></div>`; }).join('')}
-  <div class="card"><h3>Data</h3><p class="note">Progress is stored only on this device (localStorage).</p><div class="row"><button class="btn s sm" data-export>Copy backup</button><button class="btn s sm" data-reset>Reset all progress</button></div></div>`;
+  <div class="card"><h3>Data</h3><p class="note">Progress is stored only on this device (localStorage).</p><div class="row"><button class="btn s sm" data-export>Copy backup</button><button class="btn s sm" data-reset>Reset all progress</button></div><textarea data-backup readonly hidden></textarea></div>`;
 }
 function wireProgress(sub){
   const cp = n => S.checkpoints[n] = S.checkpoints[n] || {items: [], rating: 0, note: ''};
   document.querySelectorAll('[data-cp]').forEach(b => b.onchange = () => { const c = cp(b.dataset.cp); c.items[+b.dataset.i] = b.checked; c.date = today(); save(); });
   document.querySelectorAll('[data-stars]').forEach(g => g.querySelectorAll('button').forEach(b => b.onclick = () => { const c = cp(g.dataset.stars); c.rating = +b.dataset.r; c.date = today(); save(); route(); }));
   document.querySelectorAll('[data-note]').forEach(t => t.onchange = () => { const c = cp(t.dataset.note); c.note = t.value; c.date = today(); save(); toast('Saved'); });
-  const ex = document.querySelector('[data-export]'); if(ex) ex.onclick = () => { navigator.clipboard && navigator.clipboard.writeText(JSON.stringify(S)); toast('Backup copied to clipboard'); };
+  const ex = document.querySelector('[data-export]'); if(ex) ex.onclick = () => { const txt = JSON.stringify(S);
+    const fallback = () => { const ta = document.createElement('textarea'); ta.value = txt; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, txt.length); let ok = false; try{ ok = document.execCommand('copy'); }catch(e){} ta.remove();
+      if(ok) toast('Backup copied to clipboard'); else { const box = document.querySelector('[data-backup]'); box.hidden = false; box.value = txt; box.focus(); box.select(); toast('Select the text below and copy it'); } };
+    try{ if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => toast('Backup copied to clipboard'), fallback); else fallback(); }catch(e){ fallback(); } };
   const rs = document.querySelector('[data-reset]'); if(rs) rs.onclick = () => { if(confirm('Erase all progress on this device?')){ localStorage.removeItem(KEY); location.reload(); } };
   if(sub){ const el = document.getElementById(sub); if(el) el.scrollIntoView(); }
 }
@@ -351,11 +359,12 @@ function route(){
   A.stopAll(); if(MET) { MET.stop(); MET = null; } if(TM && TM.h) clearInterval(TM.h);
   let h = decodeURIComponent(location.hash.slice(1)) || 'today'; let tab = 'today', html = '', after = null;
   let m;
-  if((m = h.match(/^day-(\d{1,3})$/)) && BYDAY[+m[1]]){ const l = BYDAY[+m[1]]; html = lessonView(l, null); after = () => wireLesson(l); tab = l.date === todayLesson().l.date ? 'today' : 'plan'; }
+  let viewing = null;
+  if((m = h.match(/^day-(\d{1,3})$/)) && BYDAY[+m[1]]){ const l = BYDAY[+m[1]]; viewing = l; html = lessonView(l, null); after = () => wireLesson(l); }
   else if((m = h.match(/^(\d{4}-\d{2}-\d{2})$/))){ let d = m[1]; let l = BYDATE[d], note = null;
-    if(!l){ if(d < L[0].date) { l = L[0]; } else if(d > L[129].date) { l = L[129]; } else { while(!BYDATE[d]) d = addDays(d, 1); l = BYDATE[d]; } note = `No lesson on ${fmt(m[1])} (weekend or outside the plan). Showing ${fmt(l.date)}.`; }
-    html = lessonView(l, note); after = () => wireLesson(l); tab = 'today'; }
-  else if(h === 'today'){ const t = todayLesson(); html = lessonView(t.l, t.note); after = () => wireLesson(t.l); }
+    if(!l){ if(d < L[0].date) { l = L[0]; } else if(d > L[L.length-1].date) { l = L[L.length-1]; } else { while(!BYDATE[d]) d = addDays(d, 1); l = BYDATE[d]; } note = d < L[0].date ? `The plan starts ${fmt(L[0].date)} — showing Day 1.` : d > L[L.length-1].date ? `The plan ended ${fmt(L[L.length-1].date)} — showing the last lesson (Day ${L[L.length-1].day}).` : `No lesson on ${fmt(m[1])} — it's the weekend. Showing the next lesson, ${fmt(l.date)}.`; }
+    viewing = l; html = lessonView(l, note); after = () => wireLesson(l); }
+  else if(h === 'today'){ const t = todayLesson(); viewing = t.l; html = lessonView(t.l, t.note); after = () => wireLesson(t.l); }
   else if(h === 'review'){ tab = 'review'; html = reviewView(); after = wireReview; }
   else if(h.startsWith('cards')){ tab = 'cards'; html = cardsView(h.split('/')[1] || 'fretboard'); after = drawCard; }
   else if(h === 'songs'){ tab = 'songs'; html = songsView(); }
@@ -364,17 +373,43 @@ function route(){
   else if(h === 'tab'){ tab = 'plan'; html = tabView(); after = () => wirePlay(document); }
   else if(h.startsWith('progress')){ tab = 'progress'; html = progressView(); after = () => wireProgress(h.split('/')[1]); }
   else { const t = todayLesson(); html = lessonView(t.l, null); after = () => wireLesson(t.l); }
+  if(viewing) tab = viewing.date === todayLesson().l.date ? 'today' : 'plan';
+  header(viewing); window.__viewing = viewing ? viewing.day : null;
   $('#view').innerHTML = html; window.scrollTo(0, 0);
   document.querySelectorAll('nav.tabs a').forEach(a => a.classList.toggle('on', a.dataset.t === tab));
   const due = dueList().length; const rb = document.querySelector('nav.tabs a[data-t=review] small'); if(rb) rb.textContent = due ? `Review (${due})` : 'Review';
   if(after) after();
   document.title = `Guitar Plan · ${tab[0].toUpperCase() + tab.slice(1)}`;
 }
+/* Header: always says which lesson is today's; when viewing a different lesson, says so and links back. */
+function header(v){
+  const t = today(), tl = todayLesson().l, sub = $('#sub');
+  const todayTxt = BYDATE[t] ? `Today: Day ${tl.day} · ${fmt(tl.date)}` : t < L[0].date ? `Plan starts ${fmt(L[0].date)}` : t > L[L.length-1].date ? 'Plan complete 🎉' : `Next lesson: Day ${tl.day} · ${fmt(tl.date)}`;
+  if(v && v.date !== tl.date) sub.innerHTML = `Viewing Day ${v.day} · ${esc(fmt(v.date))} · <a href="#today">${BYDATE[t] ? `Today: Day ${tl.day}` : esc(todayTxt)} →</a>`;
+  else sub.textContent = todayTxt;
+}
+/* ---------- sound unlock banner ---------- */
+function soundBanner(){
+  const el = $('#snd'); if(!el) return;
+  el.querySelector('button').onclick = () => { A.ensure(); };
+  A.onState(() => { el.hidden = !!(A.unlocked && A.unlocked()); });
+}
+/* ---------- service worker (offline + updates) ---------- */
+function registerSW(){
+  if(!('serviceWorker' in navigator) || !location.protocol.startsWith('http')) return;
+  const hadCtl = !!navigator.serviceWorker.controller; let shown = false;
+  const showUpdate = () => { if(shown) return; shown = true; const u = $('#upd'); if(u){ u.hidden = false; u.onclick = () => location.reload(); } };
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if(hadCtl) showUpdate(); });
+  navigator.serviceWorker.register('./sw.js', {scope: './', updateViaCache: 'none'}).then(reg => {
+    window.__swReg = reg;
+    document.addEventListener('visibilitychange', () => { if(!document.hidden) reg.update().catch(() => {}); });
+  }).catch(e => console.warn('SW registration failed', e));
+}
 function init(){
+  try{ registerSW(); }catch(e){ console.warn('SW', e); }
+  soundBanner();
   $('#nav').innerHTML = TABS.map(t => `<a href="#${t[0]}" data-t="${t[0]}"><span>${t[1]}</span><small>${t[2]}</small></a>`).join('');
-  const t = todayLesson().l; $('#sub').textContent = `Today: Day ${t.day} · ${fmt(t.date)}`;
   window.addEventListener('hashchange', route); route();
-  if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(e => console.warn('SW', e));
 }
 window.GP = {state: () => S, grade, dueList, todayLesson};
 init();
