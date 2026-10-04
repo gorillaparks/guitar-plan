@@ -1,0 +1,2593 @@
+[
+ {
+  "date": "2026-10-05",
+  "day_number": 1,
+  "week": 1,
+  "weekday": "Monday",
+  "phase": "Month 1: The Map",
+  "title": "The major scale formula — on one string",
+  "anchor": "app/index.html#day-001",
+  "date_anchor": "app/index.html#2026-10-05",
+  "id": "day-001",
+  "minutes": 26,
+  "keeper": "Major-scale formula W-W-H-W-W-W-H (G on the low E string)",
+  "revisits": [],
+  "song_lesson": null,
+  "bpm": 60
+ },
+ {
+  "date": "2026-10-06",
+  "day_number": 2,
+  "week": 1,
+  "weekday": "Tuesday",
+  "phase": "Month 1: The Map",
+  "title": "G major in open position + the notes you're playing",
+  "anchor": "app/index.html#day-002",
+  "date_anchor": "app/index.html#2026-10-06",
+  "id": "day-002",
+  "minutes": 26,
+  "keeper": "G major scale, open position",
+  "revisits": [
+   "Day 1 (1d): Major-scale formula W-W-H-W-W-W-H (G on the low E string)"
+  ],
+  "song_lesson": null,
+  "bpm": 60
+ },
+ {
+  "date": "2026-10-07",
+  "day_number": 3,
+  "week": 1,
+  "weekday": "Wednesday",
+  "phase": "Month 1: The Map",
+  "title": "The anchor-finger family: G · Cadd9 · Em7 · Dsus4",
+  "anchor": "app/index.html#day-003",
+  "date_anchor": "app/index.html#2026-10-07",
+  "id": "day-003",
+  "minutes": 30,
+  "keeper": "Anchor family G–Cadd9–Em7–Dsus4 (ring & pinky fixed)",
+  "revisits": [
+   "Day 2 (1d): G major scale, open position"
+  ],
+  "song_lesson": "app/index.html#song-ten-thousand-reasons",
+  "bpm": 70
+ },
+ {
+  "date": "2026-10-08",
+  "day_number": 4,
+  "week": 1,
+  "weekday": "Thursday",
+  "phase": "Month 1: The Map",
+  "title": "Making melodies from G major pentatonic",
+  "anchor": "app/index.html#day-004",
+  "date_anchor": "app/index.html#2026-10-08",
+  "id": "day-004",
+  "minutes": 26,
+  "keeper": "G major pentatonic, open position (G A B D E)",
+  "revisits": [
+   "Day 1 (3d): Major-scale formula W-W-H-W-W-W-H (G on the low E string)",
+   "Day 3 (1d): Anchor family G–Cadd9–Em7–Dsus4 (ring & pinky fixed)"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-10-09",
+  "day_number": 5,
+  "week": 1,
+  "weekday": "Friday",
+  "phase": "Month 1: The Map",
+  "title": "Jam: G major worship groove",
+  "anchor": "app/index.html#day-005",
+  "date_anchor": "app/index.html#2026-10-09",
+  "id": "day-005",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 2 (3d): G major scale, open position",
+   "Day 4 (1d): G major pentatonic, open position (G A B D E)"
+  ],
+  "song_lesson": "app/index.html#song-knockin-on-heavens-door",
+  "bpm": null
+ },
+ {
+  "date": "2026-10-12",
+  "day_number": 6,
+  "week": 2,
+  "weekday": "Monday",
+  "phase": "Month 1: The Map",
+  "title": "Numbers 1–7: the chords that live in G",
+  "anchor": "app/index.html#day-006",
+  "date_anchor": "app/index.html#2026-10-12",
+  "id": "day-006",
+  "minutes": 26,
+  "keeper": "Chords of G by number: G Am Bm C D Em F#°",
+  "revisits": [
+   "Day 1 (7d): Major-scale formula W-W-H-W-W-W-H (G on the low E string)",
+   "Day 3 (3d): Anchor family G–Cadd9–Em7–Dsus4 (ring & pinky fixed)",
+   "Day 4 (3d): G major pentatonic, open position (G A B D E)"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-10-13",
+  "day_number": 7,
+  "week": 2,
+  "weekday": "Tuesday",
+  "phase": "Month 1: The Map",
+  "title": "G major scale up the neck (frets 2–5)",
+  "anchor": "app/index.html#day-007",
+  "date_anchor": "app/index.html#2026-10-13",
+  "id": "day-007",
+  "minutes": 26,
+  "keeper": "G major scale, 2nd position (frets 2–5)",
+  "revisits": [
+   "Day 2 (7d): G major scale, open position",
+   "Day 6 (1d): Chords of G by number: G Am Bm C D Em F#°"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-10-14",
+  "day_number": 8,
+  "week": 2,
+  "weekday": "Wednesday",
+  "phase": "Month 1: The Map",
+  "title": "1–5–6–4: the most-used praise progression",
+  "anchor": "app/index.html#day-008",
+  "date_anchor": "app/index.html#2026-10-14",
+  "id": "day-008",
+  "minutes": 30,
+  "keeper": "1–5–6–4 in G with anchor voicings",
+  "revisits": [
+   "Day 3 (7d): Anchor family G–Cadd9–Em7–Dsus4 (ring & pinky fixed)",
+   "Day 7 (1d): G major scale, 2nd position (frets 2–5)"
+  ],
+  "song_lesson": "app/index.html#song-way-maker",
+  "bpm": 72
+ },
+ {
+  "date": "2026-10-15",
+  "day_number": 9,
+  "week": 2,
+  "weekday": "Thursday",
+  "phase": "Month 1: The Map",
+  "title": "Phrasing 101: question and answer",
+  "anchor": "app/index.html#day-009",
+  "date_anchor": "app/index.html#2026-10-15",
+  "id": "day-009",
+  "minutes": 26,
+  "keeper": "Call-and-response lick in G (G-A-B-D / D-B-A-G)",
+  "revisits": [
+   "Day 4 (7d): G major pentatonic, open position (G A B D E)",
+   "Day 6 (3d): Chords of G by number: G Am Bm C D Em F#°",
+   "Day 8 (1d): 1–5–6–4 in G with anchor voicings"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-10-16",
+  "day_number": 10,
+  "week": 2,
+  "weekday": "Friday",
+  "phase": "Month 1: The Map",
+  "title": "Jam: the 1–5–6–4 loop",
+  "anchor": "app/index.html#day-010",
+  "date_anchor": "app/index.html#2026-10-16",
+  "id": "day-010",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 7 (3d): G major scale, 2nd position (frets 2–5)",
+   "Day 9 (1d): Call-and-response lick in G (G-A-B-D / D-B-A-G)"
+  ],
+  "song_lesson": "app/index.html#song-let-it-be",
+  "bpm": null
+ },
+ {
+  "date": "2026-10-19",
+  "day_number": 11,
+  "week": 3,
+  "weekday": "Monday",
+  "phase": "Month 1: The Map",
+  "title": "Key of D: the numbers move, the shapes follow",
+  "anchor": "app/index.html#day-011",
+  "date_anchor": "app/index.html#2026-10-19",
+  "id": "day-011",
+  "minutes": 26,
+  "keeper": "Chords of D by number: D Em F#m G A Bm",
+  "revisits": [
+   "Day 1 (14d): Major-scale formula W-W-H-W-W-W-H (G on the low E string)",
+   "Day 6 (7d): Chords of G by number: G Am Bm C D Em F#°",
+   "Day 8 (3d): 1–5–6–4 in G with anchor voicings",
+   "Day 9 (3d): Call-and-response lick in G (G-A-B-D / D-B-A-G)"
+  ],
+  "song_lesson": null,
+  "bpm": 72
+ },
+ {
+  "date": "2026-10-20",
+  "day_number": 12,
+  "week": 3,
+  "weekday": "Tuesday",
+  "phase": "Month 1: The Map",
+  "title": "Root finder: notes on the 6th and 5th strings",
+  "anchor": "app/index.html#day-012",
+  "date_anchor": "app/index.html#2026-10-20",
+  "id": "day-012",
+  "minutes": 26,
+  "keeper": "Natural notes on strings 6 & 5 (frets 0–12)",
+  "revisits": [
+   "Day 2 (14d): G major scale, open position",
+   "Day 7 (7d): G major scale, 2nd position (frets 2–5)",
+   "Day 11 (1d): Chords of D by number: D Em F#m G A Bm"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-10-21",
+  "day_number": 13,
+  "week": 3,
+  "weekday": "Wednesday",
+  "phase": "Month 1: The Map",
+  "title": "Worship in D: the 'sus dance'",
+  "anchor": "app/index.html#day-013",
+  "date_anchor": "app/index.html#2026-10-21",
+  "id": "day-013",
+  "minutes": 30,
+  "keeper": "D – Dsus2 – D – Dsus4 'sus dance' (also on A)",
+  "revisits": [
+   "Day 3 (14d): Anchor family G–Cadd9–Em7–Dsus4 (ring & pinky fixed)",
+   "Day 8 (7d): 1–5–6–4 in G with anchor voicings",
+   "Day 12 (1d): Natural notes on strings 6 & 5 (frets 0–12)"
+  ],
+  "song_lesson": "app/index.html#song-what-a-beautiful-name",
+  "bpm": 72
+ },
+ {
+  "date": "2026-10-22",
+  "day_number": 14,
+  "week": 3,
+  "weekday": "Thursday",
+  "phase": "Month 1: The Map",
+  "title": "Slides into target notes (D major pentatonic)",
+  "anchor": "app/index.html#day-014",
+  "date_anchor": "app/index.html#2026-10-22",
+  "id": "day-014",
+  "minutes": 26,
+  "keeper": "D major pentatonic slide lick (A↗B–D–E–F#–D)",
+  "revisits": [
+   "Day 4 (14d): G major pentatonic, open position (G A B D E)",
+   "Day 9 (7d): Call-and-response lick in G (G-A-B-D / D-B-A-G)",
+   "Day 11 (3d): Chords of D by number: D Em F#m G A Bm",
+   "Day 13 (1d): D – Dsus2 – D – Dsus4 'sus dance' (also on A)"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-10-23",
+  "day_number": 15,
+  "week": 3,
+  "weekday": "Friday",
+  "phase": "Month 1: The Map",
+  "title": "Jam: D major, 4–1–5–6",
+  "anchor": "app/index.html#day-015",
+  "date_anchor": "app/index.html#2026-10-23",
+  "id": "day-015",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 12 (3d): Natural notes on strings 6 & 5 (frets 0–12)",
+   "Day 14 (1d): D major pentatonic slide lick (A↗B–D–E–F#–D)"
+  ],
+  "song_lesson": "app/index.html#song-holy-spirit",
+  "bpm": null
+ },
+ {
+  "date": "2026-10-26",
+  "day_number": 16,
+  "week": 4,
+  "weekday": "Monday",
+  "phase": "Month 1: The Map",
+  "title": "The five worship keys: G, D, A, E, C",
+  "anchor": "app/index.html#day-016",
+  "date_anchor": "app/index.html#2026-10-26",
+  "id": "day-016",
+  "minutes": 26,
+  "keeper": "1-4-5-6 in all five keys (G D A E C)",
+  "revisits": [
+   "Day 6 (14d): Chords of G by number: G Am Bm C D Em F#°",
+   "Day 11 (7d): Chords of D by number: D Em F#m G A Bm",
+   "Day 13 (3d): D – Dsus2 – D – Dsus4 'sus dance' (also on A)",
+   "Day 14 (3d): D major pentatonic slide lick (A↗B–D–E–F#–D)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-10-27",
+  "day_number": 17,
+  "week": 4,
+  "weekday": "Tuesday",
+  "phase": "Month 1: The Map",
+  "title": "Capo math: G shapes, any key",
+  "anchor": "app/index.html#day-017",
+  "date_anchor": "app/index.html#2026-10-27",
+  "id": "day-017",
+  "minutes": 26,
+  "keeper": "Capo math: G shapes + capo 2 = A, capo 4 = B, capo 7 = D",
+  "revisits": [
+   "Day 7 (14d): G major scale, 2nd position (frets 2–5)",
+   "Day 12 (7d): Natural notes on strings 6 & 5 (frets 0–12)",
+   "Day 16 (1d): 1-4-5-6 in all five keys (G D A E C)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-10-28",
+  "day_number": 18,
+  "week": 4,
+  "weekday": "Wednesday",
+  "phase": "Month 1: The Map",
+  "title": "The walk-down: G – G/F# – Em7 – Cadd9",
+  "anchor": "app/index.html#day-018",
+  "date_anchor": "app/index.html#2026-10-28",
+  "id": "day-018",
+  "minutes": 30,
+  "keeper": "Walk-down G – G/F# – Em7 – Cadd9",
+  "revisits": [
+   "Day 8 (14d): 1–5–6–4 in G with anchor voicings",
+   "Day 13 (7d): D – Dsus2 – D – Dsus4 'sus dance' (also on A)",
+   "Day 17 (1d): Capo math: G shapes + capo 2 = A, capo 4 = B, capo 7 = D"
+  ],
+  "song_lesson": "app/index.html#song-how-great-is-our-god",
+  "bpm": 70
+ },
+ {
+  "date": "2026-10-29",
+  "day_number": 19,
+  "week": 4,
+  "weekday": "Thursday",
+  "phase": "Month 1: The Map",
+  "title": "Vibrato that sings",
+  "anchor": "app/index.html#day-019",
+  "date_anchor": "app/index.html#2026-10-29",
+  "id": "day-019",
+  "minutes": 26,
+  "keeper": "Vibrato on B-string G (fret 8) and e-string B (fret 7)",
+  "revisits": [
+   "Day 9 (14d): Call-and-response lick in G (G-A-B-D / D-B-A-G)",
+   "Day 14 (7d): D major pentatonic slide lick (A↗B–D–E–F#–D)",
+   "Day 16 (3d): 1-4-5-6 in all five keys (G D A E C)",
+   "Day 18 (1d): Walk-down G – G/F# – Em7 – Cadd9"
+  ],
+  "song_lesson": null,
+  "bpm": 60
+ },
+ {
+  "date": "2026-10-30",
+  "day_number": 20,
+  "week": 4,
+  "weekday": "Friday",
+  "phase": "Month 1: The Map",
+  "title": "Jam: chart it, then play it in two keys",
+  "anchor": "app/index.html#day-020",
+  "date_anchor": "app/index.html#2026-10-30",
+  "id": "day-020",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 17 (3d): Capo math: G shapes + capo 2 = A, capo 4 = B, capo 7 = D",
+   "Day 19 (1d): Vibrato on B-string G (fret 8) and e-string B (fret 7)"
+  ],
+  "song_lesson": "app/index.html#song-ten-thousand-reasons",
+  "bpm": null
+ },
+ {
+  "date": "2026-11-02",
+  "day_number": 21,
+  "week": 5,
+  "weekday": "Monday",
+  "phase": "Month 1: The Map",
+  "title": "Review: numbers quiz in five keys",
+  "anchor": "app/index.html#day-021",
+  "date_anchor": "app/index.html#2026-11-02",
+  "id": "day-021",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 11 (14d): Chords of D by number: D Em F#m G A Bm",
+   "Day 16 (7d): 1-4-5-6 in all five keys (G D A E C)",
+   "Day 18 (3d): Walk-down G – G/F# – Em7 – Cadd9",
+   "Day 19 (3d): Vibrato on B-string G (fret 8) and e-string B (fret 7)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-11-03",
+  "day_number": 22,
+  "week": 5,
+  "weekday": "Tuesday",
+  "phase": "Month 1: The Map",
+  "title": "Review: G major positions connect",
+  "anchor": "app/index.html#day-022",
+  "date_anchor": "app/index.html#2026-11-03",
+  "id": "day-022",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 12 (14d): Natural notes on strings 6 & 5 (frets 0–12)",
+   "Day 17 (7d): Capo math: G shapes + capo 2 = A, capo 4 = B, capo 7 = D"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-11-04",
+  "day_number": 23,
+  "week": 5,
+  "weekday": "Wednesday",
+  "phase": "Month 1: The Map",
+  "title": "Review: a three-song mini set in G",
+  "anchor": "app/index.html#day-023",
+  "date_anchor": "app/index.html#2026-11-04",
+  "id": "day-023",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 1 (30d): Major-scale formula W-W-H-W-W-W-H (G on the low E string)",
+   "Day 13 (14d): D – Dsus2 – D – Dsus4 'sus dance' (also on A)",
+   "Day 18 (7d): Walk-down G – G/F# – Em7 – Cadd9"
+  ],
+  "song_lesson": "app/index.html#song-ten-thousand-reasons",
+  "bpm": null
+ },
+ {
+  "date": "2026-11-05",
+  "day_number": 24,
+  "week": 5,
+  "weekday": "Thursday",
+  "phase": "Month 1: The Map",
+  "title": "Review: build your phrase bank",
+  "anchor": "app/index.html#day-024",
+  "date_anchor": "app/index.html#2026-11-05",
+  "id": "day-024",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 2 (30d): G major scale, open position",
+   "Day 14 (14d): D major pentatonic slide lick (A↗B–D–E–F#–D)",
+   "Day 19 (7d): Vibrato on B-string G (fret 8) and e-string B (fret 7)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-11-06",
+  "day_number": 25,
+  "week": 5,
+  "weekday": "Friday",
+  "phase": "Month 1: The Map",
+  "title": "Milestone jam: Month 1 check-in",
+  "anchor": "app/index.html#day-025",
+  "date_anchor": "app/index.html#2026-11-06",
+  "id": "day-025",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 3 (30d): Anchor family G–Cadd9–Em7–Dsus4 (ring & pinky fixed)"
+  ],
+  "song_lesson": "app/index.html#song-wagon-wheel",
+  "bpm": null
+ },
+ {
+  "date": "2026-11-09",
+  "day_number": 26,
+  "week": 6,
+  "weekday": "Monday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Why chords are stacked 3rds: 1–3–5 on the neck",
+  "anchor": "app/index.html#day-026",
+  "date_anchor": "app/index.html#2026-11-09",
+  "id": "day-026",
+  "minutes": 26,
+  "keeper": "Major triad = 1–3–5 (C E G around the 8th fret)",
+  "revisits": [
+   "Day 4 (30d): G major pentatonic, open position (G A B D E)",
+   "Day 16 (14d): 1-4-5-6 in all five keys (G D A E C)"
+  ],
+  "song_lesson": null,
+  "bpm": 60
+ },
+ {
+  "date": "2026-11-10",
+  "day_number": 27,
+  "week": 6,
+  "weekday": "Tuesday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "CAGED part 1: the C, A and G shapes of C",
+  "anchor": "app/index.html#day-027",
+  "date_anchor": "app/index.html#2026-11-10",
+  "id": "day-027",
+  "minutes": 26,
+  "keeper": "C chord: C-shape (open), A-shape (3rd fret), G-shape (5th fret)",
+  "revisits": [
+   "Day 17 (14d): Capo math: G shapes + capo 2 = A, capo 4 = B, capo 7 = D",
+   "Day 26 (1d): Major triad = 1–3–5 (C E G around the 8th fret)"
+  ],
+  "song_lesson": null,
+  "bpm": 60
+ },
+ {
+  "date": "2026-11-11",
+  "day_number": 28,
+  "week": 6,
+  "weekday": "Wednesday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Worship in A: ringing open voicings",
+  "anchor": "app/index.html#day-028",
+  "date_anchor": "app/index.html#2026-11-11",
+  "id": "day-028",
+  "minutes": 30,
+  "keeper": "A-key ringing chords: Asus2, E/G#, F#m7, Dsus2, Esus4",
+  "revisits": [
+   "Day 6 (30d): Chords of G by number: G Am Bm C D Em F#°",
+   "Day 18 (14d): Walk-down G – G/F# – Em7 – Cadd9",
+   "Day 27 (1d): C chord: C-shape (open), A-shape (3rd fret), G-shape (5th fret)"
+  ],
+  "song_lesson": "app/index.html#song-goodness-of-god",
+  "bpm": 68
+ },
+ {
+  "date": "2026-11-12",
+  "day_number": 29,
+  "week": 6,
+  "weekday": "Thursday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Double stops: 3rds on the G & B strings",
+  "anchor": "app/index.html#day-029",
+  "date_anchor": "app/index.html#2026-11-12",
+  "id": "day-029",
+  "minutes": 26,
+  "keeper": "G-major double-stop 3rds on strings 3 & 2",
+  "revisits": [
+   "Day 7 (30d): G major scale, 2nd position (frets 2–5)",
+   "Day 19 (14d): Vibrato on B-string G (fret 8) and e-string B (fret 7)",
+   "Day 26 (3d): Major triad = 1–3–5 (C E G around the 8th fret)",
+   "Day 28 (1d): A-key ringing chords: Asus2, E/G#, F#m7, Dsus2, Esus4"
+  ],
+  "song_lesson": null,
+  "bpm": 65
+ },
+ {
+  "date": "2026-11-13",
+  "day_number": 30,
+  "week": 6,
+  "weekday": "Friday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Jam: A major worship groove",
+  "anchor": "app/index.html#day-030",
+  "date_anchor": "app/index.html#2026-11-13",
+  "id": "day-030",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 8 (30d): 1–5–6–4 in G with anchor voicings",
+   "Day 27 (3d): C chord: C-shape (open), A-shape (3rd fret), G-shape (5th fret)",
+   "Day 29 (1d): G-major double-stop 3rds on strings 3 & 2"
+  ],
+  "song_lesson": "app/index.html#song-stand-by-me",
+  "bpm": null
+ },
+ {
+  "date": "2026-11-16",
+  "day_number": 31,
+  "week": 7,
+  "weekday": "Monday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Major vs. minor triad: one note changes",
+  "anchor": "app/index.html#day-031",
+  "date_anchor": "app/index.html#2026-11-16",
+  "id": "day-031",
+  "minutes": 26,
+  "keeper": "Major → minor = lower the 3rd one fret (G 787 → Gm 786)",
+  "revisits": [
+   "Day 9 (30d): Call-and-response lick in G (G-A-B-D / D-B-A-G)",
+   "Day 26 (7d): Major triad = 1–3–5 (C E G around the 8th fret)",
+   "Day 28 (3d): A-key ringing chords: Asus2, E/G#, F#m7, Dsus2, Esus4",
+   "Day 29 (3d): G-major double-stop 3rds on strings 3 & 2"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-11-17",
+  "day_number": 32,
+  "week": 7,
+  "weekday": "Tuesday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "CAGED part 2: E and D shapes, then all five",
+  "anchor": "app/index.html#day-032",
+  "date_anchor": "app/index.html#2026-11-17",
+  "id": "day-032",
+  "minutes": 26,
+  "keeper": "CAGED full cycle for C: C-A-G-E-D shapes up the neck",
+  "revisits": [
+   "Day 27 (7d): C chord: C-shape (open), A-shape (3rd fret), G-shape (5th fret)",
+   "Day 31 (1d): Major → minor = lower the 3rd one fret (G 787 → Gm 786)"
+  ],
+  "song_lesson": null,
+  "bpm": 60
+ },
+ {
+  "date": "2026-11-18",
+  "day_number": 33,
+  "week": 7,
+  "weekday": "Wednesday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Moving up the neck: triads for 1–5–6–4 in G",
+  "anchor": "app/index.html#day-033",
+  "date_anchor": "app/index.html#2026-11-18",
+  "id": "day-033",
+  "minutes": 30,
+  "keeper": "Top-string triads at frets 5–9: G 787, D 775, Em 987, C 988",
+  "revisits": [
+   "Day 11 (30d): Chords of D by number: D Em F#m G A Bm",
+   "Day 28 (7d): A-key ringing chords: Asus2, E/G#, F#m7, Dsus2, Esus4",
+   "Day 32 (1d): CAGED full cycle for C: C-A-G-E-D shapes up the neck"
+  ],
+  "song_lesson": "app/index.html#song-build-my-life",
+  "bpm": 72
+ },
+ {
+  "date": "2026-11-19",
+  "day_number": 34,
+  "week": 7,
+  "weekday": "Thursday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Sus-to-major hammer-ons and pull-offs",
+  "anchor": "app/index.html#day-034",
+  "date_anchor": "app/index.html#2026-11-19",
+  "id": "day-034",
+  "minutes": 26,
+  "keeper": "Sus→major fills: Dsus4→D (e3 to e2), Dsus2→D (e0 to e2)",
+  "revisits": [
+   "Day 12 (30d): Natural notes on strings 6 & 5 (frets 0–12)",
+   "Day 29 (7d): G-major double-stop 3rds on strings 3 & 2",
+   "Day 31 (3d): Major → minor = lower the 3rd one fret (G 787 → Gm 786)",
+   "Day 33 (1d): Top-string triads at frets 5–9: G 787, D 775, Em 987, C 988"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-11-20",
+  "day_number": 35,
+  "week": 7,
+  "weekday": "Friday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Jam: triads-only worship",
+  "anchor": "app/index.html#day-035",
+  "date_anchor": "app/index.html#2026-11-20",
+  "id": "day-035",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 13 (30d): D – Dsus2 – D – Dsus4 'sus dance' (also on A)",
+   "Day 32 (3d): CAGED full cycle for C: C-A-G-E-D shapes up the neck",
+   "Day 34 (1d): Sus→major fills: Dsus4→D (e3 to e2), Dsus2→D (e0 to e2)"
+  ],
+  "song_lesson": "app/index.html#song-wagon-wheel",
+  "bpm": null
+ },
+ {
+  "date": "2026-11-23",
+  "day_number": 36,
+  "week": 8,
+  "weekday": "Monday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Flex: CAGED shape quiz",
+  "anchor": "app/index.html#day-036",
+  "date_anchor": "app/index.html#2026-11-23",
+  "id": "day-036",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 14 (30d): D major pentatonic slide lick (A↗B–D–E–F#–D)",
+   "Day 26 (14d): Major triad = 1–3–5 (C E G around the 8th fret)",
+   "Day 31 (7d): Major → minor = lower the 3rd one fret (G 787 → Gm 786)",
+   "Day 33 (3d): Top-string triads at frets 5–9: G 787, D 775, Em 987, C 988",
+   "Day 34 (3d): Sus→major fills: Dsus4→D (e3 to e2), Dsus2→D (e0 to e2)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-11-24",
+  "day_number": 37,
+  "week": 8,
+  "weekday": "Tuesday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Flex: triads up the neck",
+  "anchor": "app/index.html#day-037",
+  "date_anchor": "app/index.html#2026-11-24",
+  "id": "day-037",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 27 (14d): C chord: C-shape (open), A-shape (3rd fret), G-shape (5th fret)",
+   "Day 32 (7d): CAGED full cycle for C: C-A-G-E-D shapes up the neck"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-11-25",
+  "day_number": 38,
+  "week": 8,
+  "weekday": "Wednesday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Flex: worship in A review",
+  "anchor": "app/index.html#day-038",
+  "date_anchor": "app/index.html#2026-11-25",
+  "id": "day-038",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 16 (30d): 1-4-5-6 in all five keys (G D A E C)",
+   "Day 28 (14d): A-key ringing chords: Asus2, E/G#, F#m7, Dsus2, Esus4",
+   "Day 33 (7d): Top-string triads at frets 5–9: G 787, D 775, Em 987, C 988"
+  ],
+  "song_lesson": "app/index.html#song-goodness-of-god",
+  "bpm": null
+ },
+ {
+  "date": "2026-11-26",
+  "day_number": 39,
+  "week": 8,
+  "weekday": "Thursday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Thanksgiving: play something you're thankful for (optional)",
+  "anchor": "app/index.html#day-039",
+  "date_anchor": "app/index.html#2026-11-26",
+  "id": "day-039",
+  "minutes": 10,
+  "keeper": null,
+  "revisits": [
+   "Day 17 (30d): Capo math: G shapes + capo 2 = A, capo 4 = B, capo 7 = D",
+   "Day 29 (14d): G-major double-stop 3rds on strings 3 & 2",
+   "Day 34 (7d): Sus→major fills: Dsus4→D (e3 to e2), Dsus2→D (e0 to e2)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-11-27",
+  "day_number": 40,
+  "week": 8,
+  "weekday": "Friday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Flex jam: double stops & fills",
+  "anchor": "app/index.html#day-040",
+  "date_anchor": "app/index.html#2026-11-27",
+  "id": "day-040",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 18 (30d): Walk-down G – G/F# – Em7 – Cadd9"
+  ],
+  "song_lesson": "app/index.html#song-amazing-grace",
+  "bpm": null
+ },
+ {
+  "date": "2026-11-30",
+  "day_number": 41,
+  "week": 9,
+  "weekday": "Monday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Inversions = slash chords: G/B, C/E, D/F#",
+  "anchor": "app/index.html#day-041",
+  "date_anchor": "app/index.html#2026-11-30",
+  "id": "day-041",
+  "minutes": 26,
+  "keeper": "Inversions/slash chords: G/B, C/E, D/F#",
+  "revisits": [
+   "Day 19 (30d): Vibrato on B-string G (fret 8) and e-string B (fret 7)",
+   "Day 31 (14d): Major → minor = lower the 3rd one fret (G 787 → Gm 786)"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-12-01",
+  "day_number": 42,
+  "week": 9,
+  "weekday": "Tuesday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Triads on the middle strings (D-G-B)",
+  "anchor": "app/index.html#day-042",
+  "date_anchor": "app/index.html#2026-12-01",
+  "id": "day-042",
+  "minutes": 26,
+  "keeper": "Middle-string triads: G 543, C 555, D 777",
+  "revisits": [
+   "Day 32 (14d): CAGED full cycle for C: C-A-G-E-D shapes up the neck",
+   "Day 41 (1d): Inversions/slash chords: G/B, C/E, D/F#"
+  ],
+  "song_lesson": null,
+  "bpm": 72
+ },
+ {
+  "date": "2026-12-02",
+  "day_number": 43,
+  "week": 9,
+  "weekday": "Wednesday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Second-guitar parts with partial chords",
+  "anchor": "app/index.html#day-043",
+  "date_anchor": "app/index.html#2026-12-02",
+  "id": "day-043",
+  "minutes": 30,
+  "keeper": "Second-guitar part: top-string triads + sus fills over 1–5–6–4",
+  "revisits": [
+   "Day 33 (14d): Top-string triads at frets 5–9: G 787, D 775, Em 987, C 988",
+   "Day 42 (1d): Middle-string triads: G 543, C 555, D 777"
+  ],
+  "song_lesson": "app/index.html#song-how-great-is-our-god",
+  "bpm": 72
+ },
+ {
+  "date": "2026-12-03",
+  "day_number": 44,
+  "week": 9,
+  "weekday": "Thursday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Target the 3rd on each chord change",
+  "anchor": "app/index.html#day-044",
+  "date_anchor": "app/index.html#2026-12-03",
+  "id": "day-044",
+  "minutes": 26,
+  "keeper": "Landing on 3rds: G→B, C→E, D→F#",
+  "revisits": [
+   "Day 34 (14d): Sus→major fills: Dsus4→D (e3 to e2), Dsus2→D (e0 to e2)",
+   "Day 41 (3d): Inversions/slash chords: G/B, C/E, D/F#",
+   "Day 43 (1d): Second-guitar part: top-string triads + sus fills over 1–5–6–4"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-12-04",
+  "day_number": 45,
+  "week": 9,
+  "weekday": "Friday",
+  "phase": "Month 2: Neck Freedom",
+  "title": "Milestone jam: one chord, five places",
+  "anchor": "app/index.html#day-045",
+  "date_anchor": "app/index.html#2026-12-04",
+  "id": "day-045",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 42 (3d): Middle-string triads: G 543, C 555, D 777",
+   "Day 44 (1d): Landing on 3rds: G→B, C→E, D→F#"
+  ],
+  "song_lesson": "app/index.html#song-let-it-be",
+  "bpm": null
+ },
+ {
+  "date": "2026-12-07",
+  "day_number": 46,
+  "week": 10,
+  "weekday": "Monday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Pentatonic = the major scale minus the tension",
+  "anchor": "app/index.html#day-046",
+  "date_anchor": "app/index.html#2026-12-07",
+  "id": "day-046",
+  "minutes": 26,
+  "keeper": "G major pentatonic = E minor pentatonic (same 5 notes)",
+  "revisits": [
+   "Day 41 (7d): Inversions/slash chords: G/B, C/E, D/F#",
+   "Day 43 (3d): Second-guitar part: top-string triads + sus fills over 1–5–6–4",
+   "Day 44 (3d): Landing on 3rds: G→B, C→E, D→F#"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-12-08",
+  "day_number": 47,
+  "week": 10,
+  "weekday": "Tuesday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Pentatonic boxes 1 & 2, and the slide between them",
+  "anchor": "app/index.html#day-047",
+  "date_anchor": "app/index.html#2026-12-08",
+  "id": "day-047",
+  "minutes": 26,
+  "keeper": "A minor / C major pentatonic boxes 1–2 (frets 5–10)",
+  "revisits": [
+   "Day 42 (7d): Middle-string triads: G 543, C 555, D 777",
+   "Day 46 (1d): G major pentatonic = E minor pentatonic (same 5 notes)"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-12-09",
+  "day_number": 48,
+  "week": 10,
+  "weekday": "Wednesday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Worship in E: drones and ringing open strings",
+  "anchor": "app/index.html#day-048",
+  "date_anchor": "app/index.html#2026-12-09",
+  "id": "day-048",
+  "minutes": 30,
+  "keeper": "E-key drone voicings: E, Bsus4, C#m7, Asus2",
+  "revisits": [
+   "Day 26 (30d): Major triad = 1–3–5 (C E G around the 8th fret)",
+   "Day 43 (7d): Second-guitar part: top-string triads + sus fills over 1–5–6–4",
+   "Day 47 (1d): A minor / C major pentatonic boxes 1–2 (frets 5–10)"
+  ],
+  "song_lesson": "app/index.html#song-way-maker",
+  "bpm": 68
+ },
+ {
+  "date": "2026-12-10",
+  "day_number": 49,
+  "week": 10,
+  "weekday": "Thursday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Bends in tune: the whole-step bend",
+  "anchor": "app/index.html#day-049",
+  "date_anchor": "app/index.html#2026-12-10",
+  "id": "day-049",
+  "minutes": 26,
+  "keeper": "Whole-step bend on G-string 7 (D→E), A minor box 1",
+  "revisits": [
+   "Day 27 (30d): C chord: C-shape (open), A-shape (3rd fret), G-shape (5th fret)",
+   "Day 44 (7d): Landing on 3rds: G→B, C→E, D→F#",
+   "Day 46 (3d): G major pentatonic = E minor pentatonic (same 5 notes)",
+   "Day 48 (1d): E-key drone voicings: E, Bsus4, C#m7, Asus2"
+  ],
+  "song_lesson": null,
+  "bpm": 65
+ },
+ {
+  "date": "2026-12-11",
+  "day_number": 50,
+  "week": 10,
+  "weekday": "Friday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Jam: major vs. minor pentatonic over E",
+  "anchor": "app/index.html#day-050",
+  "date_anchor": "app/index.html#2026-12-11",
+  "id": "day-050",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 28 (30d): A-key ringing chords: Asus2, E/G#, F#m7, Dsus2, Esus4",
+   "Day 47 (3d): A minor / C major pentatonic boxes 1–2 (frets 5–10)",
+   "Day 49 (1d): Whole-step bend on G-string 7 (D→E), A minor box 1"
+  ],
+  "song_lesson": "app/index.html#song-here-i-am-to-worship",
+  "bpm": null
+ },
+ {
+  "date": "2026-12-14",
+  "day_number": 51,
+  "week": 11,
+  "weekday": "Monday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Major or minor pentatonic? The relative rule",
+  "anchor": "app/index.html#day-051",
+  "date_anchor": "app/index.html#2026-12-14",
+  "id": "day-051",
+  "minutes": 26,
+  "keeper": "Relative-minor rule: major root, down 3 frets = minor root",
+  "revisits": [
+   "Day 29 (30d): G-major double-stop 3rds on strings 3 & 2",
+   "Day 41 (14d): Inversions/slash chords: G/B, C/E, D/F#",
+   "Day 46 (7d): G major pentatonic = E minor pentatonic (same 5 notes)",
+   "Day 48 (3d): E-key drone voicings: E, Bsus4, C#m7, Asus2",
+   "Day 49 (3d): Whole-step bend on G-string 7 (D→E), A minor box 1"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-12-15",
+  "day_number": 52,
+  "week": 11,
+  "weekday": "Tuesday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Boxes 3, 4, 5 and the full-neck map",
+  "anchor": "app/index.html#day-052",
+  "date_anchor": "app/index.html#2026-12-15",
+  "id": "day-052",
+  "minutes": 26,
+  "keeper": "All 5 A minor pentatonic boxes linked (frets 5–17)",
+  "revisits": [
+   "Day 42 (14d): Middle-string triads: G 543, C 555, D 777",
+   "Day 47 (7d): A minor / C major pentatonic boxes 1–2 (frets 5–10)",
+   "Day 51 (1d): Relative-minor rule: major root, down 3 frets = minor root"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-12-16",
+  "day_number": 53,
+  "week": 11,
+  "weekday": "Wednesday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Building a song: the dynamics map",
+  "anchor": "app/index.html#day-053",
+  "date_anchor": "app/index.html#2026-12-16",
+  "id": "day-053",
+  "minutes": 30,
+  "keeper": "Dynamics map: pads → quarters → 8ths → 16ths → drop",
+  "revisits": [
+   "Day 31 (30d): Major → minor = lower the 3rd one fret (G 787 → Gm 786)",
+   "Day 43 (14d): Second-guitar part: top-string triads + sus fills over 1–5–6–4",
+   "Day 48 (7d): E-key drone voicings: E, Bsus4, C#m7, Asus2",
+   "Day 52 (1d): All 5 A minor pentatonic boxes linked (frets 5–17)"
+  ],
+  "song_lesson": "app/index.html#song-cornerstone",
+  "bpm": 72
+ },
+ {
+  "date": "2026-12-17",
+  "day_number": 54,
+  "week": 11,
+  "weekday": "Thursday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Diagonal pentatonic: crossing the neck in one run",
+  "anchor": "app/index.html#day-054",
+  "date_anchor": "app/index.html#2026-12-17",
+  "id": "day-054",
+  "minutes": 26,
+  "keeper": "Diagonal A minor pentatonic run (fret 5 to 17)",
+  "revisits": [
+   "Day 32 (30d): CAGED full cycle for C: C-A-G-E-D shapes up the neck",
+   "Day 44 (14d): Landing on 3rds: G→B, C→E, D→F#",
+   "Day 49 (7d): Whole-step bend on G-string 7 (D→E), A minor box 1",
+   "Day 51 (3d): Relative-minor rule: major root, down 3 frets = minor root",
+   "Day 53 (1d): Dynamics map: pads → quarters → 8ths → 16ths → drop"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-12-18",
+  "day_number": 55,
+  "week": 11,
+  "weekday": "Friday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Jam: solo between verses ('Cornerstone' feel)",
+  "anchor": "app/index.html#day-055",
+  "date_anchor": "app/index.html#2026-12-18",
+  "id": "day-055",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 33 (30d): Top-string triads at frets 5–9: G 787, D 775, Em 987, C 988",
+   "Day 52 (3d): All 5 A minor pentatonic boxes linked (frets 5–17)",
+   "Day 54 (1d): Diagonal A minor pentatonic run (fret 5 to 17)"
+  ],
+  "song_lesson": "app/index.html#song-cornerstone",
+  "bpm": null
+ },
+ {
+  "date": "2026-12-21",
+  "day_number": 56,
+  "week": 12,
+  "weekday": "Monday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Theory of carols: why hymns love 1–4–5",
+  "anchor": "app/index.html#day-056",
+  "date_anchor": "app/index.html#2026-12-21",
+  "id": "day-056",
+  "minutes": 26,
+  "keeper": "Hymn harmony: 1–4–5 with the 5 (or 5⁷) leading home",
+  "revisits": [
+   "Day 34 (30d): Sus→major fills: Dsus4→D (e3 to e2), Dsus2→D (e0 to e2)",
+   "Day 46 (14d): G major pentatonic = E minor pentatonic (same 5 notes)",
+   "Day 51 (7d): Relative-minor rule: major root, down 3 frets = minor root",
+   "Day 53 (3d): Dynamics map: pads → quarters → 8ths → 16ths → drop",
+   "Day 54 (3d): Diagonal A minor pentatonic run (fret 5 to 17)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-12-22",
+  "day_number": 57,
+  "week": 12,
+  "weekday": "Tuesday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Pentatonic + chord: lead around the G barre",
+  "anchor": "app/index.html#day-057",
+  "date_anchor": "app/index.html#2026-12-22",
+  "id": "day-057",
+  "minutes": 26,
+  "keeper": "G major pentatonic around the E-shape G barre (frets 2–5)",
+  "revisits": [
+   "Day 47 (14d): A minor / C major pentatonic boxes 1–2 (frets 5–10)",
+   "Day 52 (7d): All 5 A minor pentatonic boxes linked (frets 5–17)",
+   "Day 56 (1d): Hymn harmony: 1–4–5 with the 5 (or 5⁷) leading home"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2026-12-23",
+  "day_number": 58,
+  "week": 12,
+  "weekday": "Wednesday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Carols with worship voicings: walk-downs & sus fills",
+  "anchor": "app/index.html#day-058",
+  "date_anchor": "app/index.html#2026-12-23",
+  "id": "day-058",
+  "minutes": 30,
+  "keeper": "Carol arranging: anchor voicings + walk-down",
+  "revisits": [
+   "Day 48 (14d): E-key drone voicings: E, Bsus4, C#m7, Asus2",
+   "Day 53 (7d): Dynamics map: pads → quarters → 8ths → 16ths → drop",
+   "Day 57 (1d): G major pentatonic around the E-shape G barre (frets 2–5)"
+  ],
+  "song_lesson": "app/index.html#song-joy-to-the-world",
+  "bpm": 72
+ },
+ {
+  "date": "2026-12-24",
+  "day_number": 59,
+  "week": 12,
+  "weekday": "Thursday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Melodic lead: play a carol melody",
+  "anchor": "app/index.html#day-059",
+  "date_anchor": "app/index.html#2026-12-24",
+  "id": "day-059",
+  "minutes": 26,
+  "keeper": "'Joy to the World' opening = G major scale walking down",
+  "revisits": [
+   "Day 49 (14d): Whole-step bend on G-string 7 (D→E), A minor box 1",
+   "Day 54 (7d): Diagonal A minor pentatonic run (fret 5 to 17)",
+   "Day 56 (3d): Hymn harmony: 1–4–5 with the 5 (or 5⁷) leading home",
+   "Day 58 (1d): Carol arranging: anchor voicings + walk-down"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-12-25",
+  "day_number": 60,
+  "week": 12,
+  "weekday": "Friday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Christmas Day: carols for the family (optional)",
+  "anchor": "app/index.html#day-060",
+  "date_anchor": "app/index.html#2026-12-25",
+  "id": "day-060",
+  "minutes": 10,
+  "keeper": null,
+  "revisits": [
+   "Day 57 (3d): G major pentatonic around the E-shape G barre (frets 2–5)",
+   "Day 59 (1d): 'Joy to the World' opening = G major scale walking down"
+  ],
+  "song_lesson": "app/index.html#song-silent-night",
+  "bpm": null
+ },
+ {
+  "date": "2026-12-28",
+  "day_number": 61,
+  "week": 13,
+  "weekday": "Monday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Review: pentatonic theory & relative minors",
+  "anchor": "app/index.html#day-061",
+  "date_anchor": "app/index.html#2026-12-28",
+  "id": "day-061",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 51 (14d): Relative-minor rule: major root, down 3 frets = minor root",
+   "Day 56 (7d): Hymn harmony: 1–4–5 with the 5 (or 5⁷) leading home",
+   "Day 58 (3d): Carol arranging: anchor voicings + walk-down",
+   "Day 59 (3d): 'Joy to the World' opening = G major scale walking down"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-12-29",
+  "day_number": 62,
+  "week": 13,
+  "weekday": "Tuesday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Review: link all five boxes",
+  "anchor": "app/index.html#day-062",
+  "date_anchor": "app/index.html#2026-12-29",
+  "id": "day-062",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 52 (14d): All 5 A minor pentatonic boxes linked (frets 5–17)",
+   "Day 57 (7d): G major pentatonic around the E-shape G barre (frets 2–5)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2026-12-30",
+  "day_number": 63,
+  "week": 13,
+  "weekday": "Wednesday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Plan ahead: pick 3 'signature' worship songs",
+  "anchor": "app/index.html#day-063",
+  "date_anchor": "app/index.html#2026-12-30",
+  "id": "day-063",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 41 (30d): Inversions/slash chords: G/B, C/E, D/F#",
+   "Day 53 (14d): Dynamics map: pads → quarters → 8ths → 16ths → drop",
+   "Day 58 (7d): Carol arranging: anchor voicings + walk-down"
+  ],
+  "song_lesson": "app/index.html#song-ten-thousand-reasons",
+  "bpm": null
+ },
+ {
+  "date": "2026-12-31",
+  "day_number": 64,
+  "week": 13,
+  "weekday": "Thursday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "Review: record a 16-bar solo",
+  "anchor": "app/index.html#day-064",
+  "date_anchor": "app/index.html#2026-12-31",
+  "id": "day-064",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 42 (30d): Middle-string triads: G 543, C 555, D 777",
+   "Day 54 (14d): Diagonal A minor pentatonic run (fret 5 to 17)",
+   "Day 59 (7d): 'Joy to the World' opening = G major scale walking down"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-01-01",
+  "day_number": 65,
+  "week": 13,
+  "weekday": "Friday",
+  "phase": "Month 3: Pentatonic Freedom",
+  "title": "New Year's Day: free play (optional)",
+  "anchor": "app/index.html#day-065",
+  "date_anchor": "app/index.html#2027-01-01",
+  "id": "day-065",
+  "minutes": 10,
+  "keeper": null,
+  "revisits": [
+   "Day 43 (30d): Second-guitar part: top-string triads + sus fills over 1–5–6–4"
+  ],
+  "song_lesson": "app/index.html#song-twelve-bar-blues-a",
+  "bpm": null
+ },
+ {
+  "date": "2027-01-04",
+  "day_number": 66,
+  "week": 14,
+  "weekday": "Monday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Chord tones vs. passing tones",
+  "anchor": "app/index.html#day-066",
+  "date_anchor": "app/index.html#2027-01-04",
+  "id": "day-066",
+  "minutes": 26,
+  "keeper": "G major scale with chord tones (G B D) marked, frets 2–5",
+  "revisits": [
+   "Day 44 (30d): Landing on 3rds: G→B, C→E, D→F#",
+   "Day 56 (14d): Hymn harmony: 1–4–5 with the 5 (or 5⁷) leading home"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2027-01-05",
+  "day_number": 67,
+  "week": 14,
+  "weekday": "Tuesday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Major arpeggios: E-shape (G) and A-shape (C)",
+  "anchor": "app/index.html#day-067",
+  "date_anchor": "app/index.html#2027-01-05",
+  "id": "day-067",
+  "minutes": 26,
+  "keeper": "Major arpeggio shapes: G at fret 3 (E-shape), C at fret 3 (A-shape)",
+  "revisits": [
+   "Day 57 (14d): G major pentatonic around the E-shape G barre (frets 2–5)",
+   "Day 66 (1d): G major scale with chord tones (G B D) marked, frets 2–5"
+  ],
+  "song_lesson": null,
+  "bpm": 65
+ },
+ {
+  "date": "2027-01-06",
+  "day_number": 68,
+  "week": 14,
+  "weekday": "Wednesday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Worship in C: Cmaj7, Am7, Fmaj7, G/B",
+  "anchor": "app/index.html#day-068",
+  "date_anchor": "app/index.html#2027-01-06",
+  "id": "day-068",
+  "minutes": 30,
+  "keeper": "Key-of-C colors: C, Cmaj7, G/B, Am7, Fmaj7",
+  "revisits": [
+   "Day 46 (30d): G major pentatonic = E minor pentatonic (same 5 notes)",
+   "Day 58 (14d): Carol arranging: anchor voicings + walk-down",
+   "Day 67 (1d): Major arpeggio shapes: G at fret 3 (E-shape), C at fret 3 (A-shape)"
+  ],
+  "song_lesson": "app/index.html#song-cornerstone",
+  "bpm": 66
+ },
+ {
+  "date": "2027-01-07",
+  "day_number": 69,
+  "week": 14,
+  "weekday": "Thursday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Land on the 3rd over 1–4",
+  "anchor": "app/index.html#day-069",
+  "date_anchor": "app/index.html#2027-01-07",
+  "id": "day-069",
+  "minutes": 26,
+  "keeper": "1–4 targeting lick: G-A-B (G) → C-D-E (C)",
+  "revisits": [
+   "Day 47 (30d): A minor / C major pentatonic boxes 1–2 (frets 5–10)",
+   "Day 59 (14d): 'Joy to the World' opening = G major scale walking down",
+   "Day 66 (3d): G major scale with chord tones (G B D) marked, frets 2–5",
+   "Day 68 (1d): Key-of-C colors: C, Cmaj7, G/B, Am7, Fmaj7"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2027-01-08",
+  "day_number": 70,
+  "week": 14,
+  "weekday": "Friday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Jam: 1–4 vamp, hit every 3rd",
+  "anchor": "app/index.html#day-070",
+  "date_anchor": "app/index.html#2027-01-08",
+  "id": "day-070",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 48 (30d): E-key drone voicings: E, Bsus4, C#m7, Asus2",
+   "Day 67 (3d): Major arpeggio shapes: G at fret 3 (E-shape), C at fret 3 (A-shape)",
+   "Day 69 (1d): 1–4 targeting lick: G-A-B (G) → C-D-E (C)"
+  ],
+  "song_lesson": "app/index.html#song-wagon-wheel",
+  "bpm": null
+ },
+ {
+  "date": "2027-01-11",
+  "day_number": 71,
+  "week": 15,
+  "weekday": "Monday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Minor triads: the 6m and 2m chords",
+  "anchor": "app/index.html#day-071",
+  "date_anchor": "app/index.html#2027-01-11",
+  "id": "day-071",
+  "minutes": 26,
+  "keeper": "Minor triad = 1–b3–5; Em (E G B) arpeggio, open position",
+  "revisits": [
+   "Day 49 (30d): Whole-step bend on G-string 7 (D→E), A minor box 1",
+   "Day 66 (7d): G major scale with chord tones (G B D) marked, frets 2–5",
+   "Day 68 (3d): Key-of-C colors: C, Cmaj7, G/B, Am7, Fmaj7",
+   "Day 69 (3d): 1–4 targeting lick: G-A-B (G) → C-D-E (C)"
+  ],
+  "song_lesson": null,
+  "bpm": 65
+ },
+ {
+  "date": "2027-01-12",
+  "day_number": 72,
+  "week": 15,
+  "weekday": "Tuesday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Minor arpeggio shapes up the neck",
+  "anchor": "app/index.html#day-072",
+  "date_anchor": "app/index.html#2027-01-12",
+  "id": "day-072",
+  "minutes": 26,
+  "keeper": "Moveable minor arpeggios: Am (Em-shape, fret 5), Dm (Am-shape, fret 5)",
+  "revisits": [
+   "Day 67 (7d): Major arpeggio shapes: G at fret 3 (E-shape), C at fret 3 (A-shape)",
+   "Day 71 (1d): Minor triad = 1–b3–5; Em (E G B) arpeggio, open position"
+  ],
+  "song_lesson": null,
+  "bpm": 65
+ },
+ {
+  "date": "2027-01-13",
+  "day_number": 73,
+  "week": 15,
+  "weekday": "Wednesday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Fingerpicked intros: Travis pattern on anchor chords",
+  "anchor": "app/index.html#day-073",
+  "date_anchor": "app/index.html#2027-01-13",
+  "id": "day-073",
+  "minutes": 30,
+  "keeper": "Travis-pick intro on G – Cadd9 – Em7 – Dsus4",
+  "revisits": [
+   "Day 51 (30d): Relative-minor rule: major root, down 3 frets = minor root",
+   "Day 68 (7d): Key-of-C colors: C, Cmaj7, G/B, Am7, Fmaj7",
+   "Day 72 (1d): Moveable minor arpeggios: Am (Em-shape, fret 5), Dm (Am-shape, fret 5)"
+  ],
+  "song_lesson": "app/index.html#song-ten-thousand-reasons",
+  "bpm": 70
+ },
+ {
+  "date": "2027-01-14",
+  "day_number": 74,
+  "week": 15,
+  "weekday": "Thursday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Guide-tone lines over 1–5–6m–4",
+  "anchor": "app/index.html#day-074",
+  "date_anchor": "app/index.html#2027-01-14",
+  "id": "day-074",
+  "minutes": 26,
+  "keeper": "Guide-tone line in G: B → F# → G → E",
+  "revisits": [
+   "Day 52 (30d): All 5 A minor pentatonic boxes linked (frets 5–17)",
+   "Day 69 (7d): 1–4 targeting lick: G-A-B (G) → C-D-E (C)",
+   "Day 71 (3d): Minor triad = 1–b3–5; Em (E G B) arpeggio, open position",
+   "Day 73 (1d): Travis-pick intro on G – Cadd9 – Em7 – Dsus4"
+  ],
+  "song_lesson": null,
+  "bpm": 72
+ },
+ {
+  "date": "2027-01-15",
+  "day_number": 75,
+  "week": 15,
+  "weekday": "Friday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Jam: follow-the-changes solo",
+  "anchor": "app/index.html#day-075",
+  "date_anchor": "app/index.html#2027-01-15",
+  "id": "day-075",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 53 (30d): Dynamics map: pads → quarters → 8ths → 16ths → drop",
+   "Day 72 (3d): Moveable minor arpeggios: Am (Em-shape, fret 5), Dm (Am-shape, fret 5)",
+   "Day 74 (1d): Guide-tone line in G: B → F# → G → E"
+  ],
+  "song_lesson": "app/index.html#song-build-my-life",
+  "bpm": null
+ },
+ {
+  "date": "2027-01-18",
+  "day_number": 76,
+  "week": 16,
+  "weekday": "Monday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Seventh chords: maj7, m7 and the dominant 7",
+  "anchor": "app/index.html#day-076",
+  "date_anchor": "app/index.html#2027-01-18",
+  "id": "day-076",
+  "minutes": 26,
+  "keeper": "7th chords in G: Gmaj7, Am7, Bm7, Cmaj7, D7, Em7",
+  "revisits": [
+   "Day 54 (30d): Diagonal A minor pentatonic run (fret 5 to 17)",
+   "Day 66 (14d): G major scale with chord tones (G B D) marked, frets 2–5",
+   "Day 71 (7d): Minor triad = 1–b3–5; Em (E G B) arpeggio, open position",
+   "Day 73 (3d): Travis-pick intro on G – Cadd9 – Em7 – Dsus4",
+   "Day 74 (3d): Guide-tone line in G: B → F# → G → E"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-01-19",
+  "day_number": 77,
+  "week": 16,
+  "weekday": "Tuesday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "7th arpeggios in one position",
+  "anchor": "app/index.html#day-077",
+  "date_anchor": "app/index.html#2027-01-19",
+  "id": "day-077",
+  "minutes": 26,
+  "keeper": "Gmaj7 arpeggio (G B D F#) at frets 2–5",
+  "revisits": [
+   "Day 67 (14d): Major arpeggio shapes: G at fret 3 (E-shape), C at fret 3 (A-shape)",
+   "Day 72 (7d): Moveable minor arpeggios: Am (Em-shape, fret 5), Dm (Am-shape, fret 5)",
+   "Day 76 (1d): 7th chords in G: Gmaj7, Am7, Bm7, Cmaj7, D7, Em7"
+  ],
+  "song_lesson": null,
+  "bpm": 60
+ },
+ {
+  "date": "2027-01-20",
+  "day_number": 78,
+  "week": 16,
+  "weekday": "Wednesday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Leading the build: from pads to full band",
+  "anchor": "app/index.html#day-078",
+  "date_anchor": "app/index.html#2027-01-20",
+  "id": "day-078",
+  "minutes": 30,
+  "keeper": "Bridge build: 4 bars pads → quarters → 8ths → 16ths → hit",
+  "revisits": [
+   "Day 56 (30d): Hymn harmony: 1–4–5 with the 5 (or 5⁷) leading home",
+   "Day 68 (14d): Key-of-C colors: C, Cmaj7, G/B, Am7, Fmaj7",
+   "Day 73 (7d): Travis-pick intro on G – Cadd9 – Em7 – Dsus4",
+   "Day 77 (1d): Gmaj7 arpeggio (G B D F#) at frets 2–5"
+  ],
+  "song_lesson": "app/index.html#song-what-a-beautiful-name",
+  "bpm": 72
+ },
+ {
+  "date": "2027-01-21",
+  "day_number": 79,
+  "week": 16,
+  "weekday": "Thursday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Melodic hooks: write a worship lead line",
+  "anchor": "app/index.html#day-079",
+  "date_anchor": "app/index.html#2027-01-21",
+  "id": "day-079",
+  "minutes": 26,
+  "keeper": "Worship hook in G: G B G F# | E F# G",
+  "revisits": [
+   "Day 57 (30d): G major pentatonic around the E-shape G barre (frets 2–5)",
+   "Day 69 (14d): 1–4 targeting lick: G-A-B (G) → C-D-E (C)",
+   "Day 74 (7d): Guide-tone line in G: B → F# → G → E",
+   "Day 76 (3d): 7th chords in G: Gmaj7, Am7, Bm7, Cmaj7, D7, Em7",
+   "Day 78 (1d): Bridge build: 4 bars pads → quarters → 8ths → 16ths → hit"
+  ],
+  "song_lesson": null,
+  "bpm": 72
+ },
+ {
+  "date": "2027-01-22",
+  "day_number": 80,
+  "week": 16,
+  "weekday": "Friday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Jam: three parts over one track",
+  "anchor": "app/index.html#day-080",
+  "date_anchor": "app/index.html#2027-01-22",
+  "id": "day-080",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 58 (30d): Carol arranging: anchor voicings + walk-down",
+   "Day 77 (3d): Gmaj7 arpeggio (G B D F#) at frets 2–5",
+   "Day 79 (1d): Worship hook in G: G B G F# | E F# G"
+  ],
+  "song_lesson": "app/index.html#song-stand-by-me",
+  "bpm": null
+ },
+ {
+  "date": "2027-01-25",
+  "day_number": 81,
+  "week": 17,
+  "weekday": "Monday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Review: chord tones & 7ths quiz",
+  "anchor": "app/index.html#day-081",
+  "date_anchor": "app/index.html#2027-01-25",
+  "id": "day-081",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 59 (30d): 'Joy to the World' opening = G major scale walking down",
+   "Day 71 (14d): Minor triad = 1–b3–5; Em (E G B) arpeggio, open position",
+   "Day 76 (7d): 7th chords in G: Gmaj7, Am7, Bm7, Cmaj7, D7, Em7",
+   "Day 78 (3d): Bridge build: 4 bars pads → quarters → 8ths → 16ths → hit",
+   "Day 79 (3d): Worship hook in G: G B G F# | E F# G"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-01-26",
+  "day_number": 82,
+  "week": 17,
+  "weekday": "Tuesday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Review: arpeggio workout",
+  "anchor": "app/index.html#day-082",
+  "date_anchor": "app/index.html#2027-01-26",
+  "id": "day-082",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 72 (14d): Moveable minor arpeggios: Am (Em-shape, fret 5), Dm (Am-shape, fret 5)",
+   "Day 77 (7d): Gmaj7 arpeggio (G B D F#) at frets 2–5"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-01-27",
+  "day_number": 83,
+  "week": 17,
+  "weekday": "Wednesday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Review: fingerpicked intro + dynamics",
+  "anchor": "app/index.html#day-083",
+  "date_anchor": "app/index.html#2027-01-27",
+  "id": "day-083",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 73 (14d): Travis-pick intro on G – Cadd9 – Em7 – Dsus4",
+   "Day 78 (7d): Bridge build: 4 bars pads → quarters → 8ths → 16ths → hit"
+  ],
+  "song_lesson": "app/index.html#song-goodness-of-god",
+  "bpm": null
+ },
+ {
+  "date": "2027-01-28",
+  "day_number": 84,
+  "week": 17,
+  "weekday": "Thursday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Review: guide-tone solo",
+  "anchor": "app/index.html#day-084",
+  "date_anchor": "app/index.html#2027-01-28",
+  "id": "day-084",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 74 (14d): Guide-tone line in G: B → F# → G → E",
+   "Day 79 (7d): Worship hook in G: G B G F# | E F# G"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-01-29",
+  "day_number": 85,
+  "week": 17,
+  "weekday": "Friday",
+  "phase": "Month 4: Chord-Tone Soloing",
+  "title": "Milestone jam: chord-tone soloing",
+  "anchor": "app/index.html#day-085",
+  "date_anchor": "app/index.html#2027-01-29",
+  "id": "day-085",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [],
+  "song_lesson": "app/index.html#song-knockin-on-heavens-door",
+  "bpm": null
+ },
+ {
+  "date": "2027-02-01",
+  "day_number": 86,
+  "week": 18,
+  "weekday": "Monday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Modes are moods: Mixolydian = major with a b7",
+  "anchor": "app/index.html#day-086",
+  "date_anchor": "app/index.html#2027-02-01",
+  "id": "day-086",
+  "minutes": 26,
+  "keeper": "G Mixolydian = G A B C D E F (major with b7)",
+  "revisits": [
+   "Day 76 (14d): 7th chords in G: Gmaj7, Am7, Bm7, Cmaj7, D7, Em7"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-02-02",
+  "day_number": 87,
+  "week": 18,
+  "weekday": "Tuesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Moveable color shapes: sus2, sus4, add9",
+  "anchor": "app/index.html#day-087",
+  "date_anchor": "app/index.html#2027-02-02",
+  "id": "day-087",
+  "minutes": 26,
+  "keeper": "Moveable colors: Dsus2 (x57755), Gsus4 (355533), Aadd9 (x02420)",
+  "revisits": [
+   "Day 77 (14d): Gmaj7 arpeggio (G B D F#) at frets 2–5",
+   "Day 86 (1d): G Mixolydian = G A B C D E F (major with b7)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-02-03",
+  "day_number": 88,
+  "week": 18,
+  "weekday": "Wednesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "When to use which color: sus2, sus4, add9, maj7",
+  "anchor": "app/index.html#day-088",
+  "date_anchor": "app/index.html#2027-02-03",
+  "id": "day-088",
+  "minutes": 30,
+  "keeper": "Color guide: sus4 = tension, sus2 = open, add9 = shimmer, maj7 = soft",
+  "revisits": [
+   "Day 66 (30d): G major scale with chord tones (G B D) marked, frets 2–5",
+   "Day 78 (14d): Bridge build: 4 bars pads → quarters → 8ths → 16ths → hit",
+   "Day 87 (1d): Moveable colors: Dsus2 (x57755), Gsus4 (355533), Aadd9 (x02420)"
+  ],
+  "song_lesson": "app/index.html#song-goodness-of-god",
+  "bpm": 68
+ },
+ {
+  "date": "2027-02-04",
+  "day_number": 89,
+  "week": 18,
+  "weekday": "Thursday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Mixolydian soloing over 1–b7–4",
+  "anchor": "app/index.html#day-089",
+  "date_anchor": "app/index.html#2027-02-04",
+  "id": "day-089",
+  "minutes": 26,
+  "keeper": "Mixolydian lick: G F D C G (over G–F–C)",
+  "revisits": [
+   "Day 67 (30d): Major arpeggio shapes: G at fret 3 (E-shape), C at fret 3 (A-shape)",
+   "Day 79 (14d): Worship hook in G: G B G F# | E F# G",
+   "Day 86 (3d): G Mixolydian = G A B C D E F (major with b7)",
+   "Day 88 (1d): Color guide: sus4 = tension, sus2 = open, add9 = shimmer, maj7 = soft"
+  ],
+  "song_lesson": null,
+  "bpm": 75
+ },
+ {
+  "date": "2027-02-05",
+  "day_number": 90,
+  "week": 18,
+  "weekday": "Friday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Jam: G Mixolydian vamp",
+  "anchor": "app/index.html#day-090",
+  "date_anchor": "app/index.html#2027-02-05",
+  "id": "day-090",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 68 (30d): Key-of-C colors: C, Cmaj7, G/B, Am7, Fmaj7",
+   "Day 87 (3d): Moveable colors: Dsus2 (x57755), Gsus4 (355533), Aadd9 (x02420)",
+   "Day 89 (1d): Mixolydian lick: G F D C G (over G–F–C)"
+  ],
+  "song_lesson": "app/index.html#song-sweet-home-alabama",
+  "bpm": null
+ },
+ {
+  "date": "2027-02-08",
+  "day_number": 91,
+  "week": 19,
+  "weekday": "Monday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Dorian: minor with a bright 6th",
+  "anchor": "app/index.html#day-091",
+  "date_anchor": "app/index.html#2027-02-08",
+  "id": "day-091",
+  "minutes": 26,
+  "keeper": "A Dorian = A B C D E F# G (minor with natural 6)",
+  "revisits": [
+   "Day 69 (30d): 1–4 targeting lick: G-A-B (G) → C-D-E (C)",
+   "Day 86 (7d): G Mixolydian = G A B C D E F (major with b7)",
+   "Day 88 (3d): Color guide: sus4 = tension, sus2 = open, add9 = shimmer, maj7 = soft",
+   "Day 89 (3d): Mixolydian lick: G F D C G (over G–F–C)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-02-09",
+  "day_number": 92,
+  "week": 19,
+  "weekday": "Tuesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Slash chords as bass lines",
+  "anchor": "app/index.html#day-092",
+  "date_anchor": "app/index.html#2027-02-09",
+  "id": "day-092",
+  "minutes": 26,
+  "keeper": "Slash bass lines: G – G/B – C and Em7 – D/F# – G",
+  "revisits": [
+   "Day 87 (7d): Moveable colors: Dsus2 (x57755), Gsus4 (355533), Aadd9 (x02420)",
+   "Day 91 (1d): A Dorian = A B C D E F# G (minor with natural 6)"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2027-02-10",
+  "day_number": 93,
+  "week": 19,
+  "weekday": "Wednesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Walk-ups and walk-downs into the chorus",
+  "anchor": "app/index.html#day-093",
+  "date_anchor": "app/index.html#2027-02-10",
+  "id": "day-093",
+  "minutes": 30,
+  "keeper": "Walk-up C – D – Em (4–5–6m in G) & walk-down D – A/C# – Bm7",
+  "revisits": [
+   "Day 71 (30d): Minor triad = 1–b3–5; Em (E G B) arpeggio, open position",
+   "Day 88 (7d): Color guide: sus4 = tension, sus2 = open, add9 = shimmer, maj7 = soft",
+   "Day 92 (1d): Slash bass lines: G – G/B – C and Em7 – D/F# – G"
+  ],
+  "song_lesson": "app/index.html#song-holy-spirit",
+  "bpm": 70
+ },
+ {
+  "date": "2027-02-11",
+  "day_number": 94,
+  "week": 19,
+  "weekday": "Thursday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Dorian lick: the bright 6th",
+  "anchor": "app/index.html#day-094",
+  "date_anchor": "app/index.html#2027-02-11",
+  "id": "day-094",
+  "minutes": 26,
+  "keeper": "Dorian lick: C D E F# A (over Am7–D)",
+  "revisits": [
+   "Day 72 (30d): Moveable minor arpeggios: Am (Em-shape, fret 5), Dm (Am-shape, fret 5)",
+   "Day 89 (7d): Mixolydian lick: G F D C G (over G–F–C)",
+   "Day 91 (3d): A Dorian = A B C D E F# G (minor with natural 6)",
+   "Day 93 (1d): Walk-up C – D – Em (4–5–6m in G) & walk-down D – A/C# – Bm7"
+  ],
+  "song_lesson": null,
+  "bpm": 75
+ },
+ {
+  "date": "2027-02-12",
+  "day_number": 95,
+  "week": 19,
+  "weekday": "Friday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Jam: A Dorian groove",
+  "anchor": "app/index.html#day-095",
+  "date_anchor": "app/index.html#2027-02-12",
+  "id": "day-095",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 73 (30d): Travis-pick intro on G – Cadd9 – Em7 – Dsus4",
+   "Day 92 (3d): Slash bass lines: G – G/B – C and Em7 – D/F# – G",
+   "Day 94 (1d): Dorian lick: C D E F# A (over Am7–D)"
+  ],
+  "song_lesson": "app/index.html#song-twelve-bar-blues-a",
+  "bpm": null
+ },
+ {
+  "date": "2027-02-15",
+  "day_number": 96,
+  "week": 20,
+  "weekday": "Monday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Lydian: the dreamy #4 (it's already in your 4 chord)",
+  "anchor": "app/index.html#day-096",
+  "date_anchor": "app/index.html#2027-02-15",
+  "id": "day-096",
+  "minutes": 26,
+  "keeper": "Lydian = major with #4; G major notes over C = C Lydian",
+  "revisits": [
+   "Day 74 (30d): Guide-tone line in G: B → F# → G → E",
+   "Day 86 (14d): G Mixolydian = G A B C D E F (major with b7)",
+   "Day 91 (7d): A Dorian = A B C D E F# G (minor with natural 6)",
+   "Day 93 (3d): Walk-up C – D – Em (4–5–6m in G) & walk-down D – A/C# – Bm7",
+   "Day 94 (3d): Dorian lick: C D E F# A (over Am7–D)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-02-16",
+  "day_number": 97,
+  "week": 20,
+  "weekday": "Tuesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Modes from one shape",
+  "anchor": "app/index.html#day-097",
+  "date_anchor": "app/index.html#2027-02-16",
+  "id": "day-097",
+  "minutes": 26,
+  "keeper": "One G major shape, three moods: G Ionian, A Dorian, C Lydian",
+  "revisits": [
+   "Day 87 (14d): Moveable colors: Dsus2 (x57755), Gsus4 (355533), Aadd9 (x02420)",
+   "Day 92 (7d): Slash bass lines: G – G/B – C and Em7 – D/F# – G",
+   "Day 96 (1d): Lydian = major with #4; G major notes over C = C Lydian"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-02-17",
+  "day_number": 98,
+  "week": 20,
+  "weekday": "Wednesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Reharmonize: 2m7 for 4, 1/3, and the borrowed 4-minor",
+  "anchor": "app/index.html#day-098",
+  "date_anchor": "app/index.html#2027-02-17",
+  "id": "day-098",
+  "minutes": 30,
+  "keeper": "Reharm tools in G: Am7 for C, G/B for G, Cm (4m) before G",
+  "revisits": [
+   "Day 76 (30d): 7th chords in G: Gmaj7, Am7, Bm7, Cmaj7, D7, Em7",
+   "Day 88 (14d): Color guide: sus4 = tension, sus2 = open, add9 = shimmer, maj7 = soft",
+   "Day 93 (7d): Walk-up C – D – Em (4–5–6m in G) & walk-down D – A/C# – Bm7",
+   "Day 97 (1d): One G major shape, three moods: G Ionian, A Dorian, C Lydian"
+  ],
+  "song_lesson": "app/index.html#song-build-my-life",
+  "bpm": 70
+ },
+ {
+  "date": "2027-02-18",
+  "day_number": 99,
+  "week": 20,
+  "weekday": "Thursday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Lydian lead over the 4 chord",
+  "anchor": "app/index.html#day-099",
+  "date_anchor": "app/index.html#2027-02-18",
+  "id": "day-099",
+  "minutes": 26,
+  "keeper": "Lydian resolution lick: E–F#–G over C",
+  "revisits": [
+   "Day 77 (30d): Gmaj7 arpeggio (G B D F#) at frets 2–5",
+   "Day 89 (14d): Mixolydian lick: G F D C G (over G–F–C)",
+   "Day 94 (7d): Dorian lick: C D E F# A (over Am7–D)",
+   "Day 96 (3d): Lydian = major with #4; G major notes over C = C Lydian",
+   "Day 98 (1d): Reharm tools in G: Am7 for C, G/B for G, Cm (4m) before G"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-02-19",
+  "day_number": 100,
+  "week": 20,
+  "weekday": "Friday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Jam: ambient worship pad in E",
+  "anchor": "app/index.html#day-100",
+  "date_anchor": "app/index.html#2027-02-19",
+  "id": "day-100",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 78 (30d): Bridge build: 4 bars pads → quarters → 8ths → 16ths → hit",
+   "Day 97 (3d): One G major shape, three moods: G Ionian, A Dorian, C Lydian",
+   "Day 99 (1d): Lydian resolution lick: E–F#–G over C"
+  ],
+  "song_lesson": "app/index.html#song-way-maker",
+  "bpm": null
+ },
+ {
+  "date": "2027-02-22",
+  "day_number": 101,
+  "week": 21,
+  "weekday": "Monday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Minor keys in worship: songs that start on the 6m",
+  "anchor": "app/index.html#day-101",
+  "date_anchor": "app/index.html#2027-02-22",
+  "id": "day-101",
+  "minutes": 26,
+  "keeper": "6m-first progressions: 6m–4–1–5 (Em–C–G–D)",
+  "revisits": [
+   "Day 79 (30d): Worship hook in G: G B G F# | E F# G",
+   "Day 91 (14d): A Dorian = A B C D E F# G (minor with natural 6)",
+   "Day 96 (7d): Lydian = major with #4; G major notes over C = C Lydian",
+   "Day 98 (3d): Reharm tools in G: Am7 for C, G/B for G, Cm (4m) before G",
+   "Day 99 (3d): Lydian resolution lick: E–F#–G over C"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-02-23",
+  "day_number": 102,
+  "week": 21,
+  "weekday": "Tuesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Aeolian vs. Dorian: one note, two colors",
+  "anchor": "app/index.html#day-102",
+  "date_anchor": "app/index.html#2027-02-23",
+  "id": "day-102",
+  "minutes": 26,
+  "keeper": "E Aeolian (C) vs. E Dorian (C#)",
+  "revisits": [
+   "Day 92 (14d): Slash bass lines: G – G/B – C and Em7 – D/F# – G",
+   "Day 97 (7d): One G major shape, three moods: G Ionian, A Dorian, C Lydian",
+   "Day 101 (1d): 6m-first progressions: 6m–4–1–5 (Em–C–G–D)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-02-24",
+  "day_number": 103,
+  "week": 21,
+  "weekday": "Wednesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Capo up: a bright second guitar",
+  "anchor": "app/index.html#day-103",
+  "date_anchor": "app/index.html#2027-02-24",
+  "id": "day-103",
+  "minutes": 30,
+  "keeper": "Capo 7 + G shapes = key of D (second-guitar sparkle)",
+  "revisits": [
+   "Day 93 (14d): Walk-up C – D – Em (4–5–6m in G) & walk-down D – A/C# – Bm7",
+   "Day 98 (7d): Reharm tools in G: Am7 for C, G/B for G, Cm (4m) before G",
+   "Day 102 (1d): E Aeolian (C) vs. E Dorian (C#)"
+  ],
+  "song_lesson": "app/index.html#song-what-a-beautiful-name",
+  "bpm": 72
+ },
+ {
+  "date": "2027-02-25",
+  "day_number": 104,
+  "week": 21,
+  "weekday": "Thursday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Mix it up: pentatonic + chord tones + one color note",
+  "anchor": "app/index.html#day-104",
+  "date_anchor": "app/index.html#2027-02-25",
+  "id": "day-104",
+  "minutes": 26,
+  "keeper": "Solo recipe: pentatonic base + chord-tone landings + 1 color note",
+  "revisits": [
+   "Day 94 (14d): Dorian lick: C D E F# A (over Am7–D)",
+   "Day 99 (7d): Lydian resolution lick: E–F#–G over C",
+   "Day 101 (3d): 6m-first progressions: 6m–4–1–5 (Em–C–G–D)",
+   "Day 103 (1d): Capo 7 + G shapes = key of D (second-guitar sparkle)"
+  ],
+  "song_lesson": null,
+  "bpm": 72
+ },
+ {
+  "date": "2027-02-26",
+  "day_number": 105,
+  "week": 21,
+  "weekday": "Friday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Jam: 'Way Maker' feel in E with color",
+  "anchor": "app/index.html#day-105",
+  "date_anchor": "app/index.html#2027-02-26",
+  "id": "day-105",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 102 (3d): E Aeolian (C) vs. E Dorian (C#)",
+   "Day 104 (1d): Solo recipe: pentatonic base + chord-tone landings + 1 color note"
+  ],
+  "song_lesson": "app/index.html#song-way-maker",
+  "bpm": null
+ },
+ {
+  "date": "2027-03-01",
+  "day_number": 106,
+  "week": 22,
+  "weekday": "Monday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Review: modes quiz",
+  "anchor": "app/index.html#day-106",
+  "date_anchor": "app/index.html#2027-03-01",
+  "id": "day-106",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 96 (14d): Lydian = major with #4; G major notes over C = C Lydian",
+   "Day 101 (7d): 6m-first progressions: 6m–4–1–5 (Em–C–G–D)",
+   "Day 103 (3d): Capo 7 + G shapes = key of D (second-guitar sparkle)",
+   "Day 104 (3d): Solo recipe: pentatonic base + chord-tone landings + 1 color note"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-02",
+  "day_number": 107,
+  "week": 22,
+  "weekday": "Tuesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Review: color-chord tour",
+  "anchor": "app/index.html#day-107",
+  "date_anchor": "app/index.html#2027-03-02",
+  "id": "day-107",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 97 (14d): One G major shape, three moods: G Ionian, A Dorian, C Lydian",
+   "Day 102 (7d): E Aeolian (C) vs. E Dorian (C#)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-03",
+  "day_number": 108,
+  "week": 22,
+  "weekday": "Wednesday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Review: reharmonize a chorus",
+  "anchor": "app/index.html#day-108",
+  "date_anchor": "app/index.html#2027-03-03",
+  "id": "day-108",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 86 (30d): G Mixolydian = G A B C D E F (major with b7)",
+   "Day 98 (14d): Reharm tools in G: Am7 for C, G/B for G, Cm (4m) before G",
+   "Day 103 (7d): Capo 7 + G shapes = key of D (second-guitar sparkle)"
+  ],
+  "song_lesson": "app/index.html#song-blessed-be-your-name",
+  "bpm": null
+ },
+ {
+  "date": "2027-03-04",
+  "day_number": 109,
+  "week": 22,
+  "weekday": "Thursday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Review: modal solo",
+  "anchor": "app/index.html#day-109",
+  "date_anchor": "app/index.html#2027-03-04",
+  "id": "day-109",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 87 (30d): Moveable colors: Dsus2 (x57755), Gsus4 (355533), Aadd9 (x02420)",
+   "Day 99 (14d): Lydian resolution lick: E–F#–G over C",
+   "Day 104 (7d): Solo recipe: pentatonic base + chord-tone landings + 1 color note"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-05",
+  "day_number": 110,
+  "week": 22,
+  "weekday": "Friday",
+  "phase": "Month 5: Color & Modes",
+  "title": "Milestone jam: color & modes",
+  "anchor": "app/index.html#day-110",
+  "date_anchor": "app/index.html#2027-03-05",
+  "id": "day-110",
+  "minutes": 20,
+  "keeper": null,
+  "revisits": [
+   "Day 88 (30d): Color guide: sus4 = tension, sus2 = open, add9 = shimmer, maj7 = soft"
+  ],
+  "song_lesson": "app/index.html#song-what-a-beautiful-name",
+  "bpm": null
+ },
+ {
+  "date": "2027-03-08",
+  "day_number": 111,
+  "week": 23,
+  "weekday": "Monday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Write a one-page number chart",
+  "anchor": "app/index.html#day-111",
+  "date_anchor": "app/index.html#2027-03-08",
+  "id": "day-111",
+  "minutes": 26,
+  "keeper": "Number-chart format: sections, bars, numbers, dynamics, cues",
+  "revisits": [
+   "Day 89 (30d): Mixolydian lick: G F D C G (over G–F–C)",
+   "Day 101 (14d): 6m-first progressions: 6m–4–1–5 (Em–C–G–D)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-09",
+  "day_number": 112,
+  "week": 23,
+  "weekday": "Tuesday",
+  "phase": "Month 6: Putting It Together",
+  "title": "One song, three positions",
+  "anchor": "app/index.html#day-112",
+  "date_anchor": "app/index.html#2027-03-09",
+  "id": "day-112",
+  "minutes": 26,
+  "keeper": "One song in 3 positions: open, CAGED barres, top-string triads",
+  "revisits": [
+   "Day 102 (14d): E Aeolian (C) vs. E Dorian (C#)",
+   "Day 111 (1d): Number-chart format: sections, bars, numbers, dynamics, cues"
+  ],
+  "song_lesson": null,
+  "bpm": 72
+ },
+ {
+  "date": "2027-03-10",
+  "day_number": 113,
+  "week": 23,
+  "weekday": "Wednesday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Set flow: keys, transitions and pivot chords",
+  "anchor": "app/index.html#day-113",
+  "date_anchor": "app/index.html#2027-03-10",
+  "id": "day-113",
+  "minutes": 30,
+  "keeper": "Set transitions: pivot through shared chords (G→D via D; D→A via A)",
+  "revisits": [
+   "Day 91 (30d): A Dorian = A B C D E F# G (minor with natural 6)",
+   "Day 103 (14d): Capo 7 + G shapes = key of D (second-guitar sparkle)",
+   "Day 112 (1d): One song in 3 positions: open, CAGED barres, top-string triads"
+  ],
+  "song_lesson": "app/index.html#song-build-my-life",
+  "bpm": null
+ },
+ {
+  "date": "2027-03-11",
+  "day_number": 114,
+  "week": 23,
+  "weekday": "Thursday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Solo over a full song form",
+  "anchor": "app/index.html#day-114",
+  "date_anchor": "app/index.html#2027-03-11",
+  "id": "day-114",
+  "minutes": 26,
+  "keeper": "Form soloing: verse fills, chorus melody, bridge climb",
+  "revisits": [
+   "Day 92 (30d): Slash bass lines: G – G/B – C and Em7 – D/F# – G",
+   "Day 104 (14d): Solo recipe: pentatonic base + chord-tone landings + 1 color note",
+   "Day 111 (3d): Number-chart format: sections, bars, numbers, dynamics, cues",
+   "Day 113 (1d): Set transitions: pivot through shared chords (G→D via D; D→A via A)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-12",
+  "day_number": 115,
+  "week": 23,
+  "weekday": "Friday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Jam: run song #1 of your set",
+  "anchor": "app/index.html#day-115",
+  "date_anchor": "app/index.html#2027-03-12",
+  "id": "day-115",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 93 (30d): Walk-up C – D – Em (4–5–6m in G) & walk-down D – A/C# – Bm7",
+   "Day 112 (3d): One song in 3 positions: open, CAGED barres, top-string triads",
+   "Day 114 (1d): Form soloing: verse fills, chorus melody, bridge climb"
+  ],
+  "song_lesson": "app/index.html#song-build-my-life",
+  "bpm": null
+ },
+ {
+  "date": "2027-03-15",
+  "day_number": 116,
+  "week": 24,
+  "weekday": "Monday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Modulation: the key-change lift",
+  "anchor": "app/index.html#day-116",
+  "date_anchor": "app/index.html#2027-03-15",
+  "id": "day-116",
+  "minutes": 26,
+  "keeper": "Key change up a whole step via the new 5 (G → A using E)",
+  "revisits": [
+   "Day 94 (30d): Dorian lick: C D E F# A (over Am7–D)",
+   "Day 111 (7d): Number-chart format: sections, bars, numbers, dynamics, cues",
+   "Day 113 (3d): Set transitions: pivot through shared chords (G→D via D; D→A via A)",
+   "Day 114 (3d): Form soloing: verse fills, chorus melody, bridge climb"
+  ],
+  "song_lesson": null,
+  "bpm": 72
+ },
+ {
+  "date": "2027-03-16",
+  "day_number": 117,
+  "week": 24,
+  "weekday": "Tuesday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Intros and outros: picked intro + tag",
+  "anchor": "app/index.html#day-117",
+  "date_anchor": "app/index.html#2027-03-16",
+  "id": "day-117",
+  "minutes": 26,
+  "keeper": "Song bookends: 4-bar picked intro + tag ending sus4 → 1",
+  "revisits": [
+   "Day 112 (7d): One song in 3 positions: open, CAGED barres, top-string triads",
+   "Day 116 (1d): Key change up a whole step via the new 5 (G → A using E)"
+  ],
+  "song_lesson": null,
+  "bpm": 70
+ },
+ {
+  "date": "2027-03-17",
+  "day_number": 118,
+  "week": 24,
+  "weekday": "Wednesday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Leading from guitar: cues and count-ins",
+  "anchor": "app/index.html#day-118",
+  "date_anchor": "app/index.html#2027-03-17",
+  "id": "day-118",
+  "minutes": 30,
+  "keeper": "Leader cues: count-in, 'one more time', 'down', 'build', end",
+  "revisits": [
+   "Day 96 (30d): Lydian = major with #4; G major notes over C = C Lydian",
+   "Day 113 (7d): Set transitions: pivot through shared chords (G→D via D; D→A via A)",
+   "Day 117 (1d): Song bookends: 4-bar picked intro + tag ending sus4 → 1"
+  ],
+  "song_lesson": "app/index.html#song-blessed-be-your-name",
+  "bpm": null
+ },
+ {
+  "date": "2027-03-18",
+  "day_number": 119,
+  "week": 24,
+  "weekday": "Thursday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Fills between vocal lines",
+  "anchor": "app/index.html#day-119",
+  "date_anchor": "app/index.html#2027-03-18",
+  "id": "day-119",
+  "minutes": 26,
+  "keeper": "2-bar response fills (hook, double stops, sus hammer-ons)",
+  "revisits": [
+   "Day 97 (30d): One G major shape, three moods: G Ionian, A Dorian, C Lydian",
+   "Day 114 (7d): Form soloing: verse fills, chorus melody, bridge climb",
+   "Day 116 (3d): Key change up a whole step via the new 5 (G → A using E)",
+   "Day 118 (1d): Leader cues: count-in, 'one more time', 'down', 'build', end"
+  ],
+  "song_lesson": null,
+  "bpm": 72
+ },
+ {
+  "date": "2027-03-19",
+  "day_number": 120,
+  "week": 24,
+  "weekday": "Friday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Jam: songs 2 & 3 with transitions",
+  "anchor": "app/index.html#day-120",
+  "date_anchor": "app/index.html#2027-03-19",
+  "id": "day-120",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 98 (30d): Reharm tools in G: Am7 for C, G/B for G, Cm (4m) before G",
+   "Day 117 (3d): Song bookends: 4-bar picked intro + tag ending sus4 → 1",
+   "Day 119 (1d): 2-bar response fills (hook, double stops, sus hammer-ons)"
+  ],
+  "song_lesson": "app/index.html#song-here-i-am-to-worship",
+  "bpm": null
+ },
+ {
+  "date": "2027-03-22",
+  "day_number": 121,
+  "week": 25,
+  "weekday": "Monday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Easter set planning: songs, keys and capo",
+  "anchor": "app/index.html#day-121",
+  "date_anchor": "app/index.html#2027-03-22",
+  "id": "day-121",
+  "minutes": 26,
+  "keeper": "Easter set list with keys, capo and pivots",
+  "revisits": [
+   "Day 99 (30d): Lydian resolution lick: E–F#–G over C",
+   "Day 111 (14d): Number-chart format: sections, bars, numbers, dynamics, cues",
+   "Day 116 (7d): Key change up a whole step via the new 5 (G → A using E)",
+   "Day 118 (3d): Leader cues: count-in, 'one more time', 'down', 'build', end",
+   "Day 119 (3d): 2-bar response fills (hook, double stops, sus hammer-ons)"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-23",
+  "day_number": 122,
+  "week": 25,
+  "weekday": "Tuesday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Arranging: assign parts to the guitar",
+  "anchor": "app/index.html#day-122",
+  "date_anchor": "app/index.html#2027-03-23",
+  "id": "day-122",
+  "minutes": 26,
+  "keeper": "Arrangement plan: strum / triads / picking / lead per section",
+  "revisits": [
+   "Day 112 (14d): One song in 3 positions: open, CAGED barres, top-string triads",
+   "Day 117 (7d): Song bookends: 4-bar picked intro + tag ending sus4 → 1",
+   "Day 121 (1d): Easter set list with keys, capo and pivots"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-24",
+  "day_number": 123,
+  "week": 25,
+  "weekday": "Wednesday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Easter set rehearsal",
+  "anchor": "app/index.html#day-123",
+  "date_anchor": "app/index.html#2027-03-24",
+  "id": "day-123",
+  "minutes": 30,
+  "keeper": "Full Easter set run-through",
+  "revisits": [
+   "Day 101 (30d): 6m-first progressions: 6m–4–1–5 (Em–C–G–D)",
+   "Day 113 (14d): Set transitions: pivot through shared chords (G→D via D; D→A via A)",
+   "Day 118 (7d): Leader cues: count-in, 'one more time', 'down', 'build', end",
+   "Day 122 (1d): Arrangement plan: strum / triads / picking / lead per section"
+  ],
+  "song_lesson": "app/index.html#song-what-a-beautiful-name",
+  "bpm": null
+ },
+ {
+  "date": "2027-03-25",
+  "day_number": 124,
+  "week": 25,
+  "weekday": "Thursday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Spontaneous worship: improvised interlude",
+  "anchor": "app/index.html#day-124",
+  "date_anchor": "app/index.html#2027-03-25",
+  "id": "day-124",
+  "minutes": 26,
+  "keeper": "Spontaneous vamp: 4–1 with ambient lead",
+  "revisits": [
+   "Day 102 (30d): E Aeolian (C) vs. E Dorian (C#)",
+   "Day 114 (14d): Form soloing: verse fills, chorus melody, bridge climb",
+   "Day 119 (7d): 2-bar response fills (hook, double stops, sus hammer-ons)",
+   "Day 121 (3d): Easter set list with keys, capo and pivots",
+   "Day 123 (1d): Full Easter set run-through"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-26",
+  "day_number": 125,
+  "week": 25,
+  "weekday": "Friday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Good Friday: quiet fingerstyle reflection",
+  "anchor": "app/index.html#day-125",
+  "date_anchor": "app/index.html#2027-03-26",
+  "id": "day-125",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 103 (30d): Capo 7 + G shapes = key of D (second-guitar sparkle)",
+   "Day 122 (3d): Arrangement plan: strum / triads / picking / lead per section",
+   "Day 124 (1d): Spontaneous vamp: 4–1 with ambient lead"
+  ],
+  "song_lesson": "app/index.html#song-amazing-grace",
+  "bpm": null
+ },
+ {
+  "date": "2027-03-29",
+  "day_number": 126,
+  "week": 26,
+  "weekday": "Monday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Capstone 1: chart & transpose a song cold",
+  "anchor": "app/index.html#day-126",
+  "date_anchor": "app/index.html#2027-03-29",
+  "id": "day-126",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 104 (30d): Solo recipe: pentatonic base + chord-tone landings + 1 color note",
+   "Day 116 (14d): Key change up a whole step via the new 5 (G → A using E)",
+   "Day 121 (7d): Easter set list with keys, capo and pivots",
+   "Day 123 (3d): Full Easter set run-through",
+   "Day 124 (3d): Spontaneous vamp: 4–1 with ambient lead"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-30",
+  "day_number": 127,
+  "week": 26,
+  "weekday": "Tuesday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Capstone 2: the neck check",
+  "anchor": "app/index.html#day-127",
+  "date_anchor": "app/index.html#2027-03-30",
+  "id": "day-127",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 117 (14d): Song bookends: 4-bar picked intro + tag ending sus4 → 1",
+   "Day 122 (7d): Arrangement plan: strum / triads / picking / lead per section"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-03-31",
+  "day_number": 128,
+  "week": 26,
+  "weekday": "Wednesday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Capstone 3: lead your full set (record)",
+  "anchor": "app/index.html#day-128",
+  "date_anchor": "app/index.html#2027-03-31",
+  "id": "day-128",
+  "minutes": 30,
+  "keeper": null,
+  "revisits": [
+   "Day 118 (14d): Leader cues: count-in, 'one more time', 'down', 'build', end",
+   "Day 123 (7d): Full Easter set run-through"
+  ],
+  "song_lesson": "app/index.html#song-blessed-be-your-name",
+  "bpm": null
+ },
+ {
+  "date": "2027-04-01",
+  "day_number": 129,
+  "week": 26,
+  "weekday": "Thursday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Capstone 4: improvise over a full song",
+  "anchor": "app/index.html#day-129",
+  "date_anchor": "app/index.html#2027-04-01",
+  "id": "day-129",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [
+   "Day 119 (14d): 2-bar response fills (hook, double stops, sus hammer-ons)",
+   "Day 124 (7d): Spontaneous vamp: 4–1 with ambient lead"
+  ],
+  "song_lesson": null,
+  "bpm": null
+ },
+ {
+  "date": "2027-04-02",
+  "day_number": 130,
+  "week": 26,
+  "weekday": "Friday",
+  "phase": "Month 6: Putting It Together",
+  "title": "Capstone jam & what's next",
+  "anchor": "app/index.html#day-130",
+  "date_anchor": "app/index.html#2027-04-02",
+  "id": "day-130",
+  "minutes": 25,
+  "keeper": null,
+  "revisits": [],
+  "song_lesson": "app/index.html#song-knockin-on-heavens-door",
+  "bpm": null
+ }
+]
