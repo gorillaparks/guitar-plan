@@ -1,7 +1,7 @@
 /* Guitar Plan service worker.
    html/js/css/json: network-first (always fresh when online, cached copy offline).
    icons: cache-first. Bump CACHE on every deploy so old caches are dropped. */
-const CACHE = 'guitar-plan-v4';
+const CACHE = 'guitar-plan-v5';
 const ASSETS = ['./', './index.html', './app.css', './app.js', './audio.js', './data.js', './manifest.json', './schedule.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png'];
 self.addEventListener('install', e => {

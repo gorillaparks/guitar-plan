@@ -38,7 +38,7 @@ function grade(day, ok){
 }
 const dueList = () => Object.entries(S.keepers).filter(([d, k]) => k.due <= today()).map(([d, k]) => ({day: +d, ...k})).sort((a, b) => a.due.localeCompare(b.due));
 /* ---------- UI helpers ---------- */
-function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 1800); }
+function toast(m){ const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 2600); }
 function tbar(split){ const tot = split.reduce((a, s) => a + s[0], 0);
   return `<div class="tbar">${split.map(s => `<i style="width:${s[0]/tot*100}%;background:${colorOf(s[1])}" title="${esc(s[1])}"></i>`).join('')}</div>
   <div class="legend">${split.map(s => `<span><b style="background:${colorOf(s[1])}"></b>${s[0]} min ${esc(s[1])}</span>`).join('')}</div>`; }
@@ -123,8 +123,9 @@ function metroUI(l){ const b = l.bpm || 70; const r = S.reps[l.day] || 0;
   <div class="beats" data-beats><i></i><i></i><i></i><i></i></div>
   <div class="row" style="justify-content:center"><button class="btn t" data-mp>▶ Start metronome</button></div>
   <div class="note" style="text-align:center">No sound? Flip off silent mode and turn up the volume.</div>
-  <div class="row" style="justify-content:center"><span class="note">3 clean reps in a row:</span><span class="reps" data-reps>${[0,1,2].map(i => `<i class="${i < r ? 'on' : ''}"></i>`).join('')}<b data-repc>${r}/3</b></span>
-  <button class="btn g sm" data-rep>Clean rep</button><button class="btn s sm" data-miss>Missed</button></div></div>`; }
+  <div class="repbox" data-repbox><div class="row" style="justify-content:center"><b class="repc" data-repc>Clean reps: ${r}/3</b><span class="reps" data-reps aria-hidden="true">${[0,1,2].map(i => `<i class="${i < r ? 'on' : ''}"></i>`).join('')}</span></div>
+  <div class="row" style="justify-content:center"><button class="btn g" data-rep>✓ Clean rep</button><button class="btn s" data-miss>✗ Missed</button></div>
+  <div class="repmsg" data-repmsg role="status" aria-live="polite">${r >= 3 ? '🔒 Locked in at 3/3 — move on or try it +5 bpm.' : 'Goal: 3 clean reps in a row at the target tempo.'}</div></div></div>`; }
 function wireMetro(l){
   const el = $('#metro'); if(!el) return; if(MET) MET.stop();
   let bpm = l.bpm || 70; const bv = el.querySelector('[data-bpm]'), dots = el.querySelectorAll('[data-beats] i'), btn = el.querySelector('[data-mp]');
@@ -132,12 +133,18 @@ function wireMetro(l){
   window.__metro = MET;
   el.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { bpm = Math.max(30, Math.min(220, bpm + +b.dataset.m)); bv.textContent = bpm; MET.setBpm(bpm); });
   btn.onclick = () => { if(MET.running){ MET.stop(); btn.textContent = '▶ Start metronome'; btn.classList.remove('playing'); dots.forEach(d => d.classList.remove('on')); } else { MET.start(); btn.textContent = '■ Stop metronome'; btn.classList.add('playing'); } };
-  const reps = el.querySelector('[data-reps]'), rc = el.querySelector('[data-repc]');
-  const drawReps = cls => { const n = S.reps[l.day] || 0; reps.querySelectorAll('i').forEach((d, j) => d.classList.toggle('on', j < n)); rc.textContent = `${n}/3`;
-    if(cls){ reps.classList.remove('flash-g', 'flash-r'); void reps.offsetWidth; reps.classList.add(cls); } };
-  el.querySelector('[data-rep]').onclick = () => { const was = S.reps[l.day] || 0; S.reps[l.day] = Math.min(3, was + 1); save(); drawReps('flash-g');
-    toast(S.reps[l.day] === 3 ? (was === 3 ? 'Already 3/3 — locked in! Move on or bump +5 bpm.' : '3 clean reps — locked in! Move on.') : `Clean rep ${S.reps[l.day]} of 3 ✓`); };
-  el.querySelector('[data-miss]').onclick = () => { S.reps[l.day] = 0; save(); drawReps('flash-r'); toast('Missed — streak reset to 0/3. Slow down and go again.'); };
+  const box = el.querySelector('[data-repbox]'), reps = el.querySelector('[data-reps]'), rc = el.querySelector('[data-repc]'), msg = el.querySelector('[data-repmsg]');
+  /* Persistent counter + persistent last-action message + a flash on the whole box, so every tap leaves a visible change. */
+  const drawReps = (cls, text) => { const n = S.reps[l.day] || 0; reps.querySelectorAll('i').forEach((d, j) => d.classList.toggle('on', j < n)); rc.textContent = `Clean reps: ${n}/3`;
+    if(text){ msg.textContent = text; msg.className = 'repmsg ' + (cls === 'flash-r' ? 'bad' : 'good'); }
+    if(cls){ box.classList.remove('flash-g', 'flash-r'); void box.offsetWidth; box.classList.add(cls); clearTimeout(box._h); box._h = setTimeout(() => box.classList.remove(cls), 1200); } };
+  let taps = 0;
+  el.querySelector('[data-rep]').onclick = () => { const was = S.reps[l.day] || 0; const n = S.reps[l.day] = Math.min(3, was + 1); save(); taps++;
+    const t = n === 3 ? (was === 3 ? `🔒 Still locked in at 3/3 (tap #${taps}) — move on or try +5 bpm.` : '🔒 3 clean reps — locked in! Move on.') : `✓ Clean rep ${n} of 3 — ${3 - n} more in a row to lock it in.`;
+    drawReps('flash-g', t); toast(t); };
+  el.querySelector('[data-miss]').onclick = () => { const was = S.reps[l.day] || 0; S.reps[l.day] = 0; save(); taps++;
+    const t = was ? `✗ Missed — counter reset from ${was}/3 to 0/3. Slow down and go again.` : `✗ Missed (tap #${taps}) — still 0/3. Slow down 5 bpm and go again.`;
+    drawReps('flash-r', t); toast(t); };
 }
 /* ---------- lesson view ---------- */
 function lessonView(l, note){

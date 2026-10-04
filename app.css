@@ -69,7 +69,7 @@ details summary{cursor:pointer;padding:10px 0;font-weight:700}
 textarea{width:100%;min-height:60px;border:1px solid var(--line);border-radius:10px;padding:8px;font:inherit;background:#fff}
 .hero{background:linear-gradient(135deg,#c8643b,#a3445a);color:#fff;border-radius:20px;padding:18px}
 .hero h1{color:#fff}.hero p{margin:.3em 0;opacity:.95}
-.toast{pointer-events:none;position:fixed;left:50%;bottom:86px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 14px;border-radius:10px;font-size:.9rem;z-index:9;opacity:0;transition:.3s}.toast.on{opacity:1}
+.toast{pointer-events:none;position:fixed;left:50%;bottom:86px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 14px;border-radius:10px;font-size:.9rem;z-index:9;width:max-content;max-width:calc(100vw - 32px);text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:0;transition:.3s}.toast.on{opacity:1}
 @media (min-width:700px){nav.tabs{max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:16px 16px 0 0}}
 .rmap{display:flex;flex-direction:column;gap:8px}.rrow{display:flex;gap:10px;align-items:stretch}
 .rl{flex:0 0 86px;background:var(--c);color:#fff;border-radius:12px;padding:8px;display:flex;flex-direction:column;justify-content:center}.rl small{font-size:.72rem;opacity:.9}
@@ -94,3 +94,7 @@ label.row.note{min-height:44px}
 .pager{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}.pager .btn{text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center}.pager .nx{justify-self:end}.pager .pv{justify-self:start}
 .pager{display:flex;justify-content:space-between;flex-wrap:nowrap}.pager .btn{white-space:nowrap;padding:10px 12px}
 .fc .dia{width:100%;max-width:320px;overflow:visible}
+.repbox{border:2px solid var(--line);border-radius:14px;padding:10px;display:grid;gap:8px;transition:background .3s,border-color .3s}
+.repbox.flash-g{background:#dff0da;border-color:var(--green)}.repbox.flash-r{background:#f8dde1;border-color:var(--rose)}
+.repc{font:800 1.05rem ui-monospace,Menlo,monospace;color:var(--green)}
+.repmsg{text-align:center;font-size:.9rem;font-weight:600;color:var(--mute);min-height:1.4em}.repmsg.good{color:var(--green)}.repmsg.bad{color:var(--rose)}
