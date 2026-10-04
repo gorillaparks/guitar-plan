@@ -1,6 +1,7 @@
 (function(){
 'use strict';
-const P = window.PLAN, A = window.GAudio, $ = s => document.querySelector(s);
+const P = window.PLAN, A = window.GAudio, GM = window.GMusic, $ = s => document.querySelector(s);
+const APP_VERSION = 'v6';
 const L = P.lessons, BYDAY = {}, BYDATE = {}; L.forEach(l => { BYDAY[l.day] = l; BYDATE[l.date] = l; });
 const SONG = {}; P.songs.forEach(s => SONG[s.id] = s);
 const PH = {}; P.phases.forEach(p => PH[p.n] = p);
@@ -47,44 +48,46 @@ function dia(key, bpm){ const d = P.dia[key]; if(!d) return '';
 function chordDia(name){ const c = P.chords[name]; if(!c) return '';
   return `<div class="dia"><button class="btn sm s play" data-chord="${esc(name)}" aria-label="Play ${esc(name)}">▶</button>${c.svg}</div>`; }
 const songLink = id => SONG[id] ? `<a href="#song-${id}">${esc(SONG[id].title)} →</a>` : '';
-function loopUI(loop, id){ if(!loop) return '';
+function loopUI(loop, id){ if(!loop) return ''; const song = loop.page === 'song', tempos = song ? [loop.bpm] : GM.loopTempos(loop.bpm);
   return `<div class="card loop" data-loop="${id}"><h3>🥁 Backing loop <small class="meta">${esc(loop.label||'')}</small></h3>
   <div class="now${loop.prog.length > 6 ? ' long' : ''}" data-now>${esc(loop.prog.join('  ·  '))}</div>
   <div class="beats" data-lbeats>${'<i></i>'.repeat(loop.feel === 'waltz' ? 3 : 4)}</div>
-  <div class="row"><button class="btn t" data-lplay>▶ Play loop</button>
-  <label class="row note"><input type="checkbox" data-ldrums checked> drums</label><label class="row note"><input type="checkbox" data-lchords checked> chords</label></div>
-  <label class="note">Tempo <b data-lbpmv>${loop.bpm}</b> bpm<input type="range" min="40" max="180" value="${loop.bpm}" data-lbpm></label>
-  <div class="note">Synthesized in the app (no recordings). Search term for a full track: ${loop.search ? esc(loop.search) : 'see lesson'}.</div></div>`; }
+  <div class="row"><button class="btn t" data-lplay>▶ Play loop</button>${song ? '' : '<label class="row note"><input type="checkbox" data-ldrums checked> drums</label>'}</div>
+  ${tempos.length > 1 ? `<div class="row tempos"><span class="note">Tempo:</span>${tempos.map((b, i) => `<button class="chip ${i ? 'o' : ''}" data-ltempo="${b}" aria-pressed="${!i}">${b} bpm${i ? '' : ' (target)'}</button>`).join('')}</div>` : `<div class="note">Tempo ${loop.bpm} bpm</div>`}
+  <div class="note">Pre-recorded loop (synthesized guitar &amp; drums). Search term for a full track: ${loop.search ? esc(loop.search) : 'see lesson'}.</div></div>`; }
 const LOOPS = {};
 function wireLoops(root){
   root.querySelectorAll('[data-loop]').forEach(el => {
-    const spec = LOOPS[el.dataset.loop]; if(!spec) return; let lp = null;
-    const btn = el.querySelector('[data-lplay]'), now = el.querySelector('[data-now]'), beats = el.querySelectorAll('[data-lbeats] i');
-    const rng = el.querySelector('[data-lbpm]'), bv = el.querySelector('[data-lbpmv]');
-    btn.onclick = () => {
-      if(lp){ lp.stop(); return; }
-      lp = new A.Loop({prog: spec.prog, bpm: +rng.value, feel: spec.feel, drums: el.querySelector('[data-ldrums]').checked, chords: el.querySelector('[data-lchords]').checked,
-        onBar: (i, n) => { now.innerHTML = spec.prog.map((c, j) => j === i ? `<u>${esc(c)}</u>` : esc(c)).join('  ·  '); },
+    const spec = LOOPS[el.dataset.loop]; if(!spec) return; let lp = null, bpm = spec.bpm;
+    const btn = el.querySelector('[data-lplay]'), now = el.querySelector('[data-now]'), beats = el.querySelectorAll('[data-lbeats] i'), dr = el.querySelector('[data-ldrums]');
+    const idle = () => { btn.textContent = '▶ Play loop'; btn.classList.remove('playing'); beats.forEach(x => x.classList.remove('on')); now.textContent = spec.prog.join('  ·  '); };
+    const begin = () => {
+      lp = new A.Loop({spec, bpm, page: spec.page, drums: dr ? dr.checked : true,
+        onBar: i => { now.innerHTML = spec.prog.map((c, j) => j === i ? `<u>${esc(c)}</u>` : esc(c)).join('  ·  '); },
         onBeat: b => beats.forEach((x, j) => x.classList.toggle('on', j === b)),
-        onStop: () => { lp = null; btn.textContent = '▶ Play loop'; btn.classList.remove('playing'); beats.forEach(x => x.classList.remove('on')); }});
-      lp.start(); btn.textContent = '■ Stop loop'; btn.classList.add('playing'); window.__loopStarted = (window.__loopStarted || 0) + 1;
+        onStop: () => { lp = null; idle(); }});
+      if(lp.start() !== false){ btn.textContent = '■ Stop loop'; btn.classList.add('playing'); }
+      window.__loopStarted = (window.__loopStarted || 0) + 1;
     };
-    rng.oninput = () => { bv.textContent = rng.value; if(lp) lp.setBpm(+rng.value); };
-    el.querySelector('[data-ldrums]').onchange = e => { if(lp) lp.drums = e.target.checked; };
-    el.querySelector('[data-lchords]').onchange = e => { if(lp) lp.chords = e.target.checked; };
+    btn.onclick = () => { if(lp){ lp.stop(); return; } begin(); };
+    el.querySelectorAll('[data-ltempo]').forEach(t => t.onclick = () => { bpm = +t.dataset.ltempo;
+      el.querySelectorAll('[data-ltempo]').forEach(x => { x.classList.toggle('o', x !== t); x.setAttribute('aria-pressed', String(x === t)); });
+      if(lp){ lp.onStop = null; lp.stop(); lp = null; begin(); } });
+    if(dr) dr.onchange = () => { if(lp){ lp.onStop = null; lp.stop(); lp = null; begin(); } };
   });
+}
+function soundName(b){
+  if(b.dataset.ex) return GM.name.ex(b.dataset.ex, +(b.dataset.bpm || 80));
+  if(b.dataset.chord) return GM.name.chord(b.dataset.chord);
+  if(b.dataset.lex) return GM.name.lesson(+b.dataset.lex);
+  return GM.name.card(JSON.parse(b.dataset.cardplay));
 }
 function wirePlay(root){
   root.querySelectorAll('[data-ex],[data-chord],[data-lex],[data-cardplay]').forEach(b => b.onclick = () => {
     if(b.classList.contains('playing')){ A.stopAll(); return; }
-    let ex, bpm = +(b.dataset.bpm || 80);
-    if(b.dataset.ex) ex = P.dia[b.dataset.ex].ex;
-    else if(b.dataset.chord) ex = {t: 'chord', m: A.voice(b.dataset.chord)};
-    else if(b.dataset.lex) ex = BYDAY[b.dataset.lex].ex;
-    else ex = JSON.parse(b.dataset.cardplay);
     root.querySelectorAll('[data-ex].playing,[data-chord].playing,[data-lex].playing,[data-cardplay].playing').forEach(x => x.classList.remove('playing'));
     const label = b.textContent, short = label.trim().length <= 2; b.classList.add('playing'); b.textContent = short ? '■' : '■ Stop'; b.setAttribute('aria-pressed', 'true');
-    A.playExample(ex, bpm, () => { b.classList.remove('playing'); b.textContent = label; b.setAttribute('aria-pressed', 'false'); });
+    A.play(soundName(b), {onEnd: () => { b.classList.remove('playing'); b.textContent = label; b.setAttribute('aria-pressed', 'false'); }});
   });
 }
 /* ---------- session timer ---------- */
@@ -106,7 +109,7 @@ function wireTimer(l){
   const next = () => { TM.i++; try{ A.chime(); }catch(e){} if(navigator.vibrate) navigator.vibrate(200);
     if(TM.i >= l.split.length){ clearInterval(TM.h); TM.run = false; st.textContent = '✓ Session complete'; TM.left = 0; draw(); toast('Session complete — mark it done!'); return; }
     TM.left = l.split[TM.i][0]*60; draw(); const blk = document.querySelector(`[data-blk="${TM.i}"]`); if(blk) blk.scrollIntoView({behavior:'smooth', block:'start'}); };
-  st.onclick = () => { if(TM.i >= l.split.length) return; A.ensure();
+  st.onclick = () => { if(TM.i >= l.split.length) return; A.prime('fx', 'chime');
     if(TM.run){ clearInterval(TM.h); TM.run = false; st.textContent = '▶ Resume'; return; }
     TM.run = true; st.textContent = '⏸ Pause'; TM.h = setInterval(() => { TM.left--; if(TM.left <= 0) next(); else draw(); }, 1000);
     if(navigator.wakeLock) navigator.wakeLock.request('screen').catch(() => {}); };
@@ -116,10 +119,10 @@ function wireTimer(l){
 }
 /* ---------- metronome ---------- */
 let MET = null;
-function metroUI(l){ const b = l.bpm || 70; const r = S.reps[l.day] || 0;
+function metroUI(l){ const b = A.nearestBpm(l.bpm || 70); const r = S.reps[l.day] || 0;
   return `<div class="card metro" id="metro"><h3>🎵 Metronome <small class="meta">target ${l.bpm ? l.bpm + ' bpm' : 'comfortable tempo'}</small></h3>
-  <div class="row" style="justify-content:center"><button class="btn s sm" data-m="-5">−5</button><button class="btn s sm" data-m="-1">−1</button>
-  <span class="bpm" data-bpm>${b}</span><button class="btn s sm" data-m="1">+1</button><button class="btn s sm" data-m="5">+5</button></div>
+  <div class="row" style="justify-content:center"><button class="btn s sm" data-m="-10">−10</button><button class="btn s sm" data-m="-5">−5</button>
+  <span class="bpm" data-bpm>${b}</span><button class="btn s sm" data-m="5">+5</button><button class="btn s sm" data-m="10">+10</button></div>
   <div class="beats" data-beats><i></i><i></i><i></i><i></i></div>
   <div class="row" style="justify-content:center"><button class="btn t" data-mp>▶ Start metronome</button></div>
   <div class="note" style="text-align:center">No sound? Flip off silent mode and turn up the volume.</div>
@@ -128,10 +131,11 @@ function metroUI(l){ const b = l.bpm || 70; const r = S.reps[l.day] || 0;
   <div class="repmsg" data-repmsg role="status" aria-live="polite">${r >= 3 ? '🔒 Locked in at 3/3 — move on or try it +5 bpm.' : 'Goal: 3 clean reps in a row at the target tempo.'}</div></div></div>`; }
 function wireMetro(l){
   const el = $('#metro'); if(!el) return; if(MET) MET.stop();
-  let bpm = l.bpm || 70; const bv = el.querySelector('[data-bpm]'), dots = el.querySelectorAll('[data-beats] i'), btn = el.querySelector('[data-mp]');
-  MET = new A.Metronome({bpm, onBeat: i => dots.forEach((d, j) => { d.classList.toggle('on', j === i); d.classList.toggle('a', j === 0); })});
+  let bpm = A.nearestBpm(l.bpm || 70); const bv = el.querySelector('[data-bpm]'), dots = el.querySelectorAll('[data-beats] i'), btn = el.querySelector('[data-mp]');
+  MET = new A.Metronome({bpm, onBeat: i => dots.forEach((d, j) => { d.classList.toggle('on', j === i); d.classList.toggle('a', j === 0); }),
+    onStop: () => { btn.textContent = '▶ Start metronome'; btn.classList.remove('playing'); dots.forEach(d => d.classList.remove('on')); }});
   window.__metro = MET;
-  el.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { bpm = Math.max(30, Math.min(220, bpm + +b.dataset.m)); bv.textContent = bpm; MET.setBpm(bpm); });
+  el.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { bpm = A.stepBpm(bpm, +b.dataset.m); bv.textContent = bpm; MET.setBpm(bpm); });
   btn.onclick = () => { if(MET.running){ MET.stop(); btn.textContent = '▶ Start metronome'; btn.classList.remove('playing'); dots.forEach(d => d.classList.remove('on')); } else { MET.start(); btn.textContent = '■ Stop metronome'; btn.classList.add('playing'); } };
   const box = el.querySelector('[data-repbox]'), reps = el.querySelector('[data-reps]'), rc = el.querySelector('[data-repc]'), msg = el.querySelector('[data-repmsg]');
   /* Persistent counter + persistent last-action message + a flash on the whole box, so every tap leaves a visible change. */
@@ -157,7 +161,8 @@ function lessonView(l, note){
   const playName = l.split.find(s => /Use it|Song lesson|Improvise|^Jam|^Play$|Jam & record|Play for fun|Set rehearsal|Lead the set|Celebrate/.test(s[1]));
   const rev = l.reviews.length ? `<div class="strip">${l.reviews.map(r => `<div class="rv"><a href="#${BYDAY[r.day].date}"><b>Day ${r.day} · ${r.n}d</b><br>${esc(r.k)}${r.n >= 7 ? ' <i>(+5 bpm)</i>' : ''}</a></div>`).join('')}</div>` : '<div class="note">No planned revisits today — enjoy the fresh start.</div>';
   const songs = (l.songs || []).map(s => `<span class="chip o">${esc(s[0])} · ${esc(s[1])} · ${esc(s[2])}</span>`).join('');
-  return `${note ? `<div class="banner">${esc(note)}</div>` : ''}
+  const isToday = l.date === todayLesson().l.date;
+  return `${isToday ? soundCard() : ''}${note ? `<div class="banner">${esc(note)}</div>` : ''}
   <div class="card" style="border-top:6px solid ${ph.color}" id="${l.anchor}">
    <span id="${l.date}"></span>
    <div class="meta">Day ${l.day} of 130 · Week ${l.week} · ${fmt(l.date, {weekday:'long', month:'short', day:'numeric', year:'numeric'})}</div>
@@ -194,7 +199,7 @@ function wireLesson(l){
   const b = document.querySelector('[data-done]');
   if(b) b.onclick = () => { if(S.done[l.day]){ delete S.done[l.day]; const k = S.keepers[l.day]; if(k && !k.hist.length) delete S.keepers[l.day]; toast('Marked not done.'); } else { S.done[l.day] = today(); addKeeper(l); toast(l.k ? 'Done! Added to your Keeper List.' : 'Done!'); }
     save(); route(); };
-  wireTimer(l); wireMetro(l); wirePlay(document); wireLoops(document);
+  wireTimer(l); wireMetro(l); wirePlay(document); wireLoops(document); wireSound(document);
 }
 /* ---------- review ---------- */
 function reviewView(){
@@ -260,29 +265,18 @@ function songsView(){
   return `<h1>Song lessons</h1><p class="meta">Step-by-step lessons with number charts, keys/capo options, strum & picking patterns, fills and a synthesized backing loop. Chord progressions only — no lyrics.</p>
   ${Object.entries(groups).map(([g, ss]) => `<div class="card"><h2>${esc(g)}</h2><div class="list">${ss.map(s => `<a class="it" href="#song-${s.id}"><span><b>${esc(s.title)}</b><br><small class="meta">${esc(s.credit)}</small></span><span class="d">${esc(s.key)} · ${s.bpm} bpm</span></a>`).join('')}</div></div>`).join('')}`;
 }
-const MAJ = [0, 2, 4, 5, 7, 9, 11];
-function numToChord(tok, key){
-  const m = tok.match(/^(b?)([1-7])([^/]*)(?:\/(b?)([1-7]))?$/); if(!m) return tok; const sc = P.keys[key];
-  const deg = (fl, d) => { let n = sc[+d - 1]; if(fl){ const p = (A.pcOf(n) + 11) % 12; n = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'][p]; } return n; };
-  return deg(m[1], m[2]) + m[3] + (m[5] ? '/' + deg(m[4], m[5]) : '');
-}
-const rootQ = c => { const m = c.match(/^([A-G][#b]?)(m(?!aj))?/); return m ? m[1] + (m[2] ? 'm' : '') : c; };
-function voicingName(letter, s, key){
-  if(key === s.key){ const hit = s.chords.find(c => c === letter) || (!letter.includes('/') && s.chords.find(c => !c.includes('/') && rootQ(c) === rootQ(letter) && !(/7$/.test(letter) && !c.includes('7'))));
-    if(hit && P.chords[hit]) return hit; }
-  return letter;
-}
+const numToChord = GM.numToChord, voicingName = GM.voicingName;
 function songView(id, key){
   const s = SONG[id]; if(!s) return '<div class="card"><h1>Song not found</h1><p>That song link is out of date. <a href="#songs">See all song lessons →</a></p></div>'; key = P.keys[key] ? key : s.key;
   const used = L.filter(l => l.song === id);
   const letters = new Set(); s.sections.forEach(sec => sec[1].forEach(t => letters.add(numToChord(t, key))));
   const diaNames = key === s.key ? s.chords : [...letters].map(c => voicingName(c, s, key));
-  s.sections.forEach((sec, i) => { LOOPS[`S${i}`] = {prog: sec[1].map(t => voicingName(numToChord(t, key), s, key)), bpm: s.bpm, feel: s.meter === '3/4' ? 'waltz' : (/Shuffle/i.test(sec[3]) ? 'shuffle' : (s.bpm >= 110 ? 'drive' : (/Pad/i.test(sec[3]) ? 'pad8' : '8ths'))), search: `${s.title} instrumental / ${key} major worship backing track`}; });
+  GM.songLoops(s, key).forEach((sp, i) => { LOOPS[`S${i}`] = sp; });
   const arrows = s.strum.split(' ').map(x => x === 'D' ? '↓' : x === 'U' ? '↑' : x).join(' ');
   return `<p><a href="#songs">← All songs</a></p><div class="card" style="border-top:6px solid var(--green)" id="song-${s.id}">
   <span class="chip" style="background:var(--green)">${esc(s.type)}</span><h1>${esc(s.title)}</h1><div class="meta">${esc(s.credit)} · ${esc(s.meter)} · ~${s.bpm} bpm · ${esc(s.feel)}</div>
   <p class="note">${esc(P.disclaimer)}</p>
-  <div class="row"><span class="note">Key:</span>${[s.key, ...'GDAEC'.split('').filter(k => k !== s.key)].map(k => `<a class="chip ${k === key ? '' : 'o'}" href="#song-${s.id}/${k}">${k}${k === s.key ? ' (home)' : ''}</a>`).join('')}</div>
+  <div class="row"><span class="note">Key:</span>${GM.songKeys(s).map(k => `<a class="chip ${k === key ? '' : 'o'}" href="#song-${s.id}/${k}">${k}${k === s.key ? ' (home)' : ''}</a>`).join('')}</div>
   <table class="tbl"><tr><th>Sounding key</th><th>How</th><th>Why</th></tr>${s.capo.map(c => `<tr><td>${esc(c[0])}</td><td>${esc(c[1])}</td><td>${esc(c[2])}</td></tr>`).join('')}</table></div>
   <div class="card"><h2>Step by step</h2><ol class="steps">${s.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol></div>
   <div class="card"><h2>Chords (key of ${key})</h2><div class="dias">${diaNames.filter((v, i, a) => a.indexOf(v) === i).map(n => P.chords[n] ? chordDia(n) : `<span class="chip o">${esc(n)}</span>`).join('')}</div></div>
@@ -314,7 +308,7 @@ function planView(){
     <div class="list">${weeks[w].map(l => `<a class="it ${S.done[l.day] ? 'dn' : ''}" href="#${BYDAY[l.day].date}"><span><b>${l.weekday}</b> ${esc(l.title)}</span><span class="d">D${l.day} · ${fmt(l.date, {month:'short', day:'numeric'})}</span></a>`).join('')}</div></details>`).join('')}</div>`).join('')}
   <p class="note">Data version ${P.version} · generated ${esc(P.generated)}</p>`;
 }
-function tabView(){ return `<p><a href="#plan">← Plan</a></p><div class="card"><h1>How to read tab</h1>
+function tabView(){ return `<p><a href="#plan">← Plan</a></p>${soundCard()}<div class="card"><h1>How to read tab</h1>
   <p>Tab is a picture of your guitar neck — no music reading needed.</p>
   <ul><li><b>6 lines = 6 strings.</b> Top line = high e (thinnest), bottom line = low E (thickest). It's the neck as you see it looking down at it.</li>
   <li><b>Numbers = frets.</b> 3 on the B line = 3rd fret of the B string. <b>0</b> = open string.</li>
@@ -345,6 +339,7 @@ function progressView(sub){
    ${p.milestone.map((m, i) => `<label class="row" style="flex-wrap:nowrap;align-items:flex-start;margin:4px 0"><input type="checkbox" data-cp="${p.n}" data-i="${i}" ${c.items[i] ? 'checked' : ''}> <span>${esc(m)}</span></label>`).join('')}
    <div class="stars" data-stars="${p.n}">${[1,2,3,4,5].map(i => `<button data-r="${i}" class="${i <= c.rating ? 'on' : ''}" aria-label="${i} stars">★</button>`).join('')}</div>
    <textarea data-note="${p.n}" placeholder="What felt great? What needs another week?">${esc(c.note)}</textarea></div>`; }).join('')}
+  <h2>Sound</h2>${soundCard()}
   <div class="card"><h3>Data</h3><p class="note">Progress is stored only on this device (localStorage).</p><div class="row"><button class="btn s sm" data-export>Copy backup</button><button class="btn s sm" data-reset>Reset all progress</button></div><textarea data-backup readonly hidden></textarea></div>`;
 }
 function wireProgress(sub){
@@ -358,6 +353,7 @@ function wireProgress(sub){
       if(ok) toast('Backup copied to clipboard'); else { const box = document.querySelector('[data-backup]'); box.hidden = false; box.value = txt; box.focus(); box.select(); toast('Select the text below and copy it'); } };
     try{ if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => toast('Backup copied to clipboard'), fallback); else fallback(); }catch(e){ fallback(); } };
   const rs = document.querySelector('[data-reset]'); if(rs) rs.onclick = () => { if(confirm('Erase all progress on this device?')){ localStorage.removeItem(KEY); location.reload(); } };
+  wireSound(document);
   if(sub){ const el = document.getElementById(sub); if(el) el.scrollIntoView(); }
 }
 /* ---------- router ---------- */
@@ -377,7 +373,7 @@ function route(){
   else if(h === 'songs'){ tab = 'songs'; html = songsView(); }
   else if((m = h.match(/^song-([a-z0-9-]+?)(?:\/([A-G]b?))?$/))){ tab = 'songs'; html = songView(m[1], m[2]); after = () => { wirePlay(document); wireLoops(document); }; }
   else if(h === 'plan'){ tab = 'plan'; html = planView(); }
-  else if(h === 'tab'){ tab = 'plan'; html = tabView(); after = () => wirePlay(document); }
+  else if(h === 'tab'){ tab = 'plan'; html = tabView(); after = () => { wirePlay(document); wireSound(document); }; }
   else if(h.startsWith('progress')){ tab = 'progress'; html = progressView(); after = () => wireProgress(h.split('/')[1]); }
   else { const t = todayLesson(); html = lessonView(t.l, null); after = () => wireLesson(t.l); }
   if(viewing) tab = viewing.date === todayLesson().l.date ? 'today' : 'plan';
@@ -395,12 +391,28 @@ function header(v){
   if(v && v.date !== tl.date) sub.innerHTML = `Viewing Day ${v.day} · ${esc(fmt(v.date))} · <a href="#today">${BYDATE[t] ? `Today: Day ${tl.day}` : esc(todayTxt)} →</a>`;
   else sub.textContent = todayTxt;
 }
-/* ---------- sound unlock banner ---------- */
-function soundBanner(){
-  const el = $('#snd'); if(!el) return;
-  el.querySelector('button').onclick = () => { A.ensure(); };
-  A.onState(() => { el.hidden = !!(A.unlocked && A.unlocked()); });
+/* ---------- sound test + diagnostics ---------- */
+function soundCard(){ return `<div class="card sound" data-sound><button class="btn t big" data-test>🔊 Test sound</button>
+  <div class="note">Plays a short guitar strum. No sound? Flip off silent mode and turn up the volume.</div>
+  <details data-diag><summary>Sound diagnostics</summary><pre class="diag" data-diagtxt></pre><button class="btn s sm" data-diagcopy>Copy diagnostics</button></details></div>`; }
+let SWV = '?';
+function swVersion(){ if(window.caches) caches.keys().then(k => { SWV = (k.filter(x => x.startsWith('guitar-plan-')).join(',') || 'no cache') + (navigator.serviceWorker && navigator.serviceWorker.controller ? ' (active)' : ' (not controlling)'); }).catch(() => {}); }
+function wireSound(root){
+  const c = (root || document).querySelector('[data-sound]'); if(!c) return;
+  const b = c.querySelector('[data-test]'), d = c.querySelector('[data-diag]'), pre = c.querySelector('[data-diagtxt]');
+  b.onclick = () => { if(b.classList.contains('playing')){ A.stopAll(); return; }
+    b.classList.add('playing'); b.textContent = '■ Playing test sound…';
+    A.test(() => { b.classList.remove('playing'); b.textContent = '🔊 Test sound'; }); };
+  const draw = () => { if(d.open) pre.textContent = A.diagText({app: APP_VERSION, sw: SWV}); };
+  d.ontoggle = () => { swVersion(); draw(); }; clearInterval(wireSound.h); wireSound.h = setInterval(draw, 500);
+  c.querySelector('[data-diagcopy]').onclick = () => copyText(A.diagText({app: APP_VERSION, sw: SWV}), 'Diagnostics copied');
 }
+function copyText(txt, okMsg){
+  const fallback = () => { const ta = document.createElement('textarea'); ta.value = txt; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, txt.length); let ok = false; try{ ok = document.execCommand('copy'); }catch(e){} ta.remove(); toast(ok ? okMsg : 'Copy failed — take a screenshot instead'); return ok; };
+  try{ if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => toast(okMsg), fallback); else fallback(); }catch(e){ fallback(); }
+}
+A.onError((msg, name) => { toast(`⚠️ Sound failed: ${msg}`); const d = document.querySelector('[data-diag]'); if(d && !d.open){ d.open = true; } });
 /* ---------- service worker (offline + updates) ---------- */
 function registerSW(){
   if(!('serviceWorker' in navigator) || !location.protocol.startsWith('http')) return;
@@ -414,7 +426,7 @@ function registerSW(){
 }
 function init(){
   try{ registerSW(); }catch(e){ console.warn('SW', e); }
-  soundBanner();
+  swVersion();
   $('#nav').innerHTML = TABS.map(t => `<a href="#${t[0]}" data-t="${t[0]}"><span>${t[1]}</span><small>${t[2]}</small></a>`).join('');
   window.addEventListener('hashchange', route); route();
 }
