@@ -46,6 +46,7 @@ M.name = {
   card: play => play.t === 'interval' ? `int-${play.m[0]}-${play.m[1]}` : `note-${play.m[0][0]}`,
   loop: (spec, bpm, drums) => `loop-${spec.feel}-${bpm}${drums === false ? '-nd' : ''}-${hash(spec.prog.join(' '))}`,
   metro: bpm => `metro-${bpm}`,
+  slow: (name, bpm) => `${name}-slow${bpm}`,
 };
 /* Tempo options offered for every backing loop (pre-rendered; no live tempo changes). */
 M.loopTempos = bpm => [bpm, bpm - 10, bpm - 20].filter(b => b >= 40);
