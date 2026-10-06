@@ -1,9 +1,9 @@
-/* Guitar Plan service worker (v7).
+/* Guitar Plan service worker (v8).
    html/js/css/json: network-first (fresh when online, cached copy offline). icons: cache-first.
    app/audio/*: NOT intercepted at all -> the browser talks to GitHub Pages directly, so iOS gets real
    Range/206 responses for media. Bump CACHE on every deploy. */
-const CACHE = 'guitar-plan-v7';
-const ASSETS = ['./', './index.html', './app.css', './app.js', './audio.js', './music.js', './session.js', './audio-manifest.js', './data.js', './manifest.json', './schedule.json',
+const CACHE = 'guitar-plan-v8';
+const ASSETS = ['./', './index.html', './app.css', './app.js', './audio.js', './music.js', './session.js', './howto.js', './audio-manifest.js', './data.js', './manifest.json', './schedule.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(ASSETS.map(u => fetch(new Request(u, {cache: 'reload'})).then(r => { if(r.ok) return c.put(u, r); }))))

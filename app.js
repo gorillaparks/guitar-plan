@@ -1,9 +1,9 @@
 (function(){
 'use strict';
-/* Guitar Plan v7: one guided session player. Open the app -> today's lesson -> one big Start button -> short steps,
+/* Guitar Plan v8: one guided session player (+ "How to do it" notes on every step and a tappable glossary). Open the app -> today's lesson -> one big Start button -> short steps,
    one at a time (instruction, diagram, auto-playing audio, rep counter, Next). Everything else lives under ☰ More. */
 const P = window.PLAN, A = window.GAudio, GM = window.GMusic, GS = window.GSession, $ = s => document.querySelector(s);
-const APP_VERSION = 'v7';
+const APP_VERSION = 'v8';
 const L = P.lessons, BYDAY = {}, BYDATE = {}; L.forEach(l => { BYDAY[l.day] = l; BYDATE[l.date] = l; });
 const SONG = {}; P.songs.forEach(s => SONG[s.id] = s);
 const PH = {}; P.phases.forEach(p => PH[p.n] = p);
@@ -136,6 +136,71 @@ function setHash(h, push){ if(location.hash === h) return; history[push ? 'pushS
 const audioCh = a => a.kind === 'metro' ? 'metro' : 'main';
 const audioName = a => a.kind === 'play' ? a.name : a.kind === 'metro' ? GM.name.metro(A.nearestBpm(a.bpm)) : GM.name.loop(a.spec, a.bpm, a.drums);
 function neckSvg(c){ return miniNeck(c); }
+/* ---------- v8: glossary links + "How to do it" notes ---------- */
+const HW = window.HOWTO || {glossary: [], chord: {}, svgs: {}};
+const GLT = HW.glossary.map(g => ({g, re: new RegExp(g.pat, g.cs ? 'g' : 'gi')}));
+const GLBY = Object.fromEntries(HW.glossary.map(g => [g.id, g]));
+/* Escape text and turn glossary terms + chord names into tappable buttons (first occurrence of each per `seen` set). */
+function linkify(text, seen){
+  const t = String(text == null ? '' : text); if(!t) return ''; seen = seen || new Set(); const hits = [];
+  GLT.forEach(({g, re}) => { re.lastIndex = 0; let m; while((m = re.exec(t))){ if(!m[0]){ re.lastIndex++; continue; } hits.push({a: m.index, b: m.index + m[0].length, k: 'g:' + g.id, id: g.id}); } });
+  (GS.chordSpans ? GS.chordSpans(t) : []).forEach(x => hits.push({a: x.a, b: x.b, k: 'c:' + x.name, ch: x.name, pri: 1}));
+  hits.sort((x, y) => x.a - y.a || (y.pri || 0) - (x.pri || 0) || (y.b - y.a) - (x.b - x.a));
+  let out = '', pos = 0;
+  for(const h of hits){ if(h.a < pos) continue;
+    if(seen.has(h.k)){ out += esc(t.slice(pos, h.b)); pos = h.b; continue; }   /* already linked in this step: consume the span so a shorter term inside it isn't linked */
+    seen.add(h.k);
+    out += esc(t.slice(pos, h.a)) + `<button type="button" class="gl" ${h.ch ? `data-ch="${esc(h.ch)}"` : `data-gl="${h.id}"`}>${esc(t.slice(h.a, h.b))}</button>`; pos = h.b; }
+  return out + esc(t.slice(pos));
+}
+function noteHTML(n, seen, mini){
+  if(!n || !n.how || !n.how.length) return '';
+  const li = x => `<li>${linkify(x, seen)}</li>`;
+  return `<div class="howto${mini ? ' mini' : ''}" data-how>${mini ? '' : '<div class="hh">💡 How to do it</div>'}<ul class="hl">${n.how.map(li).join('')}</ul>
+   ${n.sound ? `<p class="hs"><b>👂 Sounds like:</b> ${linkify(n.sound, seen)}</p>` : ''}${n.avoid ? `<p class="ha"><b>⚠️ Avoid:</b> ${linkify(n.avoid, seen)}</p>` : ''}
+   ${n.more && n.more.length ? `<details class="hm" data-hmore><summary>Show me more</summary><ul>${n.more.map(li).join('')}</ul></details>` : ''}</div>`;
+}
+const exSound = k => { const d = window.AUDIO_FILES && window.AUDIO_FILES.d; if(!d) return null; return Object.keys(d).find(n => n.startsWith(`ex-${k}-`)) || null; };
+function glossBody(g){
+  let pic = '', snd = g.sound || null;
+  if(g.svg && HW.svgs[g.svg]) pic = HW.svgs[g.svg];
+  if(g.chord && P.chords[g.chord]){ pic = P.chords[g.chord].svg; snd = snd || GM.name.chord(g.chord); }
+  if(g.dia && P.dia[g.dia]){ pic = P.dia[g.dia].html.replace(' Press ▶ to hear it.', ''); snd = snd || exSound(g.dia); }
+  return {pic, snd};
+}
+function openGloss(id, ch){
+  const box = $('#gpop'); let title, body = '', pic = '', snd = null;
+  if(ch && P.chords[ch]){ const n = HW.chord[ch]; title = `${ch} chord`; pic = P.chords[ch].svg; snd = GM.name.chord(ch);
+    body = (n ? `<ul class="hl">${n.how.map(h => `<li>${esc(h)}</li>`).join('')}</ul>` : '') + `<p class="note">Reading the box: vertical lines are strings (thickest on the left), numbers are fingers, x = don't play, o = open. <button type="button" class="gl" data-gl="chordbox">More on chord boxes</button></p>`; }
+  else { const g = GLBY[id]; if(!g) return; title = g.t; body = `<p>${esc(g.d)}</p>`; const x = glossBody(g); pic = x.pic; snd = x.snd; }
+  box.innerHTML = `<div class="gp" role="dialog" aria-modal="true" aria-label="${esc(title)}" data-gpop="${esc(id || 'c:' + ch)}">
+   <div class="row gph"><b>${esc(title)}</b><button type="button" class="sx" data-gclose aria-label="Close">✕</button></div>
+   ${body}${pic ? `<div class="gpic">${pic}</div>` : ''}
+   <div class="row">${snd && A.has(snd) ? `<button type="button" class="btn t sm" data-gsnd="${esc(snd)}">▶ Hear it</button>` : ''}<a href="#glossary" class="note" data-gall>Full glossary →</a></div></div>`;
+  box.hidden = false; const c = box.querySelector('[data-gclose]'); if(c) c.focus({preventScroll: true});
+}
+function closeGloss(){ const box = $('#gpop'); if(box && !box.hidden){ box.hidden = true; box.innerHTML = ''; A.stop('fx'); } }
+function wireGloss(){
+  document.addEventListener('click', e => {
+    const t = e.target.closest('button.gl, [data-glshow]'); if(t){ e.preventDefault(); e.stopPropagation(); openGloss(t.dataset.gl, t.dataset.ch); return; }
+    const box = $('#gpop'); if(!box || box.hidden) return;
+    if(e.target === box || e.target.closest('[data-gclose]') || e.target.closest('[data-gall]')) { closeGloss(); return; }
+    const sb = e.target.closest('[data-gsnd]'); if(sb){ if(sb.classList.contains('playing')){ A.stop('fx'); return; }
+      stopStepAudio(); A.stop('main'); const lbl = sb.textContent; sb.classList.add('playing'); sb.textContent = '■ Stop';
+      A.play(sb.dataset.gsnd, {ch: 'fx', onEnd: () => { sb.classList.remove('playing'); sb.textContent = lbl; }}); }
+  }, true);
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeGloss(); });
+}
+function glossaryView(){
+  const items = HW.glossary.slice().sort((a, b) => a.t.localeCompare(b.t, 'en', {sensitivity: 'base'}));
+  return `<h1>Glossary</h1><p class="meta">Every guitar and music word the lessons use, in plain English. In a lesson, tap any <span class="gldemo">underlined word</span> to see its meaning without leaving the step.</p>
+  <input class="gfind" type="search" placeholder="Find a word… (e.g. barre, capo, 3rd)" data-gfind aria-label="Find a word">
+  <div class="card glist" data-glossary>${items.map(g => { const x = glossBody(g);
+    return `<div class="gterm" id="g-${g.id}" data-term="${esc((g.t + ' ' + g.d).toLowerCase())}"><h3>${esc(g.t)}</h3><p>${esc(g.d)}</p>${x.pic || x.snd ? `<button type="button" class="btn s sm" data-glshow data-gl="${g.id}">${x.pic ? '🖼 Show me' : '▶ Hear it'}</button>` : ''}</div>`; }).join('')}</div>
+  <p class="note">${items.length} terms.</p>`;
+}
+function wireGlossary(){ const f = $('[data-gfind]'); if(!f) return; f.oninput = () => { const q = f.value.trim().toLowerCase();
+  document.querySelectorAll('.gterm').forEach(el => { el.hidden = q && !el.dataset.term.includes(q); }); }; }
 function stepHTML(st, i, n, l){
   const D = (st.dia || []).filter(k => P.dia[k]);
   let dias = D.map(k => `<div class="sd">${P.dia[k].html.replace(' Press ▶ to hear it.', '')}</div>`).join('');
@@ -144,18 +209,20 @@ function stepHTML(st, i, n, l){
   const a = st.audio, r = st.reps || 0, got = S.sess.reps[i] || 0, last = i === n - 1;
   const band = a && a.kind === 'loop' ? `<div class="sband"><div class="snow" data-now>${esc(a.spec.prog[0])}</div><div class="sthen" data-nextc>then ${esc(a.spec.prog[1 % a.spec.prog.length])}</div></div>` : '';
   const beats = a && a.kind !== 'play' ? `<div class="beats" data-beats>${'<i></i>'.repeat(a.spec && a.spec.feel === 'waltz' ? 3 : 4)}</div>` : '';
-  const q = st.quiz, ans = S.sess.quiz[i];
+  const q = st.quiz, ans = S.sess.quiz[i], seen = new Set();
+  const titleH = linkify(st.title, seen), textH = st.text ? linkify(st.text, seen) : '', noteH = noteHTML(st.note, seen);
   return `<div class="sess" data-step="${i}" data-kind="${st.kind}">
   <div class="sbar"><button class="sx" data-exit aria-label="Stop the lesson">✕</button><div class="sprog" aria-hidden="true"><i style="width:${Math.round((i + 1) / n * 100)}%"></i></div>
    <span class="scount" data-count>Step ${i + 1} of ${n}</span><button class="sx" data-more aria-label="More">☰</button></div>
   <div class="sbody">
    <div class="slabel">${esc(st.label)}</div>
-   <h1 class="stitle">${esc(st.title)}</h1>
-   ${st.text ? `<p class="stext">${esc(st.text)}</p>` : ''}
+   <h1 class="stitle">${titleH}</h1>
+   ${textH ? `<p class="stext">${textH}</p>` : ''}
    ${dias ? `<div class="sdias${D.length > 2 ? ' many' : ''}">${dias}</div>` : ''}
+   ${q ? '' : noteH}
    ${band}
    ${q ? `<div class="squiz">${q.options.map(o => `<button class="qopt${ans != null ? (o === q.answer ? ' right' : o === ans ? ' wrong' : ' dim') : ''}" data-opt="${esc(o)}"${ans != null ? ' disabled' : ''}>${esc(o)}</button>`).join('')}</div>
-     <div class="qfb" data-qfb role="status">${ans != null ? (ans === q.answer ? '✓ Right!' : `Not quite. It's ${esc(q.answer)}.`) : 'Tap your answer.'}</div>` : ''}
+     <div class="qfb" data-qfb role="status">${ans != null ? (ans === q.answer ? '✓ Right!' : `Not quite. It's ${esc(q.answer)}.`) : 'Tap your answer.'}</div>${noteH}` : ''}
    ${a ? `<div class="saud"><button class="btn t" data-aud></button>${beats}</div>` : ''}
    <div class="sfail" data-fail hidden><b>Can't hear anything?</b> Turn the volume up and flip the side switch off silent, then tap the button.
      <div class="row"><button class="btn t" data-test>🔊 Test sound</button><a href="#sound">Sound details</a></div></div>
@@ -168,7 +235,7 @@ function stepHTML(st, i, n, l){
  </div>`;
 }
 function showStep(i, push){
-  stopStepAudio(); A.stop('fx');
+  stopStepAudio(); closeGloss(); A.stop('fx');
   const l = SESS.l, plan = SESS.plan, n = plan.steps.length;
   if(i >= n) return finish(push);
   i = Math.max(0, i); S.sess.i = i; save();
@@ -180,6 +247,27 @@ function showStep(i, push){
   document.title = `Step ${i + 1} of ${n} · Guitar Plan`;
   wireStep(st, i, n);
   if(st.audio) playStep(st);   /* synchronous inside the Start/Next tap, so iOS allows it */
+  fitNote();
+}
+/* Small screens: if the step doesn't fit, tuck the least content needed under "Show me more": first the "Sounds like" line,
+   then the extra "How to do it" lines from the end (the first line and "Avoid" always stay visible). */
+function fitNote(){
+  const b = $('.sbody'), h = b && b.querySelector('[data-how]'); if(!h) return;
+  const over = () => b.scrollHeight > b.clientHeight + 2; if(!over()) return;
+  let det = h.querySelector('[data-hmore]');
+  if(!det){ h.insertAdjacentHTML('beforeend', '<details class="hm" data-hmore><summary>Show me more</summary><ul></ul></details>'); det = h.querySelector('[data-hmore]'); }
+  const ul = det.querySelector('ul'), orig = ul.firstElementChild;
+  const pair = el => { const m = document.createElement('li'); m.innerHTML = el.innerHTML; m.hidden = true; ul.insertBefore(m, orig); return [el, m]; };
+  const bullets = [...h.querySelectorAll('.hl > li')].slice(1).map(pair), snd = h.querySelector(':scope > .hs'), sp = snd && pair(snd);
+  const set = (k, sOn) => { bullets.forEach(([el, m], j) => { const t = j >= bullets.length - k; el.hidden = t; m.hidden = !t; }); if(sp){ sp[0].hidden = sOn; sp[1].hidden = !sOn; } };
+  const tries = []; for(let k = 0; k <= bullets.length; k++){ if(k) tries.push([k, false]); if(sp) tries.push([k, true]); }
+  let used = tries[tries.length - 1] || [0, false];
+  for(const [k, sOn] of tries){ set(k, sOn); if(!over()){ used = [k, sOn]; break; } }
+  set(...used); h.dataset.tucked = used[0] + (used[1] ? 1 : 0);
+  /* quiz: the answer buttons come first, so on a short screen the hint folds into one tap-to-open line */
+  if(over() && b.querySelector('.squiz')){ const keep = [...h.querySelectorAll('.hl > li:not([hidden]), :scope > p:not([hidden])')];
+    keep.reverse().forEach(el => { const m = document.createElement('li'); m.innerHTML = el.innerHTML; ul.insertBefore(m, ul.firstChild); el.hidden = true; });
+    const hh = h.querySelector('.hh'); if(hh) hh.hidden = true; det.querySelector('summary').textContent = '💡 How to work it out'; h.dataset.tucked = 'all'; }
 }
 function audUI(st, on){
   const b = document.querySelector('[data-aud]'); if(!b) return; const k = st.audio.kind;
@@ -304,7 +392,7 @@ function songView(id, key){
   <p class="note">${esc(P.disclaimer)}</p>
   <div class="row"><span class="note">Key:</span>${GM.songKeys(s).map(k => `<a class="chip ${k === key ? '' : 'o'}" href="#song-${s.id}/${k}">${k}${k === s.key ? ' (home)' : ''}</a>`).join('')}</div>
   <table class="tbl"><tr><th>Sounding key</th><th>How</th><th>Why</th></tr>${s.capo.map(c => `<tr><td>${esc(c[0])}</td><td>${esc(c[1])}</td><td>${esc(c[2])}</td></tr>`).join('')}</table></div>
-  <div class="card"><h2>Step by step</h2><ol class="steps">${s.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol></div>
+  <div class="card"><h2>Step by step</h2><ol class="steps">${s.steps.map(x => { const seen = new Set(); return `<li data-songstep>${linkify(x, seen)}${noteHTML(GS.songNote(x, s), seen, true)}</li>`; }).join('')}</ol></div>
   <div class="card"><h2>Chords (key of ${key})</h2><div class="dias">${diaNames.filter((v, i, a) => a.indexOf(v) === i).map(n => P.chords[n] ? chordDia(n) : `<span class="chip o">${esc(n)}</span>`).join('')}</div></div>
   <div class="card"><h2>Chart — numbers & chords</h2><p class="note">One box = one bar (4 beats${s.meter === '3/4' ? '; this song is in 3' : ''}). Top: chord in ${key}. Bottom: Nashville number.</p>
   ${s.sections.map((sec, i) => `<h3>${esc(sec[0])} <small class="meta">×${sec[2]} · ${esc(sec[3])}</small></h3>
@@ -413,8 +501,8 @@ function notesView(l){
    <p class="note">The full written notes for this lesson. You don't need them: the guided lesson walks you through all of it.</p></div>
   <div class="card">
    <h3>Why this matters</h3><p>${esc(l.why)}</p>
-   <h3>Warm-up</h3><p>${esc(l.warm)}</p>
-   <h3>Steps</h3><ol class="steps">${l.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
+   <h3>Warm-up</h3><p>${linkify(l.warm)}</p>
+   <h3>Steps</h3><ol class="steps">${l.steps.map(s => `<li>${linkify(s)}</li>`).join('')}</ol>
    ${l.dia.length ? `<div class="dias">${l.dia.map(k => dia(k, l.bpm)).join('')}</div>` : ''}
    ${l.ex ? `<p><button class="btn t" data-lex="${l.day}" data-bpm="${l.bpm || 80}">▶ Play example</button></p>` : ''}
    <p class="note">🔁 ${esc(l.reps)}</p>
@@ -459,7 +547,7 @@ A.onError((msg, name, ch) => {
 /* ---------- ☰ More ---------- */
 function moreItems(){ const cur = (SESS && document.body.classList.contains('insess')) ? SESS.l : (window.__viewing ? BYDAY[window.__viewing] : todayLesson().l);
   return [['#today', '🏠', "Today's lesson"], ['#plan', '🗓', 'All lessons (the plan)'], ['#songs', '🎶', 'Songs'], ['#progress', '📈', 'My progress'],
-    ['#review', '🔁', 'My review list'], ['#tab', '📖', 'How to read tab'], [`#notes-${cur.date}`, '📝', `Written notes for Day ${cur.day}`], ['#sound', '🔊', 'Test sound']]; }
+    ['#review', '🔁', 'My review list'], ['#glossary', '📚', 'Glossary: what does this word mean?'], ['#tab', '📖', 'How to read tab'], [`#notes-${cur.date}`, '📝', `Written notes for Day ${cur.day}`], ['#sound', '🔊', 'Test sound']]; }
 function openMore(){
   const m = $('#more'); m.innerHTML = `<div class="pan" role="dialog" aria-label="More"><div class="row" style="justify-content:space-between"><b>More</b><button class="sx" data-close aria-label="Close">✕</button></div>
    ${moreItems().map(([h, i, t]) => `<a href="${h}" data-mi="${h.slice(1).split('-')[0]}"><span>${i}</span>${esc(t)}</a>`).join('')}
@@ -471,7 +559,7 @@ function openMore(){
 let LASTH = null;
 function go(h){ if(location.hash === h){ LASTH = null; route(); } else location.hash = h; }
 function route(){
-  LASTH = location.hash; $('#more').hidden = true;
+  LASTH = location.hash; $('#more').hidden = true; closeGloss();
   A.stopAll(); stopStepAudio(); A.stop('fx'); if(MET) { MET.stop(); MET = null; }
   document.body.classList.remove('insess');
   let h = decodeURIComponent(location.hash.slice(1)) || 'today', m, html = '', after = null, viewing = null, title = 'Today';
@@ -493,6 +581,7 @@ function route(){
   else if(h === 'songs'){ title = 'Songs'; html = songsView(); }
   else if((m = h.match(/^song-([a-z0-9-]+?)(?:\/([A-G]b?))?$/))){ title = 'Song'; html = songView(m[1], m[2]); after = () => { wirePlay(document); wireLoops(document); }; }
   else if(h === 'plan'){ title = 'Plan'; html = planView(); }
+  else if(h === 'glossary'){ title = 'Glossary'; html = glossaryView(); after = wireGlossary; }
   else if(h === 'tab'){ title = 'How to read tab'; html = tabView(); after = () => wirePlay(document); }
   else if(h.startsWith('progress')){ title = 'Progress'; html = progressView(); after = () => wireProgress(h.split('/')[1]); }
   else if(h === 'sound'){ title = 'Test sound'; html = soundView(); after = () => wireSound(document); }
@@ -525,11 +614,11 @@ function registerSW(){
 function init(){
   try{ registerSW(); }catch(e){ console.warn('SW', e); }
   swVersion();
-  $('#morebtn').onclick = openMore;
+  $('#morebtn').onclick = openMore; wireGloss();
   const onNav = () => { if(location.hash === LASTH) return; route(); };
   window.addEventListener('hashchange', onNav); window.addEventListener('popstate', onNav);
   route();
 }
-window.GP = {state: () => S, grade, dueList, todayLesson, reviewsFor, plan: l => GS.build(typeof l === 'number' ? BYDAY[l] : l, {reviews: reviewsFor(typeof l === 'number' ? BYDAY[l] : l)})};
+window.GP = {gloss: () => ({count: HW.glossary.length, ids: HW.glossary.map(g => g.id)}), state: () => S, grade, dueList, todayLesson, reviewsFor, plan: l => GS.build(typeof l === 'number' ? BYDAY[l] : l, {reviews: reviewsFor(typeof l === 'number' ? BYDAY[l] : l)})};
 init();
 })();

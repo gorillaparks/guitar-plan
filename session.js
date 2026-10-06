@@ -99,7 +99,7 @@ G.build = function(l, o){
   /* keep it around 20 minutes: drop extra drills, then extra chord steps */
   const tot = () => steps.reduce((a, s) => a + s.mins, 0);
   for(const kind of ['do', 'chord']) while(tot() > 23 && steps.filter(s => s.kind === kind).length > 1){ const i = steps.map(s => s.kind).lastIndexOf(kind); steps.splice(i, 1); }
-  steps.forEach((s, i) => { s.i = i; });
+  steps.forEach((s, i) => { s.i = i; if(window.HOWTO) s.note = G.note(s, l); });
   return {day: l.day, steps, minutes: Math.max(5, Math.round(tot()))};
 };
 /* Every sound any step of any lesson can request (for the renderer and the reference check). */
@@ -112,5 +112,89 @@ G.allSounds = function(){
     b.steps.forEach(s => want(s.audio, l)); P.lessons.filter(x => x.k).forEach(x => want(G.reviewAudio(x))); });
   return out;
 };
+/* ---------- v8: plain-English "How to do it" notes for every step ----------
+   Data (fingering/strings/frets generated from the chord/scale/tab data, plus hand-written tips) lives in howto.js. */
+const HT = () => window.HOWTO;
+let SNIPS = null;
+const snipsFor = t => { if(!SNIPS) SNIPS = HT().snippets.map(([id, src, how, sound, avoid]) => ({id, re: new RegExp(src, 'i'), how, sound, avoid}));
+  return SNIPS.filter(x => x.re.test(t)); };
+const diaNote = k => (k && HT().dia[k]) || null;
+const chordNote = n => (n && HT().chord[n]) || null;
+/* chord names mentioned in a piece of text -> [{a, b, name}] spans. Chord-looking tokens with a quality (m, 7, sus, add9, maj7, /bass)
+   always count; bare letters (G, C, D…) only inside a chord sequence that has a chordy token or sits in a chord context, so note lists
+   like "G–B, A–C" or "the bass walks C–B–A–F" are not mistaken for chords. Tokens followed by "at fret"/"(5th fret)" are skipped. */
+const CHORDY = /^[A-G](?:#|b)?(?:maj7|m7|m|7|sus2|sus4|add9)(?:\/[A-G](?:#|b)?)?$|\/[A-G]/;
+G.chordSpans = function(t0){ const P = PL(), out = []; t0 = String(t0 || ''); if(!t0) return out;
+  /* blank out things that look like chords but aren't: strum patterns, quoted song titles, string names */
+  const t = t0.replace(/D\s*[–-]\s*D\s*U\s*[–-]\s*U\s*D\s*U|D-DU-UDU/g, m => ' '.repeat(m.length))
+    .replace(/(^|[\s(])'[^']+'/g, m => ' '.repeat(m.length))
+    .replace(/\b[A-Ga-g](?:\s*(?:-|&)\s*[A-Ga-g]){0,3}[- ]strings?\b|\bstrings?\s+[A-Ga-g](?:\s*[-&]\s*[A-Ga-g]){1,3}\b|\blow E\b|\bhigh e\b/g, m => ' '.repeat(m.length));
+  const ctx = /\b(strum|chords?|progression|vamp|changes|shapes)\b|\b[1-7]m?\s?[–-]\s?[1-7]m?\s?[–-]\s?[1-7]/i.test(t);
+  const re = /(^|[^A-Za-z0-9#\/-])([A-G](?:#|b)?(?:maj7|m7|m|7|sus2|sus4|add9)?(?:\/[A-G](?:#|b)?)?)(?![A-Za-z0-9#\/-])/g; let m; const toks = [];
+  while((m = re.exec(t))){ const a = m.index + m[1].length; toks.push({a, b: a + m[2].length, name: m[2]}); re.lastIndex = a + m[2].length; }
+  const groups = []; toks.forEach((x, i) => { const prev = toks[i - 1], gap = prev ? t.slice(prev.b, x.a) : '';
+    if(prev && /^\s*(–|-|→|·|\||,|,? and)\s*$/.test(gap)){ const g = groups[groups.length - 1]; g.push(x); if(!/^\s*(,|,? and)\s*$/.test(gap)) g.dash = true; } else groups.push([x]); });
+  groups.forEach(g => { const chordy = g.some(x => CHORDY.test(x.name));
+    if(!g.dash && !chordy) g.splice(1);   /* comma lists only count when they include a real chord name */
+    const before = t.slice(Math.max(0, g[0].a - 16), g[0].a), after = t.slice(g[g.length - 1].b, g[g.length - 1].b + 10);
+    const noteList = /(bass|notes?|walks?(?: up| down)?|walk-?(?:down|up)|climbs|=|names|run|scale|roots)\W*$/i.test(before) || /^\W*(roots|bass|notes)\b/i.test(after);
+    const seqOK = g.length > 1 && (chordy || (ctx && !noteList));
+    g.forEach(x => { if(!P.chords[x.name]) return; if(/^\s+over\b/.test(t.slice(x.b, x.b + 6))) return;
+      if(/^\s*(at fret|\(\s*\d|\(\s*fret|\(5th|\(3rd|fret|\(?[A-G]m?-shape|\d+-\d)/i.test(t.slice(x.b, x.b + 12)) || /moveable\s*$/i.test(t.slice(Math.max(0, x.a - 10), x.a))) return;
+      if((CHORDY.test(x.name) && !(g.length > 1 && noteList && !chordy)) || seqOK) out.push(x); }); });
+  return out; };
+G.chordsIn = t => [...new Set(G.chordSpans(t).map(x => x.name))];
+const fingersLine = n => { const c = chordNote(n); return c ? `${n}: ${c.how[0]}` : null; };
+const pack = (how, sound, avoid, more) => { how = how.filter(Boolean); more = (more || []).filter(Boolean).filter(m => !how.includes(m));
+  return {how: how.length ? how : [HT().fallback[0]], sound: sound || '', avoid: avoid || '', more: [...new Set(more)]}; };
+const fromDia = (d, lead, avoid, extraMore) => d ? pack([lead, d.how[0]].filter(Boolean), d.sound, avoid || d.avoid, [...d.how.slice(1), ...(extraMore || []), ...(d.more || [])]) : null;
+G.warmKey = function(l){ const w = l.warm || '', H = HT();
+  if(/^spider/i.test(w)){ const n = PL().lessons.filter(x => x.day < l.day && /^spider/i.test(x.warm || '')).length; return n < H.fullSpiderDays ? 'spider_full' : 'spider_short'; }
+  return /^chromatic/i.test(w) ? 'chromatic' : /^muted/i.test(w) ? 'muted' : /^pentatonic/i.test(w) ? 'pent' : 'free'; };
+const GENERIC = /^(changes|form|names|scale|listenback|pick|look|improv|chart|record)$/;   /* broad tips: fine as the main tip, noise as an extra */
+G.textNote = function(t, diaKeys, extraMore){ const H = HT(), ov = H.overrides[t];
+  const chordMore = G.chordsIn(t).map(fingersLine).filter(Boolean);
+  const d = (diaKeys || []).filter(k => PL().dia[k] && PL().dia[k].kind !== 'chord').map(diaNote).filter(Boolean)[0];
+  if(ov) return pack(ov.how, ov.sound, ov.avoid, [...(ov.more || []), ...(extraMore || [])]);
+  const sn = snipsFor(t), a = sn[0], b = sn.find(x => x !== a && x.how !== (a && a.how));
+  if(!a) return pack([H.fallback[0]], (d && d.sound) || H.fallback[1], H.fallback[2], [...chordMore, ...(d ? d.how : []), ...(extraMore || [])]);
+  return pack([a.how], a.sound || (b && b.sound) || '', a.avoid || (b && b.avoid), [b && !GENERIC.test(b.id) && b.how, ...chordMore, ...(d ? [...d.how, d.sound && ('Sounds like: ' + d.sound)] : []), ...(extraMore || [])]); };
+G.note = function(st, l){
+  const H = HT(), K = H.kind, P = PL(), k0 = (st.dia || [])[0], d0 = diaNote(k0);
+  const chordsOfStep = (st.dia || []).filter(k => P.dia[k] && P.dia[k].kind === 'chord');
+  const chordLines = chordsOfStep.map(k => fingersLine(G.chordName(k)));
+  switch(st.kind){
+    case 'warm': { const w = H.warm[G.warmKey(l)]; return pack(w.how, w.sound, w.avoid, w.more || []); }
+    case 'review': { const rl = P.lessons[st.review - 1]; const d = diaNote(firstDia(rl)[0]);
+      if(d) return pack([K.review.how[0], d.how[0]], d.sound, K.review.avoid, [...d.how.slice(1), ...d.more]);
+      const t = G.textNote(rl.k || ''); return pack([K.review.how[0], t.how[0]], t.sound, K.review.avoid, t.more); }
+    case 'look': return d0 ? pack(d0.how, d0.sound, d0.avoid, d0.more) : pack(K.look.how, '', K.look.avoid, []);
+    case 'chord': { const c = st.chord ? chordNote(st.chord) : (d0 || chordNote(G.chordName(k0))); return c ? pack(c.how, c.sound, c.avoid, c.more) : pack(K.reps.how, '', K.chord.avoid, []); }
+    case 'listen': if(chordsOfStep.length > 1) return pack([K.listen_prog.how[0], 'Chords, in order: ' + chordsOfStep.map(G.chordName).join(' → ') + '. Tap a chord name to see how to finger it.'], 'Each chord strummed with the worship pattern, then a smooth change to the next.', K.listen_prog.avoid, chordLines);
+      return fromDia(d0, K.listen.how[0], K.listen.avoid) || pack(K.listen.how, '', K.listen.avoid, []);
+    case 'copy': return fromDia(d0, null, null, K.copy.how) || pack(K.copy.how, '', K.copy.avoid, []);
+    case 'reps': {
+      if(chordsOfStep.length > 1) return pack(K.reps_prog.how, K.reps_prog.sound, K.reps_prog.avoid, chordLines);
+      if(st.label === 'Full speed') return fromDia(d0, K.full.how[0], K.full.avoid, K.full.how.slice(1)) || pack(K.full.how, '', K.full.avoid, []);
+      /* the step text already says "one note per click, tap the button", so the note goes straight to fingers + order */
+      if(d0) return pack(d0.how.slice(0, 2), d0.sound, d0.avoid, [...d0.how.slice(2), K.reps.avoid, ...(d0.more || [])]);
+      return pack(K.reps.how, '', K.reps.avoid, []); }
+    case 'do': return G.textNote(st.text, st.dia);
+    case 'jam': { if(H.overrides[st.text]) return G.textNote(st.text, st.dia || firstDia(l));
+      if(!st.audio && l.minutes <= 10) return pack(K.jam_free.how, K.jam_free.sound, K.jam_free.avoid, []);
+      const t = G.textNote(st.text, st.dia || firstDia(l)); const d = diaNote(firstDia(l)[0]);
+      return pack([K.jam.how[0], K.jam.how[1]], K.jam.sound, K.jam.avoid, [...t.how, ...(d ? ['Today\'s shape: ' + d.how[0]] : []), ...t.more]); }
+    case 'band': { const prog = st.audio && st.audio.spec ? [...new Set(st.audio.spec.prog)] : [];
+      const extra = /^Chords:/.test(st.text) ? null : G.textNote(st.text).how[0];
+      return pack(K.band.how, K.band.sound, K.band.avoid, [extra, ...prog.map(fingersLine)]); }
+    case 'teach': return pack(K.teach.how, '', K.teach.avoid, ['Use the words from today\'s steps. Tap any underlined word if you need a reminder of what it means.']);
+    case 'quiz': { const dk = H.deck[st.quiz.deck] || H.deck.nashville; return pack([dk.how[0]], '', dk.avoid, dk.how.slice(1)); }
+    case 'memory': { const free = /favorite/i.test(st.title); const m = free ? K.memory_free : K.memory; const d = diaNote(firstDia(l)[0]);
+      return pack(m.how.slice(0, 1), m.sound, m.avoid, [...m.how.slice(1), ...(d && !free ? ['Reminder: ' + d.how[0]] : [])]); }
+  }
+  return G.textNote(st.text || st.title, st.dia);
+};
+/* Song-lesson steps (song pages) */
+G.songNote = (t, song) => G.textNote(t, [], song ? [`Chords in this song: ${song.chords.join(', ')}. Tap a chord name to see how to finger it.`] : []);
 window.GSession = G;
 })();
